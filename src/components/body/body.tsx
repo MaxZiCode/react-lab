@@ -1,5 +1,7 @@
+import "./body.css";
+
 import { Switch, Route } from "react-router-dom";
-import values from "./headerValues";
+import values from "../header/headerValues";
 
 function Home() {
   return (

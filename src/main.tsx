@@ -3,9 +3,9 @@ import "./styles/main.css";
 import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import Header from "./header";
-import Body from "./body";
-import Footer from "./footer";
+import Header from "./components/header/header";
+import Body from "./components/body/body";
+import Footer from "./components/footer/footer";
 
 interface AppProps {
   nothing: boolean;

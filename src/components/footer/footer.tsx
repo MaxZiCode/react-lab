@@ -1,7 +1,9 @@
-import blizzardLogo from "./assets/images/blizzard-logo.png";
-import eaLogo from "./assets/images/ea-logo.png";
-import konamiLogo from "./assets/images/konami-logo.png";
-import valveLogo from "./assets/images/valve-logo.png";
+import "./footer.css";
+
+import blizzardLogo from "../../assets/images/blizzard-logo.png";
+import eaLogo from "../../assets/images/ea-logo.png";
+import konamiLogo from "../../assets/images/konami-logo.png";
+import valveLogo from "../../assets/images/valve-logo.png";
 
 export default function footer(): JSX.Element {
   return (
