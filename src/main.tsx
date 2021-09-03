@@ -5,7 +5,7 @@ import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from "./header";
 import Body from "./body";
-// import Footer from "./footer";
+import Footer from "./footer";
 
 interface AppProps {
   nothing: boolean;
@@ -21,7 +21,7 @@ class AppContainer extends Component<AppProps, AppState> {
         <Router>
           <Header />
           <Body />
-          {/* <Footer /> */}
+          <Footer />
         </Router>
       </StrictMode>
     );
