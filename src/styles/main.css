@@ -1,30 +1,51 @@
-@import "normalize.css";
-@import "sanitize.css";
 @import "fontface.css";
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   font-family: "OpenSans-Regular", sans-serif;
+  background-color: rgb(18, 18, 18);
+  margin: 0;
 }
 
-h2 {
-  font-size: 50px;
-  display: block;
-  background-color: white;
+header {
+  background-color: #2a2a2a;
+  color: #e7e7e7;
 }
 
-::placeholder {
-  /*test for autoprefixer in postcss*/
-  color: antiquewhite;
+.title {
+  margin: 10px;
 }
 
-.test-block {
-  border: 4px dotted black;
-  /* stylelint-disable-next-line plugin/no-unsupported-browser-features*/
+.navbar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.test-block + .test-block {
-  margin-top: 20px;
+.navbar-menu {
+  display: flex;
+}
+
+ul.navbar-menu {
+  list-style-type: none;
+  margin: 0;
+}
+
+.navbar-item a {
+  padding: 0 7px 0 7px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar-item:hover {
+  color: #fff;
+}
+
+.navbar-item.selected {
+  border-bottom: 5px solid red;
+}
+
+main {
+  color: #fff;
 }
