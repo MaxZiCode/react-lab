@@ -1,5 +1,5 @@
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import values from "../header/headerValues";
+import { HOME, PRODUCTS, ABOUT, SIGNIN, SIGNUP } from "../../constants/headerValues";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Home from "./home";
@@ -14,19 +14,19 @@ export default function app(): JSX.Element {
       <Router>
         <Header />
         <Switch>
-          <Route exact path={values.home}>
+          <Route exact path={HOME}>
             <Home />
           </Route>
-          <Route path={values.products}>
+          <Route path={PRODUCTS}>
             <Products />
           </Route>
-          <Route path={values.about}>
+          <Route path={ABOUT}>
             <About />
           </Route>
-          <Route path={values.signIn}>
+          <Route path={SIGNIN}>
             <SignIn />
           </Route>
-          <Route path={values.signUp}>
+          <Route path={SIGNUP}>
             <SignUp />
           </Route>
           <Route>
