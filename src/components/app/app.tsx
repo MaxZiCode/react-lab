@@ -1,3 +1,4 @@
+import "./app.scss";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { HOME, PRODUCTS, ABOUT, SIGNIN, SIGNUP } from "../../constants/headerValues";
 import Header from "../header/header";
@@ -10,9 +11,9 @@ import SignIn from "./signIn";
 
 export default function app(): JSX.Element {
   return (
-    <main>
-      <Router>
-        <Header />
+    <Router>
+      <Header />
+      <main>
         <Switch>
           <Route exact path={HOME}>
             <Home />
@@ -33,8 +34,8 @@ export default function app(): JSX.Element {
             <Home />
           </Route>
         </Switch>
-        <Footer />
-      </Router>
-    </main>
+      </main>
+      <Footer />
+    </Router>
   );
 }

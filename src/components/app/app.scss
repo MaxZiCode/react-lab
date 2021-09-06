@@ -1,0 +1,32 @@
+@import "../../styles/variables.scss";
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    flex-grow: 0;
+  }
+
+  main {
+    flex-grow: 1;
+  }
+
+  footer {
+    flex-grow: 0;
+  }
+}
+
+a:hover {
+  background-color: #4a4a4a;
+}
+
+a:focus-visible {
+  outline: 3px solid $basicColor;
+}
