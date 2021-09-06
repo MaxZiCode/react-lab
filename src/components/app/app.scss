@@ -29,4 +29,5 @@ a:hover {
 
 a:focus-visible {
   outline: 3px solid $basicColor;
+  outline-offset: -3px;
 }

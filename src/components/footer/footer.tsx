@@ -22,7 +22,7 @@ export default function footer(): JSX.Element {
         <div className="slogan">Incredible convenient</div>
         <div className="link-container-centered-items">
           {linksData.map((d) => (
-            <a href={d.link}>
+            <a href={d.link} key={d.name}>
               <img src={d.picture} alt={d.name} className="company" />
             </a>
           ))}
