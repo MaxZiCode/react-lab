@@ -15,6 +15,7 @@ export default class App extends Component {
     const message = `Error: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}\nInfo: ${info.componentStack}`;
     console.log(message);
     alert(message);
+    window.location.replace(HOME);
   }
 
   render(): JSX.Element {
