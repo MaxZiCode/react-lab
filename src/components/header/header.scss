@@ -14,28 +14,28 @@ header {
   font-size: larger;
 }
 
-.navbar-menu {
+ul.navbar-menu {
   display: flex;
   list-style-type: none;
   margin: 0;
 
-  a {
+  li {
     display: flex;
     align-items: stretch;
-    text-decoration: none;
-    color: inherit;
   }
 }
 
 $paddingItem: 5px;
 
-.navbar-item {
+a.navbar-item {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: inherit;
   padding: 0 7px $paddingItem 7px;
 }
 
-.navbar-item.selected {
+a.navbar-item.selected {
   padding-bottom: 0;
-  border-bottom: $paddingItem solid red;
+  border-bottom: $paddingItem solid #b31a1a;
 }

@@ -1,5 +1,5 @@
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { HOME, PRODUCTS, ABOUT, SIGNIN, SIGNUP } from "../../constants/headerValues";
 
 export default function header(): JSX.Element {
@@ -17,9 +17,11 @@ export default function header(): JSX.Element {
         <h1 className="title">Worst games ever</h1>
         <ul className="navbar-menu">
           {navbalItems.map((item) => (
-            <Link to={item.link} key={item.label}>
-              <li className="navbar-item">{item.label}</li>
-            </Link>
+            <li>
+              <NavLink exact to={item.link} key={item.label} className="navbar-item" activeClassName="selected">
+                {item.label}
+              </NavLink>
+            </li>
           ))}
         </ul>
       </nav>
