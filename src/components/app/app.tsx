@@ -1,5 +1,5 @@
 import "./app.scss";
-import { Component } from "react";
+import { Component, ErrorInfo } from "react";
 import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import relativeLinks from "../../constants/headerValues";
 import Header from "../header/header";
@@ -11,6 +11,13 @@ import SignUp from "./signUp";
 import SignIn from "./signIn";
 
 export default class App extends Component {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
+    const message = `Error: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}\nInfo: ${info.componentStack}`;
+    console.log(message);
+    alert(message);
+    window.location.replace(relativeLinks.HOME);
+  }
+
   render(): JSX.Element {
     return (
       <Router>
