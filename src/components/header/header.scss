@@ -1,0 +1,41 @@
+@import "../../styles/variables.scss";
+
+header {
+  background-color: $panelBackgroundColor;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  margin: 10px;
+  font-size: larger;
+}
+
+ul.navbar-menu {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+
+  li {
+    display: flex;
+    align-items: stretch;
+  }
+}
+
+$paddingItem: 5px;
+
+a.navbar-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  padding: 0 7px $paddingItem 7px;
+}
+
+a.navbar-item.selected {
+  padding-bottom: 0;
+  border-bottom: $paddingItem solid #b31a1a;
+}
