@@ -1,5 +1,9 @@
-export const HOME = "/";
-export const PRODUCTS = "/products";
-export const ABOUT = "/about";
-export const SIGNIN = "/signin";
-export const SIGNUP = "/signup";
+const relativeLinks = {
+  HOME: "/",
+  PRODUCTS: "/products",
+  ABOUT: "/about",
+  SIGNIN: "/signin",
+  SIGNUP: "/signup",
+};
+
+export default relativeLinks;

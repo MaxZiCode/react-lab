@@ -1,14 +1,14 @@
 import "./header.scss";
 import { NavLink } from "react-router-dom";
-import { HOME, PRODUCTS, ABOUT, SIGNIN, SIGNUP } from "../../constants/headerValues";
+import relativeLinks from "../../constants/headerValues";
 
 export default function header(): JSX.Element {
   const navbalItems = [
-    { label: "Home", link: HOME },
-    { label: "Products", link: PRODUCTS },
-    { label: "About", link: ABOUT },
-    { label: "Sign In", link: SIGNIN },
-    { label: "Sign Up", link: SIGNUP },
+    { label: "Home", link: relativeLinks.HOME },
+    { label: "Products", link: relativeLinks.PRODUCTS },
+    { label: "About", link: relativeLinks.ABOUT },
+    { label: "Sign In", link: relativeLinks.SIGNIN },
+    { label: "Sign Up", link: relativeLinks.SIGNUP },
   ];
 
   return (
