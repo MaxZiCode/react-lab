@@ -39,9 +39,7 @@ class App extends Component<RouteComponentProps> {
             <Route path={relativeLinks.SIGNUP}>
               <SignUp />
             </Route>
-            <Route>
-              <Redirect to={relativeLinks.HOME} />
-            </Route>
+            <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
         <Footer />
