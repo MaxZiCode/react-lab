@@ -15,7 +15,7 @@ class App extends Component<RouteComponentProps> {
     const message = `Error: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}\nInfo: ${info.componentStack}`;
     console.error(message);
     alert(message);
-    this.props.history.goBack();
+    this.props.history.push("/");
   }
 
   render(): JSX.Element {
