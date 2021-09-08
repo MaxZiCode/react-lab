@@ -14,7 +14,7 @@ export default function header(): JSX.Element {
   return (
     <header>
       <nav className="navbar">
-        <h1 className="title">Worst games ever</h1>
+        <h1 className="title">{document.title}</h1>
         <ul className="navbar-menu">
           {navbalItems.map((item) => (
             <li key={item.label}>

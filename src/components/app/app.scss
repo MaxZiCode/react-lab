@@ -6,6 +6,12 @@ body,
   height: 100%;
 }
 
+main {
+  background-image: url("../../assets/images/background.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
 #app {
   display: flex;
   flex-direction: column;
