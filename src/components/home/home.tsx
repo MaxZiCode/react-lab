@@ -1,13 +1,16 @@
-import CategoriesMenu from "./categoriesMenu";
-import NewGamesMenu from "./newGamesMenu";
+import HomeMenu from "./homeMenu";
 import Search from "./search";
 
 export default function home(): JSX.Element {
   return (
-    <>
+    <div className="home">
+      <br />
       <Search />
-      <CategoriesMenu />
-      <NewGamesMenu />
-    </>
+      <br />
+      <HomeMenu />
+      <br />
+      <HomeMenu />
+      <br />
+    </div>
   );
 }
