@@ -1,5 +1,5 @@
 import "./home.scss";
-import HomeMenu from "./homeMenu";
+import HomeMenu from "../homeMenu/homeMenu";
 import Search from "../search/search";
 
 export default function home(): JSX.Element {
