@@ -1,8 +1,5 @@
 .home {
   display: flex;
-  flex-flow: row;
-
-  .home-item {
-    background-color: rgba(18, 18, 18, 0.5);
-  }
+  flex-flow: column;
+  align-items: center;
 }

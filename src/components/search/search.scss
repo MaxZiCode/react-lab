@@ -1,0 +1,18 @@
+.search {
+  width: 800px;
+  background-color: $homeItemsBackgroundColor;
+  border: 2px solid $basicColor;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.search-input {
+  font-size: large;
+  color: $basicColor;
+  width: 100%;
+  padding: 10px;
+}
+
+.search-input::placeholder {
+  color: $basicDarkColor;
+}
