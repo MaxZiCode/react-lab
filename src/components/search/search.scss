@@ -1,4 +1,9 @@
+$searchFocusedColor: $panelBackgroundColor;
+$searchPaddingLeft: 10px;
+$searchFontSize: large;
+
 .search {
+  box-sizing: content-box;
   width: 800px;
   background-color: $homeItemsBackgroundColor;
   border: 2px solid $basicColor;
@@ -6,13 +11,46 @@
   overflow: hidden;
 }
 
-.search-input {
-  font-size: large;
-  color: $basicColor;
-  width: 100%;
-  padding: 10px;
+.search.focused {
+  background-color: $searchFocusedColor;
+  border-radius: 20px 20px 0 0;
 }
 
-.search-input::placeholder {
-  color: $basicDarkColor;
+.search-input {
+  font-size: $searchFontSize;
+  color: $basicColor;
+  width: 100%;
+  padding: $searchPaddingLeft;
+  z-index: 1;
+}
+
+.search-select {
+  position: absolute;
+  z-index: 2;
+  overflow: auto;
+  max-height: 500px;
+  width: inherit;
+}
+
+.search-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-option {
+  display: block;
+  color: inherit;
+  font-size: $searchFontSize;
+  text-align: left;
+  width: 100%;
+  padding: 10px $searchPaddingLeft;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: $searchFocusedColor;
+}
+
+.search-option:hover {
+  background-color: $panelBackgroundColorLignt;
 }
