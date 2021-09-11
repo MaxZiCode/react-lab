@@ -1,28 +1,23 @@
 import "./search.scss";
 import SelectSearch, { SelectedOption, SelectSearchOption } from "react-select-search";
+import { useState } from "react";
 import { getProduct, searchProductNames } from "../../api/apiProducts";
 
-function classNameSelector(key: string, isSearching: boolean, hasResults: boolean): string {
-  switch (key) {
-    case "container": {
-      const styles = ["search"];
-      if (isSearching) styles.push("searching");
-      if (hasResults) styles.push("has-results");
-      return styles.join(" ");
-    }
-    case "input":
-      return "search-input";
-    case "select":
-      return "search-select";
-    case "options":
-      return "search-options";
-    case "option":
-      return "search-option";
-    case "has-focus":
-      return "focused";
-    default:
-      return "";
+const classes: { [key: string]: string } = {
+  input: "search-input",
+  select: "search-select",
+  options: "search-options",
+  option: "search-option",
+  "has-focus": "focused",
+};
+
+function getClassName(key: string, hasResults: boolean) {
+  if (key === "container") {
+    const result = ["search-container"];
+    if (hasResults) result.push("has-results");
+    return result.join(" ");
   }
+  return classes[key];
 }
 
 function selectProduct(selectedOption: SelectedOption) {
@@ -32,32 +27,47 @@ function selectProduct(selectedOption: SelectedOption) {
   });
 }
 
+function getSearchIconClasses(isSearching: boolean) {
+  const result = ["search-icon"];
+  if (isSearching) result.push("searching");
+  return result.join(" ");
+}
+
 export default function search(): JSX.Element {
-  let isSearching = false;
+  const [isSearching, setIsSearching] = useState(false);
   let options: SelectSearchOption[] = [];
 
   async function getOptions(input: string) {
     if (!input) {
       options = [];
     } else {
-      isSearching = true;
+      setIsSearching(true);
       const productNames = await searchProductNames(input);
       options = productNames.map<SelectSearchOption>((n) => ({ name: n.name, value: n.id } as SelectSearchOption));
-      isSearching = false;
+      setIsSearching(false);
     }
     return options;
   }
 
-  return (
+  const [selectSearch] = useState(
     <SelectSearch
       search
       options={options}
       getOptions={getOptions}
       onChange={(_sov, so) => selectProduct(so as SelectedOption)}
       placeholder="Search"
-      className={(key) => classNameSelector(key, isSearching, options.length > 0)}
+      className={(key) => getClassName(key, options.length > 0)}
       debounce={300}
       closeOnSelect={false}
     />
+  );
+
+  return (
+    <div className="search">
+      <div className="search-icon-box">
+        <div className={getSearchIconClasses(isSearching)} />
+      </div>
+      {selectSearch}
+    </div>
   );
 }

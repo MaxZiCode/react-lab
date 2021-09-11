@@ -21,6 +21,7 @@ export async function getProduct(id: number | string): Promise<Product> {
 
 export async function searchProductNames(query: string): Promise<ProductName[]> {
   const resp = await fetch(`${url}/products?name_like=${query}`);
+  await new Promise((r) => setTimeout(r, 1500));
   const result: ProductName[] = await resp.json();
   return result;
 }
