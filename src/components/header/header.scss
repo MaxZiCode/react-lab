@@ -72,18 +72,17 @@ a.navbar-item {
   align-items: center;
 }
 
-.arrow-down {
+.navbar-dropdown-button::after {
+  content: "";
+  margin-left: 3px;
   width: 0;
   height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid $basicColor;
+  border: 5px;
+  border-style: solid;
+  border-color: $basicColor transparent transparent;
 }
 
-.arrow-up {
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 5px solid $basicColor;
+.navbar-dropdown-button[aria-expanded="true"]::after {
+  border-top: none;
+  border-bottom-color: $basicColor;
 }
