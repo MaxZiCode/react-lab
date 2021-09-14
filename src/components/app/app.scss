@@ -35,8 +35,9 @@ input {
   outline: 0;
 }
 
-a:hover {
-  background-color: $panelBackgroundColorLignt;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 a:focus-visible {

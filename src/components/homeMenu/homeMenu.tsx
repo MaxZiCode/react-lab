@@ -1,15 +1,14 @@
 import "./homeMenu.scss";
-import { FC } from "react";
 
-const HomeMenu: FC = () => (
-  <div className="home-menu">
-    <h2 className="menu-title">Home menu</h2>
-    <div className="menu-collection">
-      <div className="menu-item">Item 1</div>
-      <div className="menu-item">Item 2</div>
-      <div className="menu-item">Item 3</div>
+interface HomeMenuProps extends React.DOMAttributes<HTMLElement> {
+  title: string;
+}
+
+export default function homeMenu(props: HomeMenuProps): JSX.Element {
+  return (
+    <div className="home-menu">
+      <h2 className="home-menu-title">{props.title}</h2>
+      <div className="home-menu-items">{props.children}</div>
     </div>
-  </div>
-);
-
-export default HomeMenu;
+  );
+}

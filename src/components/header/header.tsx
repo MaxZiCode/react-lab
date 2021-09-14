@@ -1,13 +1,16 @@
 import "./header.scss";
+
 import { Link, NavLink } from "react-router-dom";
 import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
-import relativeLinks from "../../constants/headerValues";
+
+import categoriesValues from "@/constants/categoriesValues";
+import relativeLinks from "@/constants/headerValues";
 
 function getNavLink(label: string, link: string, exact = false) {
   return {
     label,
     content: (
-      <NavLink exact={exact} to={link} className="navbar-item" activeClassName="selected">
+      <NavLink exact={exact} to={link} className="navbar-item background-highlight-on-hover" activeClassName="selected">
         {label}
       </NavLink>
     ),
@@ -21,31 +24,23 @@ const menu = {
     <Wrapper className="navbar-dropdown-wrapper">
       <NavLink
         to={relativeLinks.PRODUCTS}
-        className="navbar-item stretch"
+        className="navbar-item stretch background-highlight-on-hover"
         activeClassName="selected"
         onClick={(e) => e.preventDefault()}
       >
-        <Button tag="a" className="navbar-dropdown-button">
+        <Button tag="div" className="navbar-dropdown-button">
           {menuName}
         </Button>
       </NavLink>
       <Menu>
         <ul className="navbar-dropdown-row">
-          <MenuItem tag="li" key="pc">
-            <Link to={relativeLinks.PC} className="navbar-item">
-              PC
-            </Link>
-          </MenuItem>
-          <MenuItem tag="li" key="ps5">
-            <Link to={relativeLinks.PS5} className="navbar-item">
-              PlayStation 5
-            </Link>
-          </MenuItem>
-          <MenuItem tag="li" key="xboxone">
-            <Link to={relativeLinks.XONE} className="navbar-item">
-              XBox One
-            </Link>
-          </MenuItem>
+          {[categoriesValues.PC, categoriesValues.PS5, categoriesValues.XONE].map((c) => (
+            <MenuItem tag="li" key={c.label}>
+              <Link to={c.link} className="navbar-item">
+                {c.label}
+              </Link>
+            </MenuItem>
+          ))}
         </ul>
       </Menu>
     </Wrapper>

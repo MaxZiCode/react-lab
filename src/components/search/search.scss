@@ -1,3 +1,5 @@
+@import url("../../styles/common.scss");
+
 $searchFocusedBackgroundColor: $panelBackgroundColor;
 $searchInputPadding: 10px;
 $searchInputPaddingLeft: 2em;
@@ -30,7 +32,7 @@ $searchFontSize: 1em;
 
 .search-icon.searching {
   background: none;
-  border: 0.25em solid gray;
+  border: 0.25em solid $basicDarkColor;
   border-right-color: transparent;
   border-radius: 50%;
   animation: spinner-border 0.75s linear infinite;
@@ -87,8 +89,4 @@ $searchFontSize: 1em;
   outline: none;
   cursor: pointer;
   background-color: $searchFocusedBackgroundColor;
-}
-
-.search-option:hover {
-  background-color: $panelBackgroundColorLignt;
 }
