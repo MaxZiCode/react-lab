@@ -1,6 +1,6 @@
 import "./app.scss";
-import { Component } from "react";
-import { Switch, Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Component, ErrorInfo } from "react";
+import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import relativeLinks from "../../constants/headerValues";
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -10,10 +10,17 @@ import About from "./about";
 import SignUp from "./signUp";
 import SignIn from "./signIn";
 
-export default class App extends Component {
+class App extends Component<RouteComponentProps> {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
+    const message = `Error: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}\nInfo: ${info.componentStack}`;
+    console.error(message);
+    alert(message);
+    this.props.history.push("/");
+  }
+
   render(): JSX.Element {
     return (
-      <Router>
+      <>
         <Header />
         <main>
           <Switch>
@@ -32,13 +39,13 @@ export default class App extends Component {
             <Route path={relativeLinks.SIGNUP}>
               <SignUp />
             </Route>
-            <Route>
-              <Redirect to={relativeLinks.HOME} />
-            </Route>
+            <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
         <Footer />
-      </Router>
+      </>
     );
   }
 }
+
+export default withRouter(App);

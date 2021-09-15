@@ -17,8 +17,8 @@ export default function header(): JSX.Element {
         <h1 className="title">Worst games ever</h1>
         <ul className="navbar-menu">
           {navbalItems.map((item) => (
-            <li>
-              <NavLink exact to={item.link} key={item.label} className="navbar-item" activeClassName="selected">
+            <li key={item.label}>
+              <NavLink exact to={item.link} className="navbar-item" activeClassName="selected">
                 {item.label}
               </NavLink>
             </li>

@@ -3,6 +3,7 @@ import "./styles/main.scss";
 // watch: native intellisense and file-peek for aliases from jsconfig.json and with none-js files doesn't work: https://github.com/microsoft/TypeScript/issues/29334
 import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./components/app/app";
 
 interface AppProps {
@@ -16,7 +17,9 @@ class AppContainer extends Component<AppProps, AppState> {
   render() {
     return (
       <StrictMode>
-        <App />
+        <Router>
+          <App />
+        </Router>
       </StrictMode>
     );
   }
