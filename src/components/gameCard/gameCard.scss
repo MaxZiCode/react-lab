@@ -1,19 +1,48 @@
 .card {
-  position: relative;
-  font-size: 0.9em;
-  display: flex;
-  height: 350px;
+  background-color: transparent;
   width: 220px;
+  height: 350px;
   margin: 20px 30px;
-  background-color: $panelBackgroundColor;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
   box-shadow: 0 0 10px 6px $selectionColor;
   border-radius: 20px;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 100%;
+  background-color: $panelBackgroundColor;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+  border-radius: inherit;
   overflow: hidden;
 }
 
 .card-front {
-  display: flex;
-  flex-flow: column;
+  font-size: 0.9em;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-platforms {
@@ -47,4 +76,23 @@
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
+}
+
+.card-description {
+  font-size: 0.8em;
+  margin: 10px;
+}
+
+.card-age {
+  font-weight: bold;
+}
+
+.card-purchase {
+  font-size: 1.2em;
+  margin: 8px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: $selectionColor;
+  border-radius: 10px;
+  overflow: hidden;
 }

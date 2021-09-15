@@ -17,17 +17,30 @@ export default function gameCard(product: Product): JSX.Element {
 
   return (
     <div className="card">
-      <div className="card-front">
-        <div className="card-platforms">{platformImages}</div>
-        <div className="card-image-wrapper">
-          <img src={product.imagePath} alt={`${product.name} logo`} className="card-image" />
-        </div>
-        <div className="card-front-info">
-          <div className="card-front-info-first-line">
-            <div className="card-game-name">{product.name}</div>
-            <div className="card-price">{`${product.price}$`}</div>
+      <div className="card-inner">
+        <div className="card-front">
+          <div className="card-platforms">{platformImages}</div>
+          <div className="card-image-wrapper">
+            <img src={product.imagePath} alt={`${product.name} logo`} className="card-image" />
           </div>
-          <RatingView stars={5} ratingValue={product.rating} size={20} />
+          <div className="card-front-info">
+            <div className="card-front-info-first-line">
+              <div className="card-game-name">{product.name}</div>
+              <div className="card-price">{`${product.price}$`}</div>
+            </div>
+            <RatingView stars={5} ratingValue={product.rating} size={20} />
+          </div>
+        </div>
+        <div className="card-back">
+          <div className="card-description">{product.description}</div>
+          <div className="card-age">{product.age}</div>
+          <input
+            type="button"
+            className="card-purchase"
+            value="Add to cart"
+            tabIndex={0}
+            onClick={() => alert("Adding to cart")}
+          />
         </div>
       </div>
     </div>
