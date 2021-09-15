@@ -1,0 +1,8 @@
+.panel-link-hover-focus:hover {
+  background-color: $panelBackgroundColorLignt;
+}
+
+.panel-link-hover-focus:focus-visible {
+  outline: 3px solid $basicColor;
+  outline-offset: -3px;
+}

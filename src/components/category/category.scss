@@ -12,8 +12,10 @@
   border-radius: 15px;
 }
 
-.category:hover {
+.category:hover,
+.category:focus-visible {
   border-color: $selectionColor;
+  outline: none;
 }
 
 .category-image {

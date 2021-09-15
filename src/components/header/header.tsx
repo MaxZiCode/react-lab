@@ -10,7 +10,7 @@ function getNavLink(label: string, link: string, exact = false) {
   return {
     label,
     content: (
-      <NavLink exact={exact} to={link} className="navbar-item background-highlight-on-hover" activeClassName="selected">
+      <NavLink exact={exact} to={link} className="navbar-item panel-link-hover-focus" activeClassName="selected">
         {label}
       </NavLink>
     ),
@@ -24,11 +24,11 @@ const menu = {
     <Wrapper className="navbar-dropdown-wrapper">
       <NavLink
         to={relativeLinks.PRODUCTS}
-        className="navbar-item stretch background-highlight-on-hover"
+        className="navbar-item stretch panel-link-hover-focus"
         activeClassName="selected"
         onClick={(e) => e.preventDefault()}
       >
-        <Button tag="div" className="navbar-dropdown-button">
+        <Button tag="div" className="navbar-dropdown-button" tabIndex={undefined}>
           {menuName}
         </Button>
       </NavLink>
