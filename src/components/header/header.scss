@@ -1,4 +1,7 @@
-@import "../../styles/variables.scss";
+@import "@/styles/panels.scss";
+
+$paddingItemBottom: 5px;
+$paddingItem: 0 7px $paddingItemBottom 7px;
 
 header {
   background-color: $panelBackgroundColor;
@@ -14,7 +17,7 @@ header {
   font-size: larger;
 }
 
-ul.navbar-menu {
+ul {
   display: flex;
   list-style-type: none;
   margin: 0;
@@ -25,17 +28,56 @@ ul.navbar-menu {
   }
 }
 
-$paddingItem: 5px;
-
-a.navbar-item {
+.navbar-item {
   display: flex;
   align-items: center;
-  text-decoration: none;
-  color: inherit;
-  padding: 0 7px $paddingItem 7px;
+  justify-content: center;
+  flex-grow: 1;
+  padding: $paddingItem;
 }
 
-a.navbar-item.selected {
+.navbar-item.stretch {
+  align-items: stretch;
+}
+
+.navbar-item.selected {
   padding-bottom: 0;
-  border-bottom: $paddingItem solid #b31a1a;
+  border-bottom: $paddingItemBottom solid $selectionColor;
+}
+
+.navbar-item:hover {
+  background-color: $panelBackgroundColorLignt;
+}
+
+.navbar-dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.navbar-dropdown-row {
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  background-color: $panelBackgroundColor;
+}
+
+.navbar-dropdown-button {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-dropdown-button::after {
+  content: "";
+  margin-left: 3px;
+  width: 0;
+  height: 0;
+  border: 5px;
+  border-style: solid;
+  border-color: $basicColor transparent transparent;
+}
+
+.navbar-dropdown-button[aria-expanded="true"]::after {
+  border-top: none;
+  border-bottom-color: $basicColor;
 }

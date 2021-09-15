@@ -20,9 +20,9 @@ export default function footer(): JSX.Element {
     <footer>
       <div className="footer-panel">
         <div className="slogan">Incredible convenient</div>
-        <div className="link-container-centered-items">
+        <div className="companies">
           {linksData.map((d) => (
-            <a href={d.link} key={d.name}>
+            <a href={d.link} key={d.name} className="panel-link-hover-focus">
               <img src={d.picture} alt={d.name} className="company" />
             </a>
           ))}

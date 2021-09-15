@@ -1,0 +1,72 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Balan Wonderworld",
+      "price": 26.99,
+      "rating": 2,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/en/7/79/Balan_Wonderworld_cover_art.jpg",
+      "description": "Unholydead metacritic: As a Square Enix fanboy, I cannot in good conscience play more than 5 seconds of this game. If there is a single positive review that WASN'T written by a bot here I'd be surprised. Stay away. This is a scam, dudes.",
+      "age": "10+",
+      "date": "2021-03-26",
+      "platforms": ["PC", "PS5", "XONE"]
+    },
+    {
+      "id": 2,
+      "name": "Cyberpunk 2077",
+      "price": 29.99,
+      "rating": 4,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg",
+      "description": "Brave_New_World metacritic: This game is just awful. Extremely overmarketed game that was promoted as next gen masterpiece, but it was all just a lie. It's time for Ubisoft and Rockstar Games to show them how to make actually good games and they will!",
+      "age": "18+",
+      "date": "2020-12-10",
+      "platforms": ["PC", "XONE"]
+    },
+    {
+      "id": 3,
+      "name": "Warcraft III: Reforged",
+      "price": 29.99,
+      "rating": 1,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/ru/5/51/Warcraft_III_Reforged_-_cover.png",
+      "description": "Matarau metacritic: Game doesn’t even come close to what they promised on blizzcon 2018, they promised almost a new game, I barely see any difference between old 2002 and the new reforged terrain, new models become awkward sitting on top of the old 2002 graphics, it feels like just a half-done job to grab some money since they are charging almost what a new game nowadays cost.",
+      "age": "13+",
+      "date": "2020-01-28",
+      "platforms": ["PC"]
+    },
+    {
+      "id": 4,
+      "name": "Fallout 76",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 5,
+      "name": "WWE 2K20",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 6,
+      "name": "Star Wars Battlefront II",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 7,
+      "name": "No Man's Sky",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 8,
+      "name": "Umbrella Corps",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 9,
+      "name": "STony Hawk's Pro Skater 5",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 10,
+      "name": "Alone in the Dark: Illumination",
+      "date": "2000-01-28"
+    }
+  ]
+}

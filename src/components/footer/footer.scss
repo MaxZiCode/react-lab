@@ -1,5 +1,4 @@
-@import "../../styles/variables.scss";
-@import "../../styles/common.scss";
+@import "@/styles/panels.scss";
 
 footer {
   background-color: $panelBackgroundColor;
@@ -16,6 +15,16 @@ footer {
   font-style: italic;
   font-size: larger;
   padding: 20px;
+}
+
+.companies {
+  display: flex;
+  align-items: stretch;
+
+  a {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .company {

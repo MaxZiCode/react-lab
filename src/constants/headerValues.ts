@@ -1,6 +1,8 @@
+const products = "/products";
+
 const relativeLinks = {
   HOME: "/",
-  PRODUCTS: "/products",
+  PRODUCTS: products,
   ABOUT: "/about",
   SIGNIN: "/signin",
   SIGNUP: "/signup",

@@ -4,7 +4,7 @@ import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-
 import relativeLinks from "../../constants/headerValues";
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import Home from "./home";
+import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
 import SignUp from "./signUp";
