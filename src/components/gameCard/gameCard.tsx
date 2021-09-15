@@ -34,13 +34,7 @@ export default function gameCard(product: Product): JSX.Element {
         <div className="card-back">
           <div className="card-description">{product.description}</div>
           <div className="card-age">{product.age}</div>
-          <input
-            type="button"
-            className="card-purchase"
-            value="Add to cart"
-            tabIndex={0}
-            onClick={() => alert("Adding to cart")}
-          />
+          <input type="button" className="card-purchase" value="Add to cart" onClick={() => alert("Adding to cart")} />
         </div>
       </div>
     </div>

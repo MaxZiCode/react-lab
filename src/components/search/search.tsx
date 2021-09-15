@@ -1,4 +1,5 @@
 import "./search.scss";
+import "@/styles/panels.scss";
 import SelectSearch, { SelectedOption, SelectSearchOption } from "react-select-search";
 import { useState } from "react";
 import { getProduct, searchProductNames } from "../../api/apiProducts";
@@ -7,7 +8,7 @@ const classes: { [key: string]: string } = {
   input: "search-input",
   select: "search-select",
   options: "search-options",
-  option: "search-option",
+  option: "search-option panel-link-hover-focus",
   "has-focus": "focused",
 };
 
