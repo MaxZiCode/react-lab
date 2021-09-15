@@ -1,0 +1,50 @@
+.card {
+  position: relative;
+  font-size: 0.9em;
+  display: flex;
+  height: 350px;
+  width: 220px;
+  margin: 20px 30px;
+  background-color: $panelBackgroundColor;
+  box-shadow: 0 0 10px 6px $selectionColor;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card-front {
+  display: flex;
+  flex-flow: column;
+}
+
+.card-platforms {
+  position: absolute;
+  background-color: $homeItemsBackgroundColor;
+}
+
+.card-platform {
+  height: 15px;
+  margin: 3px;
+}
+
+.card-image-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-image {
+  max-width: 200%;
+  max-height: 120%;
+}
+
+.card-front-info {
+  margin: 5px 7px 20px 7px;
+}
+
+.card-front-info-first-line {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+}

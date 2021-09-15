@@ -1,0 +1,35 @@
+import "./gameCard.scss";
+import { RatingView } from "react-simple-star-rating";
+
+import { Product } from "@/api/apiProducts";
+import categoriesValues from "@/constants/categoriesValues";
+import PlatformIcon from "../platformIcon/platformIcon";
+
+export default function gameCard(product: Product): JSX.Element {
+  const platformImages = product.platforms.sort().map((p) => {
+    const category = categoriesValues[p];
+    return category ? (
+      <PlatformIcon key={category.logo} label={category.label} logo={category.logo} className="card-platform" />
+    ) : (
+      <div key={p} />
+    );
+  });
+
+  return (
+    <div className="card">
+      <div className="card-front">
+        <div className="card-platforms">{platformImages}</div>
+        <div className="card-image-wrapper">
+          <img src={product.imagePath} alt={`${product.name} logo`} className="card-image" />
+        </div>
+        <div className="card-front-info">
+          <div className="card-front-info-first-line">
+            <div className="card-game-name">{product.name}</div>
+            <div className="card-price">{`${product.price}$`}</div>
+          </div>
+          <RatingView stars={5} ratingValue={product.rating} size={20} />
+        </div>
+      </div>
+    </div>
+  );
+}

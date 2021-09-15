@@ -2,15 +2,71 @@
   "products": [
     {
       "id": 1,
-      "name": "json-server"
+      "name": "Balan Wonderworld",
+      "price": 26.99,
+      "rating": 2,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/en/7/79/Balan_Wonderworld_cover_art.jpg",
+      "description": "B-Bog: Seems like Squirt-Enix are resorting to the cheapest tactics possible and are trying to buy their way out of this mess by flooding this site with fake user reviews (look at the profiles of these people, none of them have reviewed anything else besides this POS). For which, shame on you, you f***ers! Don't you have ANY dignity left?\nThere was a reason as to why they didn't hand out any review copies: This game could not even be considered decent as a free-to-play mobile game. To release something this bad as a fully-priced console title borders on fraud and is absolutely shameless.",
+      "age": "10+",
+      "date": "2021-03-26",
+      "platforms": ["PC", "PS5", "XONE"]
     },
     {
       "id": 2,
-      "name": "second-product"
+      "name": "Cyberpunk 2077",
+      "price": 29.99,
+      "rating": 4,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg",
+      "description": "Agrajag: The bottom line is that CDPR should have waited for an other year at least to release this, but they were greedy, so shame on them big time !! They also shouldn't have created such high expectations with over promising on features. It is good that they were ambitious, but should have done reality checks waaaay more often, and sync with / slap their PR/marketing folks.\nThe signs are everywhere: some elements of the game are brilliant, and finished, like car interiors, most details in the buildings of Night City.\nMost are half-baked, like the combat mechanics (all combat, but brawling is the worst), weapon usage and stats, merchants and stores (very simple), hacking, even the character creation at the start.. It is not an RPG, no consequences, no intricate changes to the story based on character decisions, nothing.\nSome are downright a disgrace: the economy and trading in the game, including ripperdocs, the crafting system, police AI and AI in general for that matter. Many praise the graphics, but if you look in the details, there are issues there too: just check the shadow of your player character: shoulders are detached (wtf?), cars in the distance are a joke (just jpgs moving on a canvas), and were put there in the last moment to save on computer resources apparently. Don't get me started on the bugs which are totally immersion breaking - and there are a lot, I mean a lot.. trees are glitching, characters / cars respawn from mid-air and break/blow up (wtf?), V dies while walking, characters/weapons are sunk into the ground frequently, many times you cannot even pick them up, and the list just goes on and on..\nNo, this game was far from ready to be released. None of the versions, including the PC, which CDPR is 'proud of': they shouldn't be in this state. They should be ashamed that they gave in, and released it like this. I don't think they comprehend and anticipate how much they lost on the long term. And for what? They should have invested more on investor relations and manage the expectations there, rather than pouring millions to promoting the game.",
+      "age": "18+",
+      "date": "2020-12-10",
+      "platforms": ["PC", "XONE"]
     },
     {
       "id": 3,
-      "name": "Overwatch 2"
+      "name": "Warcraft III: Reforged",
+      "price": 29.99,
+      "rating": 1,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/ru/5/51/Warcraft_III_Reforged_-_cover.png",
+      "description": "Matarau: Game doesn’t even come close to what they promised on blizzcon 2018, they promised almost a new game, with tons of added cinematics and fully upgraded graphics but actually it’s just a bunch revamped character models, I barely see any difference between old 2002 and the new reforged terrain, new models become awkward sitting on top of the old 2002 graphics, it feels like just a half-done job to grab some money since they are charging almost what a new game nowadays cost. If it were just for that, but no, they also killed the modding community, responsible for the success of the old game with games like DotA, Tower Defenses and other thousands of mods that people only bought the game to play them. They imposed intellectual property over any mod made using their platform, so they could milk more any players that is doing something to make the game better.. a Along with that, they removed some features from the old game and forced the old client to update to a “reforged lite” version of this, killing the joy from from those still playing the original Reign of Chaos and The Frozen thrne",
+      "age": "13+",
+      "date": "2020-01-28",
+      "platforms": ["PC"]
+    },
+    {
+      "id": 4,
+      "name": "Fallout 76",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 5,
+      "name": "WWE 2K20",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 6,
+      "name": "Star Wars Battlefront II",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 7,
+      "name": "No Man's Sky",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 8,
+      "name": "Umbrella Corps",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 9,
+      "name": "STony Hawk's Pro Skater 5",
+      "date": "2000-01-28"
+    },
+    {
+      "id": 10,
+      "name": "Alone in the Dark: Illumination",
+      "date": "2000-01-28"
     }
   ]
 }
