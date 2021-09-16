@@ -19,11 +19,8 @@ export default function home(): JSX.Element {
 
   return (
     <div className="home">
-      <br />
       <Search />
-      <br />
       <HomeMenu title="Categories">{categories}</HomeMenu>
-      <br />
       <HomeMenu title="New games">{newGames}</HomeMenu>
       <br />
     </div>
