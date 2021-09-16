@@ -6,16 +6,16 @@ import { getTop } from "@/api/apiProducts";
 import { Fragment, useState } from "react";
 import HomeMenu from "../homeMenu/homeMenu";
 import Search from "../search/search";
-import category from "../category/category";
-import gameCard from "../gameCard/gameCard";
+import Category from "../category/category";
+import GameCard from "../gameCard/gameCard";
 
-export default function home(): JSX.Element {
+export default function Home(): JSX.Element {
   const categories = [categoriesValues.PC, categoriesValues.PS5, categoriesValues.XONE].map((c) => (
-    <Fragment key={c.label}>{category(c)}</Fragment>
+    <Fragment key={c.label}>{Category(c)}</Fragment>
   ));
   const [newGames, setNewGames] = useState<JSX.Element[]>();
   if (!newGames)
-    getTop(3).then((products) => setNewGames(products.map((p) => <Fragment key={p.id}>{gameCard(p)}</Fragment>)));
+    getTop(3).then((products) => setNewGames(products.map((p) => <Fragment key={p.id}>{GameCard(p)}</Fragment>)));
 
   return (
     <div className="home">

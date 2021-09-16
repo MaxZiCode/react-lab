@@ -8,7 +8,7 @@ interface CategoryProps {
   logo: string;
 }
 
-export default function category(props: CategoryProps): JSX.Element {
+export default function Category(props: CategoryProps): JSX.Element {
   return (
     <Link to={props.link} className="category">
       <PlatformIcon className="category-image" logo={props.logo} label={props.label} />

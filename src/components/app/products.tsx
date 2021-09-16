@@ -1,4 +1,4 @@
-export default function products(): JSX.Element {
+export default function Products(): JSX.Element {
   return (
     <div>
       <h2>Products</h2>

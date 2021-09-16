@@ -1,4 +1,4 @@
-export default function signIn(): JSX.Element {
+export default function SignIn(): JSX.Element {
   return (
     <div>
       <h2>SignIn</h2>

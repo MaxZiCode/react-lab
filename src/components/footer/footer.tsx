@@ -5,7 +5,7 @@ import eaLogo from "../../assets/images/ea-logo.png";
 import konamiLogo from "../../assets/images/konami-logo.png";
 import valveLogo from "../../assets/images/valve-logo.png";
 
-export default function footer(): JSX.Element {
+export default function Footer(): JSX.Element {
   const blizzard = "http://blizzard.com/";
   const ea = "https://www.ea.com/";
   const konami = "https://www.konami.com/";

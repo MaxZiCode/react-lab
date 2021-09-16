@@ -34,7 +34,7 @@ function getSearchIconClasses(isSearching: boolean) {
   return result.join(" ");
 }
 
-export default function search(): JSX.Element {
+export default function Search(): JSX.Element {
   const [isSearching, setIsSearching] = useState(false);
   let options: SelectSearchOption[] = [];
 

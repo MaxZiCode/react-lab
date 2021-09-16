@@ -5,7 +5,7 @@ import { Product } from "@/api/apiProducts";
 import categoriesValues from "@/constants/categoriesValues";
 import PlatformIcon from "../platformIcon/platformIcon";
 
-export default function gameCard(product: Product): JSX.Element {
+export default function GameCard(product: Product): JSX.Element {
   const platformImages = product.platforms.sort().map((p) => {
     const category = categoriesValues[p];
     return category ? (

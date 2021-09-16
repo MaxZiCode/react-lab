@@ -6,7 +6,7 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/headerValues";
 
-function getNavLink(label: string, link: string, exact = false) {
+function GetNavLink(label: string, link: string, exact = false) {
   return {
     label,
     content: (
@@ -49,11 +49,11 @@ const menu = {
 
 export default function header(): JSX.Element {
   const navbalItems = [
-    getNavLink("Home", relativeLinks.HOME, true),
+    GetNavLink("Home", relativeLinks.HOME, true),
     menu,
-    getNavLink("About", relativeLinks.ABOUT),
-    getNavLink("Sign Up", relativeLinks.SIGNUP),
-    getNavLink("Sign In", relativeLinks.SIGNIN),
+    GetNavLink("About", relativeLinks.ABOUT),
+    GetNavLink("Sign Up", relativeLinks.SIGNUP),
+    GetNavLink("Sign In", relativeLinks.SIGNIN),
   ];
 
   return (
