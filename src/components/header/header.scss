@@ -67,12 +67,15 @@ ul {
   align-items: center;
 }
 
+$triangleHeight: 5px;
+
 .navbar-dropdown-button::after {
   content: "";
   margin-left: 3px;
+  margin-top: $triangleHeight;
   width: 0;
   height: 0;
-  border: 5px;
+  border: $triangleHeight;
   border-style: solid;
   border-color: $basicColor transparent transparent;
 }
@@ -80,4 +83,5 @@ ul {
 .navbar-dropdown-button[aria-expanded="true"]::after {
   border-top: none;
   border-bottom-color: $basicColor;
+  margin-top: 0;
 }
