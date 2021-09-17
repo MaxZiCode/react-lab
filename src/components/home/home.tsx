@@ -1,27 +1,33 @@
 import "./home.scss";
 
+import { useEffect, useState } from "react";
+import { getTop, Product } from "@/api/apiProducts";
 import categoriesValues from "@/constants/categoriesValues";
-import { getTop } from "@/api/apiProducts";
 
-import { Fragment, useState } from "react";
 import HomeMenu from "../homeMenu/homeMenu";
 import Search from "../search/search";
 import Category from "../category/category";
 import GameCard from "../gameCard/gameCard";
 
 export default function Home(): JSX.Element {
-  const categories = [categoriesValues.PC, categoriesValues.PS5, categoriesValues.XONE].map((c) => (
-    <Fragment key={c.label}>{Category(c)}</Fragment>
-  ));
-  const [newGames, setNewGames] = useState<JSX.Element[]>();
-  if (!newGames)
-    getTop(3).then((products) => setNewGames(products.map((p) => <Fragment key={p.id}>{GameCard(p)}</Fragment>)));
+  const [categoryInfos] = useState([categoriesValues.PC, categoriesValues.PS5, categoriesValues.XONE]);
+  const categories = categoryInfos.map((c) => <Category key={c.id} {...c} />);
+
+  const [products, setProducts] = useState([] as Product[]);
+  const [isProductsRequested, setIsProductsRequested] = useState(false);
+  useEffect(() => {
+    if (products.length === 0 && !isProductsRequested) {
+      getTop(3).then((ps) => setProducts(ps));
+      setIsProductsRequested(true);
+    }
+  });
+  const gameCards = products.map((p) => <GameCard key={p.id} {...p} />);
 
   return (
     <div className="home">
       <Search />
       <HomeMenu title="Categories">{categories}</HomeMenu>
-      <HomeMenu title="New games">{newGames}</HomeMenu>
+      <HomeMenu title="New games">{gameCards}</HomeMenu>
       <br />
     </div>
   );
