@@ -1,24 +1,19 @@
 // List of video games: https://en.wikipedia.org/wiki/List_of_video_games_notable_for_negative_reception
 
-import categoriesValues from "@/constants/categoriesValues";
+import { CategoryName } from "@/constants/categoriesValues";
 
 const url = "http://localhost:3000";
 
-export type Platform = keyof typeof categoriesValues;
-
-export interface ProductName {
+export interface Product {
   id: number;
   name: string;
-}
-
-export interface Product extends ProductName {
   price: number;
-  rating: 1 | 2 | 3 | 4 | 5;
+  rating: number;
   imagePath: string;
   description: string;
-  age: "3+" | "6+" | "10+" | "12+" | "13+" | "18+";
+  age: string;
   date: Date;
-  platforms: Platform[];
+  platforms: CategoryName[];
 }
 
 // Start json server: npx json-server --watch src/data/mock-data.json
@@ -29,10 +24,10 @@ export async function getProduct(id: number | string): Promise<Product> {
   return result;
 }
 
-export async function searchProductNames(query: string): Promise<ProductName[]> {
+export async function searchProducts(query: string): Promise<Product[]> {
   const resp = await fetch(`${url}/products?name_like=${query}`);
   await new Promise((r) => setTimeout(r, 1500));
-  const result: ProductName[] = await resp.json();
+  const result: Product[] = await resp.json();
   return result;
 }
 

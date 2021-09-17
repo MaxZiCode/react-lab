@@ -2,7 +2,7 @@ import "./search.scss";
 import "@/styles/panels.scss";
 import SelectSearch, { SelectedOption, SelectSearchOption } from "react-select-search";
 import { useState } from "react";
-import { getProduct, searchProductNames } from "../../api/apiProducts";
+import { searchProducts } from "../../api/apiProducts";
 
 const classes: { [key: string]: string } = {
   input: "search-input",
@@ -22,10 +22,8 @@ function getClassName(key: string, hasResults: boolean) {
 }
 
 function selectProduct(selectedOption: SelectedOption) {
-  getProduct(selectedOption.value).then((response) => {
-    const message = `Product:\n${JSON.stringify(response)}`;
-    alert(message);
-  });
+  const message = `Product:\n${JSON.stringify(selectedOption)}`;
+  alert(message);
 }
 
 function getSearchIconClasses(isSearching: boolean) {
@@ -43,7 +41,7 @@ export default function Search(): JSX.Element {
       options = [];
     } else {
       setIsSearching(true);
-      const productNames = await searchProductNames(input);
+      const productNames = await searchProducts(input);
       options = productNames.map<SelectSearchOption>((n) => ({ name: n.name, value: n.id } as SelectSearchOption));
       setIsSearching(false);
     }
