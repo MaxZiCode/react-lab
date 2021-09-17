@@ -10,7 +10,7 @@ import Category from "../category/category";
 import GameCard from "../gameCard/gameCard";
 
 export default function Home(): JSX.Element {
-  const [categoryInfos] = useState([categoriesValues.PC, categoriesValues.PS5, categoriesValues.XONE]);
+  const [categoryInfos] = useState([...categoriesValues.values()]);
   const categories = categoryInfos.map((c) => <Category key={c.id} {...c} />);
 
   const [products, setProducts] = useState([] as Product[]);
