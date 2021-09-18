@@ -27,7 +27,7 @@ class App extends Component<RouteComponentProps> {
             <Route exact path={relativeLinks.HOME}>
               <Home />
             </Route>
-            <Route path={relativeLinks.PRODUCTS}>
+            <Route path={`${relativeLinks.PRODUCTS}/:categoryId`}>
               <Products />
             </Route>
             <Route path={relativeLinks.ABOUT}>

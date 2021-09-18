@@ -6,39 +6,33 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/headerValues";
 
-function GetNavLink(id: number, label: string, link: string, exact = false) {
-  return {
-    id,
-    label,
-    content: (
-      <NavLink exact={exact} to={link} className="navbar-item panel-link-hover-focus" activeClassName="selected">
-        {label}
-      </NavLink>
-    ),
-  };
+function GetNavLink(label: string, link: string, exact = false) {
+  return (
+    <NavLink exact={exact} to={link} className="navbar-item panel-link-hover-focus" activeClassName="selected">
+      {label}
+    </NavLink>
+  );
 }
 
-const menuName = "Products";
-const menu = {
-  id: 2,
-  label: menuName,
-  content: (
+function getProductsElement() {
+  const products = relativeLinks.PRODUCTS;
+  return (
     <Wrapper className="navbar-dropdown-wrapper">
       <NavLink
-        to={relativeLinks.PRODUCTS}
+        to={products}
         className="navbar-item stretch panel-link-hover-focus"
         activeClassName="selected"
         onClick={(e) => e.preventDefault()}
       >
         <Button tag="div" className="navbar-dropdown-button" tabIndex={undefined}>
-          {menuName}
+          Products
         </Button>
       </NavLink>
       <Menu>
         <ul className="navbar-dropdown-row">
           {[...categoriesValues.values()].map((c) => (
             <MenuItem tag="li" key={c.id}>
-              <Link to={c.link} className="navbar-item">
+              <Link to={`${products}${c.link}`} className="navbar-item">
                 {c.label}
               </Link>
             </MenuItem>
@@ -46,25 +40,40 @@ const menu = {
         </ul>
       </Menu>
     </Wrapper>
-  ),
-};
+  );
+}
 
-export default function header(): JSX.Element {
-  const navbalItems = [
-    GetNavLink(1, "Home", relativeLinks.HOME, true),
-    menu,
-    GetNavLink(3, "About", relativeLinks.ABOUT),
-    GetNavLink(4, "Sign Up", relativeLinks.SIGNUP),
-    GetNavLink(5, "Sign In", relativeLinks.SIGNIN),
-  ];
+const navbalItems = [
+  {
+    id: 1,
+    node: GetNavLink("Home", relativeLinks.HOME, true),
+  },
+  {
+    id: 2,
+    node: getProductsElement(),
+  },
+  {
+    id: 3,
+    node: GetNavLink("About", relativeLinks.ABOUT),
+  },
+  {
+    id: 4,
+    node: GetNavLink("Sign In", relativeLinks.SIGNIN),
+  },
+  {
+    id: 5,
+    node: GetNavLink("Sign Up", relativeLinks.SIGNUP),
+  },
+];
 
+export default function Header(): JSX.Element {
   return (
     <header>
       <nav className="navbar">
         <h1 className="title">{document.title}</h1>
         <ul className="navbar-menu">
           {navbalItems.map((item) => (
-            <li key={item.id}>{item.content}</li>
+            <li key={item.id}>{item.node}</li>
           ))}
         </ul>
       </nav>
