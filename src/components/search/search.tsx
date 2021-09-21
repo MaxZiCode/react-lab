@@ -1,84 +1,82 @@
 import "./search.scss";
 import "@/styles/panels.scss";
-import SelectSearch, { SelectedOption, SelectSearchOption } from "react-select-search";
 import { useEffect, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import { Product, searchProducts } from "../../api/apiProducts";
 
-const classes: { [key: string]: string } = {
-  input: "search-input",
-  select: "search-select",
-  options: "search-options",
-  option: "search-option panel-link-hover-focus",
-  "has-focus": "focused",
-};
-
-function getClassName(key: string, showResults: boolean) {
-  if (key === "container") {
-    const result = ["search-container"];
-    if (showResults) result.push("show-results");
-    return result.join(" ");
-  }
-  return classes[key];
-}
-
-function selectProduct(selectedOption: SelectedOption) {
-  const message = `Product:\n${JSON.stringify(selectedOption)}`;
-  alert(message);
-}
-
-function getSearchIconClasses(isSearching: boolean) {
-  const result = ["search-icon"];
-  if (isSearching) result.push("searching");
-  return result.join(" ");
-}
+const initialSearchStyle = "search";
+const initialIconStyle = "search-input-icon";
 
 export default function Search(): JSX.Element {
-  const [isSearchNeeded, setIsSearchNeeded] = useState(false);
-  const [input, setInput] = useState("");
-  const [options, setOptions] = useState([] as SelectSearchOption[]);
-  const [lastSearchRequest, setLastSearchRequest] = useState<Promise<Product[]> | null>(null);
+  const [currentValue, setCurrentValue] = useState("");
+  const [products, setProducts] = useState([] as Product[]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [shouldShowResults, setShouldShowResults] = useState(false);
+  const [hasFocused, setHasFocused] = useState(false);
 
-  function getOptions(query: string) {
-    setIsSearchNeeded(query !== input);
-    setInput(query);
-    return new Promise<SelectSearchOption[]>(() => options);
-  }
+  const [searchStyle, setSearchStyle] = useState(initialSearchStyle);
+  const [iconStyle, setIconStyle] = useState(initialIconStyle);
+  const hasResults = products.length > 0;
 
   useEffect(() => {
-    if (!isSearchNeeded) return;
+    if (!currentValue) {
+      setProducts([]);
+      return;
+    }
+    setIsSearching(true);
+    searchProducts(currentValue).then((ps) => setProducts(ps));
+  }, [currentValue]);
 
-    if (input) {
-      const searchRequest = searchProducts(input).then<Product[]>((products) => {
-        setOptions(products.map<SelectSearchOption>((n) => ({ name: n.name, value: n.id } as SelectSearchOption)));
-        setLastSearchRequest(null);
-        return products;
-      });
-      setLastSearchRequest(searchRequest);
-    } else if (lastSearchRequest) lastSearchRequest.then(() => setOptions([]));
-    else setOptions([]);
+  useEffect(() => {
+    setIsSearching(false);
+    setShouldShowResults(hasFocused && (hasResults || currentValue.length > 0));
+  }, [hasFocused, products]);
 
-    setIsSearchNeeded(false);
-  });
+  useEffect(() => {
+    const styles = [initialSearchStyle];
+    if (hasFocused) {
+      styles.push("focused");
+      if (shouldShowResults) styles.push("show-results");
+    }
+    setSearchStyle(styles.join(" "));
+  }, [hasFocused, shouldShowResults]);
 
-  const [selectSearch] = useState(
-    <SelectSearch
-      search
-      options={options}
-      getOptions={getOptions}
-      onChange={(_sov, so) => selectProduct(so as SelectedOption)}
-      placeholder="Search"
-      className={(key) => getClassName(key, options.length > 0)}
-      debounce={300}
-      closeOnSelect={false}
-    />
-  );
+  useEffect(() => {
+    const styles = [initialIconStyle];
+    if (isSearching) styles.push("searching");
+    setIconStyle(styles.join(" "));
+  }, [isSearching]);
+
+  const debouncedCallBack = useDebouncedCallback((value) => {
+    setCurrentValue(value);
+  }, 300);
 
   return (
-    <div className="search">
-      <div className="search-icon-box">
-        <div className={getSearchIconClasses(lastSearchRequest !== null)} />
+    <div className={searchStyle} onFocus={() => setHasFocused(true)} onBlur={() => setHasFocused(false)}>
+      <div className="search-input">
+        <div className={iconStyle} />
+        <input type="text" onChange={(e) => debouncedCallBack(e.currentTarget.value)} className="search-input-text" />
       </div>
-      {selectSearch}
+      {shouldShowResults ? (
+        <div className="search-results">
+          <ul className="search-results-list">
+            {hasResults ? (
+              products.map((p) => (
+                <li key={p.id}>
+                  <input
+                    type="button"
+                    className="search-results-item panel-link-hover-focus"
+                    tabIndex={0}
+                    value={p.name}
+                  />
+                </li>
+              ))
+            ) : (
+              <input type="button" className="search-results-item" value="Not found" />
+            )}
+          </ul>
+        </div>
+      ) : undefined}
     </div>
   );
 }

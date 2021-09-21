@@ -5,7 +5,7 @@ import { getTop, Product } from "@/api/apiProducts";
 import categoriesValues from "@/constants/categoriesValues";
 
 import HomeMenu from "../homeMenu/homeMenu";
-import Search from "../search/search copy";
+import Search from "../search/search";
 import Category from "../category/category";
 import GameCard from "../gameCard/gameCard";
 
