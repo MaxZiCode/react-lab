@@ -1,10 +1,11 @@
+import headerValues from "./headerValues";
 import windowsLogo from "../assets/vectors/Vector_windows.svg";
 import psLogo from "../assets/vectors/Vector_playstation.svg";
 import xboxLogo from "../assets/vectors/Vector_xbox.svg";
 
 export type CategoryName = "PC" | "PS5" | "XONE";
 
-export class CategoryInfo {
+export interface CategoryInfo {
   readonly id: CategoryName;
 
   readonly label: string;
@@ -12,18 +13,20 @@ export class CategoryInfo {
   readonly logo: string;
 
   readonly link: string;
-
-  constructor(id: CategoryName, label: string, logo: string) {
-    this.id = id;
-    this.label = label;
-    this.logo = logo;
-    this.link = `/${id.toLowerCase()}`;
-  }
 }
 
-const pc = new CategoryInfo("PC", "PC", windowsLogo);
-const ps5 = new CategoryInfo("PS5", "PlayStation 5", psLogo);
-const xone = new CategoryInfo("XONE", "XBox One", xboxLogo);
+function createCategoryInfo(id: CategoryName, label: string, logo: string) {
+  return {
+    id,
+    label,
+    logo,
+    link: `${headerValues.PRODUCTS}/${id.toLowerCase()}`,
+  };
+}
+
+const pc = createCategoryInfo("PC", "PC", windowsLogo);
+const ps5 = createCategoryInfo("PS5", "PlayStation 5", psLogo);
+const xone = createCategoryInfo("XONE", "XBox One", xboxLogo);
 
 const categoriesValues = new Map<CategoryName, CategoryInfo>([
   [pc.id, pc],

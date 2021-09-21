@@ -11,7 +11,6 @@ import GameCard from "../gameCard/gameCard";
 
 export default function Home(): JSX.Element {
   const [categoryInfos] = useState([...categoriesValues.values()]);
-  const categories = categoryInfos.map((c) => <Category key={c.id} {...c} />);
 
   const [products, setProducts] = useState([] as Product[]);
   const [isProductsRequested, setIsProductsRequested] = useState(false);
@@ -21,13 +20,20 @@ export default function Home(): JSX.Element {
       setIsProductsRequested(true);
     }
   });
-  const gameCards = products.map((p) => <GameCard key={p.id} {...p} />);
 
   return (
     <div className="home">
       <Search />
-      <HomeMenu title="Categories">{categories}</HomeMenu>
-      <HomeMenu title="New games">{gameCards}</HomeMenu>
+      <HomeMenu title="Categories">
+        {categoryInfos.map((c) => (
+          <Category key={c.id} {...c} />
+        ))}
+      </HomeMenu>
+      <HomeMenu title="New games">
+        {products.map((p) => (
+          <GameCard key={p.id} {...p} />
+        ))}
+      </HomeMenu>
       <br />
     </div>
   );

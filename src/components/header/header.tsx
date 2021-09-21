@@ -15,11 +15,10 @@ function GetNavLink(label: string, link: string, exact = false) {
 }
 
 function getProductsElement() {
-  const products = relativeLinks.PRODUCTS;
   return (
     <Wrapper className="navbar-dropdown-wrapper">
       <NavLink
-        to={products}
+        to={relativeLinks.PRODUCTS}
         className="navbar-item stretch panel-link-hover-focus"
         activeClassName="selected"
         onClick={(e) => e.preventDefault()}
@@ -32,7 +31,7 @@ function getProductsElement() {
         <ul className="navbar-dropdown-row">
           {[...categoriesValues.values()].map((c) => (
             <MenuItem tag="li" key={c.id}>
-              <Link to={`${products}${c.link}`} className="navbar-item">
+              <Link to={c.link} className="navbar-item">
                 {c.label}
               </Link>
             </MenuItem>
