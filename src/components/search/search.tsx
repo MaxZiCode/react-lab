@@ -68,6 +68,7 @@ export default function Search(): JSX.Element {
                     className="search-results-item panel-link-hover-focus"
                     tabIndex={0}
                     value={p.name}
+                    onMouseDown={() => alert(JSON.stringify(p))}
                   />
                 </li>
               ))
