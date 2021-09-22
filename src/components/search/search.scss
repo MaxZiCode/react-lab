@@ -13,7 +13,8 @@ $searchBorderRadius: 20px;
 }
 
 .search {
-  width: 600px;
+  width: 80%;
+  max-width: 600px;
   // box-sizing: content-box;
   background-color: $homeItemsBackgroundColor;
   border: $searchBorder;
@@ -71,6 +72,7 @@ $searchBorderRadius: 20px;
   z-index: 1;
   overflow: auto;
   max-height: 500px;
+  max-width: inherit;
   width: inherit;
   border: $searchBorder;
   border-top: none;
