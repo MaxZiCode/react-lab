@@ -1,7 +1,8 @@
 @import "@/styles/panels.scss";
-
+$titleMargin: 10px;
+$triangleHeight: 5px;
 $paddingItemBottom: 5px;
-$paddingItem: 0 7px $paddingItemBottom 7px;
+$paddingItem: 0 $titleMargin $paddingItemBottom $titleMargin;
 
 header {
   background-color: $panelBackgroundColor;
@@ -9,50 +10,60 @@ header {
 
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.title {
-  margin: 10px;
+.navbar-title {
+  margin: $titleMargin;
   font-size: larger;
-}
-
-ul {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-
-  li {
-    display: flex;
-    align-items: stretch;
-  }
 }
 
 .navbar-item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-grow: 1;
   padding: $paddingItem;
+  width: 100%;
 }
 
-.navbar-item.stretch {
-  align-items: stretch;
+.navbar-item:hover,
+a .navbar-item:hover {
+  background-color: $panelBackgroundColorLignt;
 }
 
-.navbar-item.selected {
+.navbar-item.selected,
+a.selected .navbar-item {
   padding-bottom: 0;
   border-bottom: $paddingItemBottom solid $selectionColor;
 }
 
-.navbar-item:hover {
-  background-color: $panelBackgroundColorLignt;
+.navbar-icon {
+  display: none;
+  margin: $titleMargin;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+
+  div {
+    width: 30px;
+    height: 4px;
+    margin: 5px 0;
+    background-color: $basicColor;
+  }
 }
 
 .navbar-dropdown-wrapper {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  width: 100%;
+}
+
+.navbar-dropdown-navlink {
+  display: flex;
+  height: 100%;
 }
 
 .navbar-dropdown-row {
@@ -61,13 +72,6 @@ ul {
   z-index: 1;
   background-color: $panelBackgroundColor;
 }
-
-.navbar-dropdown-button {
-  display: flex;
-  align-items: center;
-}
-
-$triangleHeight: 5px;
 
 .navbar-dropdown-button::after {
   content: "";
@@ -84,4 +88,32 @@ $triangleHeight: 5px;
   border-top: none;
   border-bottom-color: $basicColor;
   margin-top: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-icon {
+    display: block;
+  }
+
+  .navbar.responsive {
+    position: relative;
+
+    .navbar-menu {
+      display: block;
+      flex-basis: 100%;
+    }
+  }
+
+  .navbar-dropdown-row {
+    position: relative;
+    z-index: 0;
+  }
+
+  .navbar-dropdown-item {
+    padding-left: 2 * $titleMargin;
+  }
 }

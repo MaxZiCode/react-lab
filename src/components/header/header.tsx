@@ -5,6 +5,7 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/headerValues";
+import { useEffect, useState } from "react";
 
 function GetNavLink(label: string, link: string, exact = false) {
   return (
@@ -19,11 +20,12 @@ function getProductsElement() {
     <Wrapper className="navbar-dropdown-wrapper">
       <NavLink
         to={relativeLinks.PRODUCTS}
-        className="navbar-item stretch panel-link-hover-focus"
+        className="navbar-dropdown-navlink"
         activeClassName="selected"
         onClick={(e) => e.preventDefault()}
+        tabIndex={-1}
       >
-        <Button tag="div" className="navbar-dropdown-button" tabIndex={undefined}>
+        <Button tag="div" className="navbar-dropdown-button navbar-item panel-link-hover-focus">
           Products
         </Button>
       </NavLink>
@@ -31,7 +33,7 @@ function getProductsElement() {
         <ul className="navbar-dropdown-row">
           {[...categoriesValues.values()].map((c) => (
             <MenuItem tag="li" key={c.id}>
-              <Link to={c.link} className="navbar-item">
+              <Link to={c.link} className="navbar-item navbar-dropdown-item panel-link-hover-focus">
                 {c.label}
               </Link>
             </MenuItem>
@@ -42,7 +44,7 @@ function getProductsElement() {
   );
 }
 
-const navbalItems = [
+const navbarItems = [
   {
     id: 1,
     node: GetNavLink("Home", relativeLinks.HOME, true),
@@ -66,12 +68,28 @@ const navbalItems = [
 ];
 
 export default function Header(): JSX.Element {
+  const [shouldShowMenu, setShouldShowMenu] = useState(false);
+  const [navBarStyle, setNavBarStyle] = useState("navbar");
+  useEffect(() => {
+    const style = shouldShowMenu ? "navbar responsive" : "navbar";
+    setNavBarStyle(style);
+  }, [shouldShowMenu]);
+
   return (
     <header>
-      <nav className="navbar">
-        <h1 className="title">{document.title}</h1>
+      <nav className={navBarStyle}>
+        <h1 className="navbar-title">{document.title}</h1>
+        <button
+          type="button"
+          className="navbar-icon panel-link-hover-focus"
+          onClick={() => setShouldShowMenu(!shouldShowMenu)}
+        >
+          <div />
+          <div />
+          <div />
+        </button>
         <ul className="navbar-menu">
-          {navbalItems.map((item) => (
+          {navbarItems.map((item) => (
             <li key={item.id}>{item.node}</li>
           ))}
         </ul>
