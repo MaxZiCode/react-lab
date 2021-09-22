@@ -16,7 +16,7 @@ export default function Home(): JSX.Element {
   const [isProductsRequested, setIsProductsRequested] = useState(false);
   useEffect(() => {
     if (products.length === 0 && !isProductsRequested) {
-      getTop(3).then((ps) => setProducts(ps));
+      getTop().then((ps) => setProducts(ps));
       setIsProductsRequested(true);
     }
   });

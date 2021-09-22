@@ -19,20 +19,20 @@ export interface Product {
 // Start json server: npx json-server --watch src/data/mock-data.json
 
 export async function getProduct(id: number | string): Promise<Product> {
-  const resp = await fetch(`${url}/products/${id}`);
+  const resp = await fetch(`${url}/api/products/${id}`);
   const result: Product = await resp.json();
   return result;
 }
 
 export async function searchProducts(query: string): Promise<Product[]> {
-  const resp = await fetch(`${url}/products?name_like=${query}`);
+  const resp = await fetch(`${url}/api/search/${query}`);
   await new Promise((r) => setTimeout(r, 1500));
   const result: Product[] = await resp.json();
   return result;
 }
 
-export async function getTop(number: number): Promise<Product[]> {
-  const resp = await fetch(`${url}/products?_sort=date&_order=desc&_limit=${number}`);
+export async function getTop(): Promise<Product[]> {
+  const resp = await fetch(`${url}/api/getTopProducts`);
   const result: Product[] = await resp.json();
   return result;
 }
