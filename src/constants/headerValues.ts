@@ -4,8 +4,9 @@ const relativeLinks = {
   HOME: "/",
   PRODUCTS: products,
   ABOUT: "/about",
-  SIGNIN: "/signin",
-  SIGNUP: "/signup",
+  USER: "/user",
+  CART: "/cart",
+  LOGOUT: "/logout",
 };
 
 export default relativeLinks;

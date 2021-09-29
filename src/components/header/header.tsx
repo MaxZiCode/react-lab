@@ -1,4 +1,7 @@
 import "./header.scss";
+import userIcon from "@/assets/vectors/user.svg";
+import cartIcon from "@/assets/vectors/shopping-cart.svg";
+import logoutIcon from "@/assets/vectors/logout.svg";
 
 import { Link, NavLink } from "react-router-dom";
 import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
@@ -7,73 +10,139 @@ import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/headerValues";
 import { useEffect, useState } from "react";
 
-function GetNavLink(label: string, link: string, exact = false) {
+const linkClassName = "navbar-item";
+const activeClassName = "selected";
+
+interface ButtonContentParams {
+  icon?: {
+    imagePath: string;
+    alt: string;
+  };
+  label?: string;
+}
+
+function ButtonContent(params: ButtonContentParams) {
   return (
-    <NavLink exact={exact} to={link} className="navbar-item panel-link-hover-focus" activeClassName="selected">
-      {label}
-    </NavLink>
+    <>
+      {params.icon ? <img src={params.icon.imagePath} alt={params.icon.alt} className="navbar-item-icon" /> : undefined}
+      {params.label}
+    </>
   );
 }
 
-function getProductsElement() {
-  return (
-    <Wrapper className="navbar-dropdown-wrapper">
-      <NavLink
-        to={relativeLinks.PRODUCTS}
-        className="navbar-dropdown-navlink"
-        activeClassName="selected"
-        onClick={(e) => e.preventDefault()}
-        tabIndex={-1}
-      >
-        <Button tag="div" className="navbar-dropdown-button navbar-item panel-link-hover-focus">
-          Products
-        </Button>
-      </NavLink>
-      <Menu>
-        <ul className="navbar-dropdown-row">
-          {[...categoriesValues.values()].map((c) => (
-            <MenuItem tag="li" key={c.id}>
-              <Link to={c.link} className="navbar-item navbar-dropdown-item panel-link-hover-focus">
-                {c.label}
-              </Link>
-            </MenuItem>
-          ))}
-        </ul>
-      </Menu>
-    </Wrapper>
-  );
+export interface HeaderProps {
+  isSignedIn: boolean;
+  userName: string;
+  signInCallback: () => void;
+  // signUpCallback: () => void;
+  signOutCallback: () => void;
 }
 
-const navbarItems = [
-  {
-    id: 1,
-    node: GetNavLink("Home", relativeLinks.HOME, true),
-  },
-  {
-    id: 2,
-    node: getProductsElement(),
-  },
-  {
-    id: 3,
-    node: GetNavLink("About", relativeLinks.ABOUT),
-  },
-  {
-    id: 4,
-    node: GetNavLink("Sign In", relativeLinks.SIGNIN),
-  },
-  {
-    id: 5,
-    node: GetNavLink("Sign Up", relativeLinks.SIGNUP),
-  },
-];
-
-export default function Header(): JSX.Element {
+export default function Header(props: HeaderProps): JSX.Element {
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
   const [navBarStyle, setNavBarStyle] = useState("navbar");
   useEffect(() => {
     const style = shouldShowMenu ? "navbar responsive" : "navbar";
     setNavBarStyle(style);
   }, [shouldShowMenu]);
+
+  const commonItems = [
+    {
+      id: "home",
+      node: (
+        <NavLink exact to={relativeLinks.HOME} className={linkClassName}>
+          <ButtonContent label="Home" />
+        </NavLink>
+      ),
+    },
+    {
+      id: "products",
+      node: (
+        <Wrapper className="navbar-dropdown-wrapper">
+          <NavLink
+            to={relativeLinks.PRODUCTS}
+            className="navbar-dropdown-navlink"
+            activeClassName={activeClassName}
+            onClick={(e) => e.preventDefault()}
+            tabIndex={-1}
+          >
+            <Button tag="div" className={`${linkClassName} navbar-dropdown-button`}>
+              Products
+            </Button>
+          </NavLink>
+          <Menu>
+            <ul className="navbar-dropdown-row">
+              {[...categoriesValues.values()].map((c) => (
+                <MenuItem tag="li" key={c.id}>
+                  <Link to={c.link} className={`${linkClassName} navbar-dropdown-item`}>
+                    {c.label}
+                  </Link>
+                </MenuItem>
+              ))}
+            </ul>
+          </Menu>
+        </Wrapper>
+      ),
+    },
+    {
+      id: "about",
+      node: (
+        <NavLink to={relativeLinks.ABOUT} className={linkClassName}>
+          <ButtonContent label="About" />
+        </NavLink>
+      ),
+    },
+  ];
+
+  const anonItems = [
+    ...commonItems,
+    {
+      id: "sign in",
+      node: (
+        <button type="button" className={linkClassName} onClick={props.signInCallback}>
+          <ButtonContent label="Sign In" />
+        </button>
+      ),
+    },
+    {
+      id: "sign up",
+      node: (
+        <button type="button" className={linkClassName}>
+          <ButtonContent label="Sign Up" />
+        </button>
+      ),
+    },
+  ];
+
+  const signedInItems = [
+    ...commonItems,
+    {
+      id: "user",
+      node: (
+        <NavLink to={relativeLinks.USER} className={linkClassName}>
+          <ButtonContent label={props.userName} icon={{ imagePath: userIcon, alt: "user icon" }} />
+        </NavLink>
+      ),
+    },
+    {
+      id: "cart",
+      node: (
+        <NavLink to={relativeLinks.CART} className={linkClassName}>
+          <ButtonContent label="0" icon={{ imagePath: cartIcon, alt: "cart icon" }} />
+        </NavLink>
+      ),
+    },
+    {
+      id: "logout",
+      node: (
+        <button type="button" className={linkClassName} onClick={props.signOutCallback}>
+          <ButtonContent icon={{ imagePath: logoutIcon, alt: "logout icon" }} />
+        </button>
+      ),
+    },
+  ];
+
+  const items = props.isSignedIn ? signedInItems : anonItems;
 
   return (
     <header>
@@ -89,7 +158,7 @@ export default function Header(): JSX.Element {
           <div />
         </button>
         <ul className="navbar-menu">
-          {navbarItems.map((item) => (
+          {items.map((item) => (
             <li key={item.id}>{item.node}</li>
           ))}
         </ul>

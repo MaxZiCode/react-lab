@@ -7,10 +7,18 @@ import Footer from "../footer/footer";
 import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
-import SignUp from "./signUp";
-import SignIn from "./signIn";
 
-class App extends Component<RouteComponentProps> {
+interface AppState {
+  isSignedIn: boolean;
+  userName: string;
+}
+
+class App extends Component<RouteComponentProps, AppState> {
+  constructor(props: RouteComponentProps) {
+    super(props);
+    this.state = { isSignedIn: false, userName: "User Name" };
+  }
+
   componentDidCatch(error: Error, info: ErrorInfo): void {
     const message = `Error: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}\nInfo: ${info.componentStack}`;
     console.error(message);
@@ -21,7 +29,12 @@ class App extends Component<RouteComponentProps> {
   render(): JSX.Element {
     return (
       <>
-        <Header />
+        <Header
+          isSignedIn={this.state.isSignedIn}
+          userName={this.state.userName}
+          signInCallback={() => this.setState({ isSignedIn: true })}
+          signOutCallback={() => this.setState({ isSignedIn: false })}
+        />
         <main>
           <Switch>
             <Route exact path={relativeLinks.HOME}>
@@ -32,12 +45,6 @@ class App extends Component<RouteComponentProps> {
             </Route>
             <Route path={relativeLinks.ABOUT}>
               <About />
-            </Route>
-            <Route path={relativeLinks.SIGNIN}>
-              <SignIn />
-            </Route>
-            <Route path={relativeLinks.SIGNUP}>
-              <SignUp />
             </Route>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
