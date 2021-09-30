@@ -7,7 +7,7 @@ import Footer from "../footer/footer";
 import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
-import SignModal from "../signModal/signModal";
+import SignModal from "../../elements/signModal/signModal";
 
 interface AppState {
   isSignedIn: boolean;
