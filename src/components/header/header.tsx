@@ -34,7 +34,7 @@ export interface HeaderProps {
   isSignedIn: boolean;
   userName: string;
   signInCallback: () => void;
-  // signUpCallback: () => void;
+  signUpCallback: () => void;
   signOutCallback: () => void;
 }
 
@@ -50,7 +50,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "home",
       node: (
-        <NavLink exact to={relativeLinks.HOME} className={linkClassName}>
+        <NavLink exact to={relativeLinks.HOME} className={linkClassName} activeClassName={activeClassName}>
           <ButtonContent label="Home" />
         </NavLink>
       ),
@@ -87,7 +87,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "about",
       node: (
-        <NavLink to={relativeLinks.ABOUT} className={linkClassName}>
+        <NavLink to={relativeLinks.ABOUT} className={linkClassName} activeClassName={activeClassName}>
           <ButtonContent label="About" />
         </NavLink>
       ),
@@ -107,7 +107,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName}>
+        <button type="button" className={linkClassName} onClick={props.signUpCallback}>
           <ButtonContent label="Sign Up" />
         </button>
       ),
@@ -119,7 +119,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "user",
       node: (
-        <NavLink to={relativeLinks.USER} className={linkClassName}>
+        <NavLink to={relativeLinks.USER} className={linkClassName} activeClassName={activeClassName}>
           <ButtonContent label={props.userName} icon={{ imagePath: userIcon, alt: "user icon" }} />
         </NavLink>
       ),
@@ -127,7 +127,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "cart",
       node: (
-        <NavLink to={relativeLinks.CART} className={linkClassName}>
+        <NavLink to={relativeLinks.CART} className={linkClassName} activeClassName={activeClassName}>
           <ButtonContent label="0" icon={{ imagePath: cartIcon, alt: "cart icon" }} />
         </NavLink>
       ),

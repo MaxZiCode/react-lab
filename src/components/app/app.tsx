@@ -7,9 +7,12 @@ import Footer from "../footer/footer";
 import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
-import SignModal from "../../elements/signModal/signModal";
+import SignUpModal from "../signUpModal/signUpModal";
+import SignInModal from "../signInModal/signInModal";
 
 interface AppState {
+  shouldShowSignUp: boolean;
+  shouldShowSignIn: boolean;
   isSignedIn: boolean;
   userName: string;
 }
@@ -17,7 +20,7 @@ interface AppState {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { isSignedIn: false, userName: "User Name" };
+    this.state = { isSignedIn: false, shouldShowSignUp: false, shouldShowSignIn: false, userName: "User Name" };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
@@ -33,7 +36,8 @@ class App extends Component<RouteComponentProps, AppState> {
         <Header
           isSignedIn={this.state.isSignedIn}
           userName={this.state.userName}
-          signInCallback={() => this.setState({ isSignedIn: true })}
+          signInCallback={() => this.setState({ shouldShowSignIn: true })}
+          signUpCallback={() => this.setState({ shouldShowSignUp: true })}
           signOutCallback={() => this.setState({ isSignedIn: false })}
         />
         <main>
@@ -51,7 +55,8 @@ class App extends Component<RouteComponentProps, AppState> {
           </Switch>
         </main>
         <Footer />
-        <SignModal title="Authorization" />
+        <SignUpModal active={this.state.shouldShowSignUp} onClose={() => this.setState({ shouldShowSignUp: false })} />
+        <SignInModal active={this.state.shouldShowSignIn} onClose={() => this.setState({ shouldShowSignIn: false })} />
       </>
     );
   }

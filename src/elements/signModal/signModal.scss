@@ -10,6 +10,10 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
+.modal.disabled {
+  display: none;
+}
+
 .modal-window {
   width: 95%;
   max-width: 400px;
@@ -30,6 +34,20 @@
 
 .modal-fields {
   margin: 30px 0;
+}
+
+.modal-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 20px 0;
+}
+
+.modal-input {
+  width: 60%;
+  padding: 4px;
+  border: 1px solid $basicColor;
+  background-color: $homeItemsBackgroundColor;
 }
 
 .modal-submit-button {
