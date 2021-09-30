@@ -7,6 +7,7 @@ import Footer from "../footer/footer";
 import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
+import SignModal from "../signModal/signModal";
 
 interface AppState {
   isSignedIn: boolean;
@@ -50,6 +51,7 @@ class App extends Component<RouteComponentProps, AppState> {
           </Switch>
         </main>
         <Footer />
+        <SignModal title="Authorization" />
       </>
     );
   }

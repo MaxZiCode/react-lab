@@ -30,6 +30,9 @@ main {
 
 input,
 button {
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
   background-color: inherit;
   color: inherit;
   padding: 0;
