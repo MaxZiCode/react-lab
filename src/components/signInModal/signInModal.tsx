@@ -1,3 +1,4 @@
+import FormInput from "@/elements/formInput/formInput";
 import SignModal from "@/elements/signModal/signModal";
 
 export interface SignInModalProps {
@@ -7,23 +8,9 @@ export interface SignInModalProps {
 
 export default function SignInModal(props: SignInModalProps): JSX.Element {
   return (
-    <SignModal
-      active={props.active}
-      title="Authorization"
-      onClose={props.onClose}
-      inputs={[
-        {
-          id: "signin-username",
-          name: "user-name",
-          label: "Login",
-        },
-        {
-          id: "signin-password",
-          name: "password",
-          label: "Password",
-          isPassword: true,
-        },
-      ]}
-    />
+    <SignModal active={props.active} title="Authorization" onClose={props.onClose}>
+      <FormInput id="signin-username" name="user-name" label="Login" />
+      <FormInput id="signin-password" name="password" label="Password" isPassword />
+    </SignModal>
   );
 }
