@@ -10,7 +10,7 @@
   background: rgba(0, 0, 0, 0.6);
 }
 
-.modal.disabled {
+.disabled {
   display: none;
 }
 
@@ -48,6 +48,17 @@
   padding: 4px;
   border: 1px solid $basicColor;
   background-color: $homeItemsBackgroundColor;
+}
+
+.modal-input-invalid {
+  @extend .modal-input;
+  border-color: red;
+}
+
+.modal-field-validation-problem {
+  font-size: 12px;
+  color: red;
+  text-align: end;
 }
 
 .modal-submit-button {

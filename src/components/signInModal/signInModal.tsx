@@ -21,6 +21,7 @@ export default function SignInModal(props: SignInModalProps): JSX.Element {
           id: "signin-password",
           name: "password",
           label: "Password",
+          isPassword: true,
         },
       ]}
     />

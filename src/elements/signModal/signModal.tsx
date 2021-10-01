@@ -8,11 +8,14 @@ export interface SignModalProps {
   active?: boolean;
   title: string;
   onClose: () => void;
+  validate?: () => boolean;
   inputs: {
     id: string;
     name: string;
     label: string;
-    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    isPassword?: boolean;
+    onChange?: (value: string) => void;
+    validationProblem?: string;
   }[];
 }
 
@@ -20,22 +23,41 @@ export default function SignModal(props: SignModalProps): JSX.Element {
   return (
     <div className={`modal${props.active ? "" : " disabled"}`}>
       <div className="modal-window">
-        <form action="" method="get">
+        <form action="" method="post">
           <button className="modal-close-button" type="button" onClick={() => props.onClose()}>
             <img src={closeIcon} alt="close icon" />
           </button>
           <div className="modal-title">{props.title}</div>
           <div className="modal-fields">
             {props.inputs.map((i) => (
-              <div className="modal-field" key={i.id}>
-                <label className="modal-input-label" htmlFor={i.id}>
-                  {i.label}
-                </label>
-                <input className="modal-input" type="text" name={i.name} id={i.id} onChange={i.onChange} />
-              </div>
+              <React.Fragment key={i.id}>
+                <div className="modal-field">
+                  <label className="modal-input-label" htmlFor={i.id}>
+                    {i.label}
+                  </label>
+                  <input
+                    className={i.validationProblem ? "modal-input-invalid" : "modal-input"}
+                    type={i.isPassword ? "password" : "text"}
+                    name={i.name}
+                    id={i.id}
+                    onChange={(e) => {
+                      if (i.onChange) i.onChange(e.currentTarget.value);
+                    }}
+                  />
+                </div>
+                <div className="modal-field-validation-problem">
+                  {i.validationProblem ? `*${i.validationProblem}` : ""}
+                </div>
+              </React.Fragment>
             ))}
           </div>
-          <button className="modal-submit-button" type="submit">
+          <button
+            className="modal-submit-button"
+            type="button"
+            onClick={(e) => {
+              if (props.validate && !props.validate()) e.preventDefault();
+            }}
+          >
             Submit
           </button>
         </form>
