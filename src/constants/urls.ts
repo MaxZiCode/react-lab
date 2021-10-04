@@ -1,8 +1,7 @@
-const products = "/products";
-
 const relativeLinks = {
+  ROOT: "http://localhost:3000",
   HOME: "/",
-  PRODUCTS: products,
+  PRODUCTS: "/products",
   ABOUT: "/about",
   USER: "/user",
   CART: "/cart",

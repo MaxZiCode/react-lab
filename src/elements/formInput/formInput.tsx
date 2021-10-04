@@ -16,7 +16,7 @@ const FormInput: React.FC<FormInputProps> = (props) => (
         {props.label}
       </label>
       <input
-        className={props.validationProblem ? "form-input-invalid" : "form-input"}
+        className={props.validationProblem !== undefined ? "form-input-invalid" : "form-input"}
         type={props.isPassword ? "password" : "text"}
         name={props.name}
         id={props.id}

@@ -1,3 +1,4 @@
+import { signUp } from "@/api/apiAuth";
 import FormInput from "@/elements/formInput/formInput";
 import SignModal from "@/elements/signModal/signModal";
 import { useState } from "react";
@@ -18,14 +19,12 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
   const [repeatPasswordProblem, setRepeatPasswordProblem] = useState<string>();
 
   const validate = () => {
-    // Pattern source= https=//ihateregex.io/expr/username/
-    const userPattern = /^[a-zA-Z0-9_-]{3,15}$/;
-    const userNameMessage = username.match(userPattern)
-      ? undefined
-      : "Login must be an alphanumeric string that may include _ and - having a length of 3 to 16 characters.";
+    // Pattern source: https://ihateregex.io/expr/email/
+    const userPattern = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+    const userNameMessage = username.match(userPattern) ? undefined : "Invalid email.";
     setUsernameProblem(userNameMessage);
 
-    // Pattern source= https=//ihateregex.io/expr/password/
+    // Pattern source: https://ihateregex.io/expr/password/
     const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
     const passwordMessage = password.match(passwordPattern)
       ? undefined
@@ -39,8 +38,12 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
     return !(userNameMessage || passwordMessage || repeatPasswordMessage);
   };
 
+  const onSubmit = async () => {
+    if (validate()) await signUp(username, password).then(() => props.onClose());
+  };
+
   return (
-    <SignModal active={props.active} title="Registration" onClose={props.onClose} validate={validate}>
+    <SignModal active={props.active} title="Registration" onClose={props.onClose} onSubmit={onSubmit}>
       <FormInput
         id="signup-username"
         name="user-name"

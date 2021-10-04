@@ -1,7 +1,7 @@
 import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
-import relativeLinks from "../../constants/headerValues";
+import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Home from "../home/home";

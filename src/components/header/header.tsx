@@ -7,7 +7,7 @@ import { Link, NavLink } from "react-router-dom";
 import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 
 import categoriesValues from "@/constants/categoriesValues";
-import relativeLinks from "@/constants/headerValues";
+import relativeLinks from "@/constants/urls";
 import { useEffect, useState } from "react";
 
 const linkClassName = "navbar-item";
