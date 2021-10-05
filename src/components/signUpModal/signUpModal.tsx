@@ -4,8 +4,9 @@ import SignModal from "@/elements/signModal/signModal";
 import { useState } from "react";
 
 export interface SignUpModalProps {
-  active?: boolean;
+  active: boolean;
   onClose: () => void;
+  onSignedUp: () => void;
 }
 
 export default function SignUpModal(props: SignUpModalProps): JSX.Element {
@@ -39,7 +40,13 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
   };
 
   const onSubmit = async () => {
-    if (validate()) await signUp(username, password).then(() => props.onClose());
+    if (validate())
+      await signUp(username, password).then((r) => {
+        if (r.status === 201) {
+          props.onSignedUp();
+          props.onClose();
+        } else alert("Unknown error");
+      });
   };
 
   return (

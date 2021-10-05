@@ -4,8 +4,9 @@ import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
 
 export interface SignInModalProps {
-  active?: boolean;
+  active: boolean;
   onClose: () => void;
+  onSignedIn: () => void;
 }
 
 export default function SignInModal(props: SignInModalProps): JSX.Element {
@@ -28,10 +29,11 @@ export default function SignInModal(props: SignInModalProps): JSX.Element {
     signIn(login, password).then((r) => {
       if (r.ok) {
         resetProblems();
+        props.onSignedIn();
         props.onClose();
       } else if (r.status === 400) {
         setProblem("Invalid login or password.");
-      } else setProblem("Unknown error.");
+      } else alert("Unknown error");
     });
 
   return (

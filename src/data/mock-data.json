@@ -29,6 +29,16 @@
       "email": "ma@max.ma",
       "password": "$2a$10$/PB4RJfQwPIUxwkeVymJZO38n9lzK0DU7PrNK339J4nl1eO2WwsRC",
       "id": 6
+    },
+    {
+      "email": "maxi@max.max",
+      "password": "$2a$10$EQD5BVW3rctwT.57UgLGC.kbTDw.TUAjc5DJpt9P8chd9HTGKRTie",
+      "id": 7
+    },
+    {
+      "email": "ma@ma.maxx",
+      "password": "$2a$10$GJVi3CarTr71wWNGcoBLruAiVMxixXSboOb5JTGN09j6TFvJk2yvG",
+      "id": 8
     }
   ],
   "products": [

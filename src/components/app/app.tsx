@@ -1,18 +1,15 @@
 import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
+import AuthRoute from "@/elements/authRoute/authRoute";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
-import SignUpModal from "../signUpModal/signUpModal";
-import SignInModal from "../signInModal/signInModal";
 
 interface AppState {
-  shouldShowSignUp: boolean;
-  shouldShowSignIn: boolean;
   isSignedIn: boolean;
   userName: string;
 }
@@ -20,7 +17,7 @@ interface AppState {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { isSignedIn: false, shouldShowSignUp: false, shouldShowSignIn: false, userName: "User Name" };
+    this.state = { isSignedIn: false, userName: "User Name" };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
@@ -36,8 +33,7 @@ class App extends Component<RouteComponentProps, AppState> {
         <Header
           isSignedIn={this.state.isSignedIn}
           userName={this.state.userName}
-          signInCallback={() => this.setState({ shouldShowSignIn: true })}
-          signUpCallback={() => this.setState({ shouldShowSignUp: true })}
+          signInCallback={() => this.setState({ isSignedIn: true })}
           signOutCallback={() => this.setState({ isSignedIn: false })}
         />
         <main>
@@ -45,18 +41,26 @@ class App extends Component<RouteComponentProps, AppState> {
             <Route exact path={relativeLinks.HOME}>
               <Home />
             </Route>
-            <Route path={`${relativeLinks.PRODUCTS}/:categoryId`}>
+            <AuthRoute
+              isSignedIn={this.state.isSignedIn}
+              path={`${relativeLinks.PRODUCTS}/:categoryId`}
+              defaultPage={relativeLinks.HOME}
+              onSignedIn={() => this.setState({ isSignedIn: true })}
+            >
               <Products />
-            </Route>
-            <Route path={relativeLinks.ABOUT}>
+            </AuthRoute>
+            <AuthRoute
+              isSignedIn={this.state.isSignedIn}
+              path={relativeLinks.ABOUT}
+              defaultPage={relativeLinks.HOME}
+              onSignedIn={() => this.setState({ isSignedIn: true })}
+            >
               <About />
-            </Route>
+            </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
         <Footer />
-        <SignUpModal active={this.state.shouldShowSignUp} onClose={() => this.setState({ shouldShowSignUp: false })} />
-        <SignInModal active={this.state.shouldShowSignIn} onClose={() => this.setState({ shouldShowSignIn: false })} />
       </>
     );
   }
