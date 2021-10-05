@@ -35,7 +35,7 @@ function ButtonContent(params: ButtonContentParams) {
 export interface HeaderProps {
   isSignedIn: boolean;
   userName: string;
-  signInCallback: () => void;
+  signInCallback: (userName: string) => void;
   signOutCallback: () => void;
 }
 

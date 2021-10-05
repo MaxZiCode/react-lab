@@ -6,7 +6,7 @@ import { useState } from "react";
 export interface SignUpModalProps {
   active: boolean;
   onClose: () => void;
-  onSignedUp: () => void;
+  onSignedUp: (username: string) => void;
 }
 
 export default function SignUpModal(props: SignUpModalProps): JSX.Element {
@@ -43,7 +43,7 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
     if (validate())
       await signUp(username, password).then((r) => {
         if (r.status === 201) {
-          props.onSignedUp();
+          props.onSignedUp(username);
           props.onClose();
         } else alert("Unknown error");
       });

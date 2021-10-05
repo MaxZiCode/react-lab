@@ -39,6 +39,11 @@
       "email": "ma@ma.maxx",
       "password": "$2a$10$GJVi3CarTr71wWNGcoBLruAiVMxixXSboOb5JTGN09j6TFvJk2yvG",
       "id": 8
+    },
+    {
+      "email": "jadislaw@jad.com",
+      "password": "$2a$10$kTXOUIIYKqZRwh8pwFcEPu.ZTOQ5YyyadqQTojd.EXR28.Oj.kq4i",
+      "id": 9
     }
   ],
   "products": [
