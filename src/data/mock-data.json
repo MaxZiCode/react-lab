@@ -1,4 +1,56 @@
 {
+  "users": [
+    {
+      "email": "maxim@maxim.com",
+      "password": "$2a$10$5Pw7JoWG4VZJsQBf5JtDfuFvwPoSE1fo4tlhru13hivSqe2QzZKQ2",
+      "id": 1
+    },
+    {
+      "email": "maxim@max.max",
+      "password": "$2a$10$hoVPvuzJJ/g5h9gpjignBuPgY4YN6oCx.yhIxouChDBkcyc3agzaK",
+      "id": 2
+    },
+    {
+      "email": "maxim@m.max",
+      "password": "$2a$10$osZ1bHsg3zucuhPs6shKKeDWYiHefGl2570mkK1yL.2B8cHCUvQGi",
+      "id": 3
+    },
+    {
+      "email": "max.max@max.max",
+      "password": "$2a$10$ceuVunhywwxbY5iqg/rCPug/Wn4dIGr9Z8uIGbAuniKrQjAI29WhC",
+      "id": 4
+    },
+    {
+      "email": "ma@ma.max",
+      "password": "$2a$10$3B0oQbnaAQehQGWnD6G0ueE2RyT/B7gCG0ooKsyHAPxX.Iu1UBwHW",
+      "id": 5
+    },
+    {
+      "email": "ma@max.ma",
+      "password": "$2a$10$/PB4RJfQwPIUxwkeVymJZO38n9lzK0DU7PrNK339J4nl1eO2WwsRC",
+      "id": 6
+    },
+    {
+      "email": "maxi@max.max",
+      "password": "$2a$10$EQD5BVW3rctwT.57UgLGC.kbTDw.TUAjc5DJpt9P8chd9HTGKRTie",
+      "id": 7
+    },
+    {
+      "email": "ma@ma.maxx",
+      "password": "$2a$10$GJVi3CarTr71wWNGcoBLruAiVMxixXSboOb5JTGN09j6TFvJk2yvG",
+      "id": 8
+    },
+    {
+      "email": "jadislaw@jad.com",
+      "password": "$2a$10$kTXOUIIYKqZRwh8pwFcEPu.ZTOQ5YyyadqQTojd.EXR28.Oj.kq4i",
+      "id": 9
+    },
+    {
+      "email": "normas@normas.com",
+      "password": "$2a$10$MCXjYDdQNPN5wwCEKKwBDuXSsV2memEGJTbLuHnnPuU5KvV23PWGq",
+      "id": 10
+    }
+  ],
   "products": [
     {
       "id": 1,
@@ -60,7 +112,7 @@
     },
     {
       "id": 9,
-      "name": "STony Hawk's Pro Skater 5",
+      "name": "Tony Hawk's Pro Skater 5",
       "date": "2000-01-28"
     },
     {

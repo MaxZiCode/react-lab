@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { getTop, Product } from "@/api/apiProducts";
 import categoriesValues from "@/constants/categoriesValues";
 
-import HomeMenu from "../homeMenu/homeMenu";
+import HomeMenu from "../../elements/homeMenu/homeMenu";
 import Search from "../search/search";
-import Category from "../category/category";
-import GameCard from "../gameCard/gameCard";
+import Category from "../../elements/category/category";
+import GameCard from "../../elements/gameCard/gameCard";
 
 export default function Home(): JSX.Element {
   const [categoryInfos] = useState([...categoriesValues.values()]);

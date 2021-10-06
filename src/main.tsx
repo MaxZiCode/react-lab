@@ -6,14 +6,7 @@ import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./components/app/app";
 
-interface AppProps {
-  nothing: boolean;
-}
-interface AppState {
-  title: string;
-}
-
-class AppContainer extends Component<AppProps, AppState> {
+class AppContainer extends Component {
   render() {
     return (
       <StrictMode>
@@ -25,4 +18,4 @@ class AppContainer extends Component<AppProps, AppState> {
   }
 }
 
-ReactDom.render(<AppContainer nothing={false} />, document.getElementById("app"));
+ReactDom.render(<AppContainer />, document.getElementById("app"));
