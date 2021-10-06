@@ -84,13 +84,15 @@ class App extends Component<RouteComponentProps, AppState> {
             <Route exact path={relativeLinks.HOME}>
               <Home />
             </Route>
-            <AuthRoute route={<Products />} path={`${relativeLinks.PRODUCTS}/:categoryId`} {...authRouteCommonProps} />
-            <AuthRoute route={<About />} path={relativeLinks.ABOUT} {...authRouteCommonProps} />
-            <AuthRoute
-              route={<Profile name={this.state.username} />}
-              path={relativeLinks.USER}
-              {...authRouteCommonProps}
-            />
+            <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...authRouteCommonProps}>
+              <Products />
+            </AuthRoute>
+            <AuthRoute path={relativeLinks.ABOUT} {...authRouteCommonProps}>
+              <About />
+            </AuthRoute>
+            <AuthRoute path={relativeLinks.USER} {...authRouteCommonProps}>
+              <Profile name={this.state.username} />
+            </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
