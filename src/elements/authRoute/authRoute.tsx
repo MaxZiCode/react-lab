@@ -1,4 +1,4 @@
-import { VFC, ReactNode } from "react";
+import { VFC, ReactNode, useEffect } from "react";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 
 export interface AuthRouteProps extends RouteProps {
@@ -16,17 +16,17 @@ const AuthRoute: VFC<AuthRouteProps> = ({
   showSignInCallback,
   setSignInRedirectPath,
   ...routeProps
-}) => (
-  <Route
-    {...routeProps}
-    render={(props) => {
-      if (isSignedIn) return route;
+}) => {
+  useEffect(() => {
+    if (isSignedIn) return;
 
-      showSignInCallback();
-      if (typeof props.location.pathname === "string") setSignInRedirectPath(props.location.pathname);
-      return <Redirect to={defaultPath} />;
-    }}
-  />
-);
+    showSignInCallback();
+    const pathname = routeProps.location?.pathname;
+    if (typeof pathname === "string") setSignInRedirectPath(pathname);
+  });
+
+  if (isSignedIn) return <Route {...routeProps}>{route}</Route>;
+  return <Redirect to={defaultPath} />;
+};
 
 export default AuthRoute;
