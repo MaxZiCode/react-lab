@@ -1,4 +1,8 @@
-@import "../../styles/variables.scss";
+@import "@/styles/panels.scss";
+$titleMargin: 10px;
+$triangleHeight: 5px;
+$paddingItemBottom: 5px;
+$paddingItem: 0 $titleMargin $paddingItemBottom $titleMargin;
 
 header {
   background-color: $panelBackgroundColor;
@@ -6,36 +10,110 @@ header {
 
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.title {
-  margin: 10px;
+.navbar-title {
+  margin: $titleMargin;
   font-size: larger;
 }
 
-ul.navbar-menu {
+.navbar-item {
   display: flex;
-  list-style-type: none;
-  margin: 0;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: $paddingItem;
+  width: 100%;
+}
 
-  li {
-    display: flex;
-    align-items: stretch;
+.navbar-item:hover,
+a .navbar-item:hover {
+  background-color: $panelBackgroundColorLignt;
+}
+
+.navbar-item.selected,
+a.selected .navbar-item {
+  padding-bottom: 0;
+  border-bottom: $paddingItemBottom solid $selectionColor;
+}
+
+.navbar-icon {
+  display: none;
+  margin: $titleMargin;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+
+  div {
+    width: 30px;
+    height: 4px;
+    margin: 5px 0;
+    background-color: $basicColor;
   }
 }
 
-$paddingItem: 5px;
-
-a.navbar-item {
+.navbar-dropdown-wrapper {
   display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  padding: 0 7px $paddingItem 7px;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
 }
 
-a.navbar-item.selected {
-  padding-bottom: 0;
-  border-bottom: $paddingItem solid #b31a1a;
+.navbar-dropdown-navlink {
+  display: flex;
+  height: 100%;
+}
+
+.navbar-dropdown-row {
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  background-color: $panelBackgroundColor;
+}
+
+.navbar-dropdown-button::after {
+  content: "";
+  margin-left: 3px;
+  margin-top: $triangleHeight;
+  width: 0;
+  height: 0;
+  border: $triangleHeight;
+  border-style: solid;
+  border-color: $basicColor transparent transparent;
+}
+
+.navbar-dropdown-button[aria-expanded="true"]::after {
+  border-top: none;
+  border-bottom-color: $basicColor;
+  margin-top: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar-menu {
+    display: none;
+  }
+
+  .navbar-icon {
+    display: block;
+  }
+
+  .navbar.responsive {
+    position: relative;
+
+    .navbar-menu {
+      display: block;
+      flex-basis: 100%;
+    }
+  }
+
+  .navbar-dropdown-row {
+    position: relative;
+    z-index: 0;
+  }
+
+  .navbar-dropdown-item {
+    padding-left: 2 * $titleMargin;
+  }
 }

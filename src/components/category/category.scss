@@ -1,0 +1,23 @@
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 150px;
+  background-color: $panelBackgroundColor;
+  border: 2px solid $basicColor;
+  border-bottom-width: 6px;
+  border-radius: 15px;
+}
+
+.category:hover,
+.category:focus-visible {
+  border-color: $selectionColor;
+  outline: none;
+}
+
+.category-image {
+  margin: 10px;
+  height: 60px;
+}
