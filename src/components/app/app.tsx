@@ -11,9 +11,9 @@ import About from "./about";
 import Profile from "./profile";
 import SignInModal from "../signInModal/signInModal";
 import SignUpModal from "../signUpModal/signUpModal";
+import UserContext, { UserContextProps } from "../userContext/userContext";
 
-interface AppState {
-  username: string;
+interface AppState extends UserContextProps {
   shouldShowSignIn: boolean;
   shouldShowSignUp: boolean;
   signInRedirectPath?: string;
@@ -22,7 +22,7 @@ interface AppState {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { username: "", shouldShowSignIn: false, shouldShowSignUp: false };
+    this.state = { shouldShowSignIn: false, shouldShowSignUp: false };
     this.redirect.bind(this);
     this.isSignedIn.bind(this);
   }
@@ -40,7 +40,7 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   isSignedIn(): boolean {
-    return this.state.username !== "";
+    return this.state.username !== undefined;
   }
 
   render(): JSX.Element {
@@ -53,7 +53,7 @@ class App extends Component<RouteComponentProps, AppState> {
     };
 
     return (
-      <>
+      <UserContext.Provider value={this.state}>
         <SignInModal
           active={this.state.shouldShowSignIn}
           onClose={() => this.setState({ shouldShowSignIn: false, signInRedirectPath: undefined })}
@@ -71,11 +71,11 @@ class App extends Component<RouteComponentProps, AppState> {
           }}
         />
         <Header
-          userName={this.state.username}
+          isSignedIn={this.isSignedIn()}
           signInCallback={showSignInCallback}
           signUpCallback={() => this.setState({ shouldShowSignUp: true })}
           signOutCallback={() => {
-            this.setState({ username: "" });
+            this.setState({ username: undefined });
             this.redirect(relativeLinks.HOME);
           }}
         />
@@ -91,13 +91,13 @@ class App extends Component<RouteComponentProps, AppState> {
               <About />
             </AuthRoute>
             <AuthRoute path={relativeLinks.USER} {...authRouteCommonProps}>
-              <Profile name={this.state.username} />
+              <Profile />
             </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
         <Footer />
-      </>
+      </UserContext.Provider>
     );
   }
 }
