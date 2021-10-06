@@ -1,34 +1,32 @@
-import SignInModal from "@/components/signInModal/signInModal";
-import { FC, ReactNode, useState } from "react";
-import { Route, RouteProps } from "react-router-dom";
+import { VFC, ReactNode } from "react";
+import { Route, RouteProps, Redirect } from "react-router-dom";
 
 export interface AuthRouteProps extends RouteProps {
   isSignedIn: boolean;
-  defaultPage: ReactNode;
-  onSignedIn: () => void;
+  route: ReactNode;
+  defaultPath: string;
+  showSignInCallback: () => void;
+  setSignInRedirectPath: (path: string) => void;
 }
 
-const AuthRoute: FC<AuthRouteProps> = (props) => {
-  const [shouldShowSignIn, setShouldShowSignIn] = useState(true);
+const AuthRoute: VFC<AuthRouteProps> = ({
+  route,
+  isSignedIn,
+  defaultPath,
+  showSignInCallback,
+  setSignInRedirectPath,
+  ...routeProps
+}) => (
+  <Route
+    {...routeProps}
+    render={(props) => {
+      if (isSignedIn) return route;
 
-  return (
-    <Route
-      {...props}
-      render={() => {
-        if (props.isSignedIn) return props.children;
-        return (
-          <>
-            {props.defaultPage}
-            <SignInModal
-              active={shouldShowSignIn}
-              onClose={() => setShouldShowSignIn(false)}
-              onSignedIn={props.onSignedIn}
-            />
-          </>
-        );
-      }}
-    />
-  );
-};
+      showSignInCallback();
+      if (typeof props.location.pathname === "string") setSignInRedirectPath(props.location.pathname);
+      return <Redirect to={defaultPath} />;
+    }}
+  />
+);
 
 export default AuthRoute;

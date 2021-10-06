@@ -9,8 +9,6 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/urls";
 import { useEffect, useState } from "react";
-import SignInModal from "../signInModal/signInModal";
-import SignUpModal from "../signUpModal/signUpModal";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -33,17 +31,15 @@ function ButtonContent(params: ButtonContentParams) {
 }
 
 export interface HeaderProps {
-  isSignedIn: boolean;
   userName: string;
-  signInCallback: (userName: string) => void;
+  signInCallback: () => void;
+  signUpCallback: () => void;
   signOutCallback: () => void;
 }
 
 export default function Header(props: HeaderProps): JSX.Element {
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
   const [navBarStyle, setNavBarStyle] = useState("navbar");
-  const [shouldShowSignIn, setShouldShowSignIn] = useState(false);
-  const [shouldShowSignUp, setShouldShowSignUp] = useState(false);
 
   useEffect(() => {
     const style = shouldShowMenu ? "navbar responsive" : "navbar";
@@ -103,26 +99,16 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign in",
       node: (
-        <button type="button" className={linkClassName} onClick={() => setShouldShowSignIn(true)}>
+        <button type="button" className={linkClassName} onClick={() => props.signInCallback()}>
           <ButtonContent label="Sign In" />
-          <SignInModal
-            active={shouldShowSignIn}
-            onClose={() => setShouldShowSignIn(false)}
-            onSignedIn={props.signInCallback}
-          />
         </button>
       ),
     },
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName} onClick={() => setShouldShowSignUp(true)}>
+        <button type="button" className={linkClassName} onClick={() => props.signUpCallback()}>
           <ButtonContent label="Sign Up" />
-          <SignUpModal
-            active={shouldShowSignUp}
-            onClose={() => setShouldShowSignUp(false)}
-            onSignedUp={props.signInCallback}
-          />
         </button>
       ),
     },
@@ -156,7 +142,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     },
   ];
 
-  const items = props.isSignedIn ? signedInItems : anonItems;
+  const items = props.userName ? signedInItems : anonItems;
 
   return (
     <header>

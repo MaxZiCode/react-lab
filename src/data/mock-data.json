@@ -44,6 +44,11 @@
       "email": "jadislaw@jad.com",
       "password": "$2a$10$kTXOUIIYKqZRwh8pwFcEPu.ZTOQ5YyyadqQTojd.EXR28.Oj.kq4i",
       "id": 9
+    },
+    {
+      "email": "normas@normas.com",
+      "password": "$2a$10$MCXjYDdQNPN5wwCEKKwBDuXSsV2memEGJTbLuHnnPuU5KvV23PWGq",
+      "id": 10
     }
   ],
   "products": [
