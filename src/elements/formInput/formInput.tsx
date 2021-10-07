@@ -4,20 +4,21 @@ export interface FormInputProps {
   id: string;
   name: string;
   label: string;
-  isPassword?: boolean;
+  type: string;
   onChange?: (value: string) => void;
   validationProblem?: string;
+  style?: "row" | "column";
 }
 
-const FormInput: React.FC<FormInputProps> = (props) => (
+const FormInput: React.FC<FormInputProps> = ({ style = "row", ...props }) => (
   <>
-    <div className="form-field">
+    <div className={`form-field-${style}`}>
       <label className="form-input-label" htmlFor={props.id}>
         {props.label}
       </label>
       <input
-        className={props.validationProblem !== undefined ? "form-input-invalid" : "form-input"}
-        type={props.isPassword ? "password" : "text"}
+        className={`form-input-${style} ${props.validationProblem !== undefined && "form-input-invalid"}`}
+        type={props.type}
         name={props.name}
         id={props.id}
         onChange={(e) => {

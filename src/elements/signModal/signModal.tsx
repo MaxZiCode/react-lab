@@ -27,7 +27,7 @@ const SignModal: React.FC<SignModalProps> = (props) => {
             <div className="modal-fields">{props.children}</div>
             <button
               disabled={isSubmitting}
-              className="modal-submit-button"
+              className="modal-submit-button menu-button"
               type="button"
               onClick={(e) => {
                 e.preventDefault();

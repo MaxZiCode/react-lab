@@ -8,7 +8,7 @@ import Footer from "../footer/footer";
 import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
-import Profile from "./profile";
+import Profile from "../profile/profile";
 import SignInModal from "../signInModal/signInModal";
 import SignUpModal from "../signUpModal/signUpModal";
 import UserContext, { UserContextProps } from "../userContext/userContext";

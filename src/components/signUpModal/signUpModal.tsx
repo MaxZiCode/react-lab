@@ -55,6 +55,7 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
         id="signup-username"
         name="user-name"
         label="Login"
+        type="text"
         onChange={setUserName}
         validationProblem={usernameProblem}
       />
@@ -62,17 +63,17 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
         id="signup-password"
         name="password"
         label="Password"
+        type="password"
         onChange={setPassword}
         validationProblem={passwordProblem}
-        isPassword
       />
       <FormInput
         id="signup-repeat-password"
         name="repeat-password"
         label="Repeat password"
+        type="password"
         onChange={setRepeatPassword}
         validationProblem={repeatPasswordProblem}
-        isPassword
       />
     </SignModal>
   );

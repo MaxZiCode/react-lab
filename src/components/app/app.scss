@@ -33,15 +33,22 @@ button {
   display: block;
   font-family: inherit;
   font-size: inherit;
-  background-color: inherit;
   color: inherit;
-  padding: 0;
-  border: 0;
   outline: 0;
 }
 
 button {
   cursor: pointer;
+  background-color: inherit;
+  padding: 0;
+  border: 0;
+}
+
+input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid $basicColor;
+  background-color: $homeItemsBackgroundColor;
 }
 
 a {

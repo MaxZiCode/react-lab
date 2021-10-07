@@ -39,11 +39,12 @@ $searchBorderRadius: 20px;
 .search-input-text {
   font-size: $searchFontSize;
   color: $basicColor;
-  width: 100%;
   padding-top: $searchInputPadding;
   padding-right: $searchInputPadding;
   padding-bottom: $searchInputPadding * 0.75;
   padding-left: $searchInputPaddingLeft;
+  border: 0;
+  background-color: inherit;
 }
 
 .search-input-icon {

@@ -42,6 +42,7 @@ export default function SignInModal(props: SignInModalProps): JSX.Element {
         id="signin-username"
         name="user-name"
         label="Login"
+        type="text"
         onChange={setLogin}
         validationProblem={loginProblem}
       />
@@ -49,7 +50,7 @@ export default function SignInModal(props: SignInModalProps): JSX.Element {
         id="signin-password"
         name="password"
         label="Password"
-        isPassword
+        type="password"
         onChange={setPassword}
         validationProblem={passwordProblem}
       />

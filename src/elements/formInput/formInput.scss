@@ -1,19 +1,31 @@
-.form-field {
+$marginBetweenFields: 20px;
+
+@mixin form-field() {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin: 20px 0;
+  margin: $marginBetweenFields 0;
 }
 
-.form-input {
+.form-field-row {
+  justify-content: space-between;
+  align-items: baseline;
+  @include form-field();
+}
+
+.form-field-column {
+  flex-direction: column;
+  @include form-field();
+}
+
+.form-input-row {
   width: 60%;
-  padding: 4px;
-  border: 1px solid $basicColor;
-  background-color: $homeItemsBackgroundColor;
+}
+
+.form-input-column {
+  width: 100%;
+  margin-top: $marginBetweenFields;
 }
 
 .form-input-invalid {
-  @extend .form-input;
   border-color: red;
 }
 
