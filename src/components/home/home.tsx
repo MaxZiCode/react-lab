@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getTop, Product } from "@/api/apiProducts";
 import categoriesValues from "@/constants/categoriesValues";
 
-import HomeMenu from "../../elements/homeMenu/homeMenu";
+import CardMenu from "@/elements/cardMenu/cardMenu";
 import Search from "../search/search";
 import Category from "../../elements/category/category";
 import GameCard from "../../elements/gameCard/gameCard";
@@ -24,16 +24,16 @@ export default function Home(): JSX.Element {
   return (
     <div className="home">
       <Search />
-      <HomeMenu title="Categories">
+      <CardMenu title="Categories">
         {categoryInfos.map((c) => (
           <Category key={c.id} {...c} />
         ))}
-      </HomeMenu>
-      <HomeMenu title="New games">
+      </CardMenu>
+      <CardMenu title="New games">
         {products.map((p) => (
           <GameCard key={p.id} {...p} />
         ))}
-      </HomeMenu>
+      </CardMenu>
       <br />
     </div>
   );
