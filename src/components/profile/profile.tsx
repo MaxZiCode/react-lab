@@ -1,6 +1,6 @@
 import "./profile.scss";
+import "@/styles/menu.scss";
 
-import BigMenu from "@/elements/bigMenu/bigMenu";
 import FormInput from "@/elements/formInput/formInput";
 import { VFC } from "react";
 import UserContext from "../userContext/userContext";
@@ -9,7 +9,8 @@ const Profile: VFC = () => (
   <UserContext.Consumer>
     {({ username }) => (
       <div className="home">
-        <BigMenu title={`${username || "User name"} profile page`}>
+        <div className="big-menu">
+          <h2 className="big-menu-title">{`${username || "User name"} profile page`}</h2>
           <div className="profile-page-container">
             <div className="profile-change-image-area">
               <div className="profile-image-view">
@@ -38,7 +39,7 @@ const Profile: VFC = () => (
               </button>
             </div>
           </div>
-        </BigMenu>
+        </div>
       </div>
     )}
   </UserContext.Consumer>
