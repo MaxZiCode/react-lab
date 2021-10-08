@@ -1,8 +1,5 @@
-$marginBetweenFields: 20px;
-
 @mixin form-field() {
   display: flex;
-  margin: $marginBetweenFields 0;
 }
 
 .form-field-row {
@@ -21,8 +18,8 @@ $marginBetweenFields: 20px;
 }
 
 .form-input-column {
+  margin-top: 10px;
   width: 100%;
-  margin-top: $marginBetweenFields;
 }
 
 .form-input-invalid {

@@ -1,0 +1,75 @@
+$imageWidth: 240px;
+
+.profile-page-container {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-page-container > div {
+  display: flex;
+  flex-flow: column;
+  align-content: stretch;
+  margin-right: 20px;
+}
+
+.profile-change-image-area > * {
+  margin-bottom: 10px;
+}
+
+.profile-image-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $imageWidth;
+  height: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $basicDarkColor;
+  border-radius: $defaultBorderRadius;
+  overflow: hidden;
+}
+
+.profile-image-no-picture {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  font-size: 22px;
+  text-align: center;
+  font-weight: bold;
+  border: 3px solid $basicColor;
+}
+
+.user-info-area {
+  width: 250px;
+}
+
+.user-info-area > * {
+  margin-bottom: 5px;
+}
+
+.buttons-area > * {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 900px) {
+  .profile-page-container {
+    flex-flow: column;
+    max-width: $imageWidth;
+    margin: 0 auto;
+  }
+
+  .profile-page-container > div {
+    align-content: center;
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+
+  .user-info-area {
+    width: 100%;
+  }
+
+  .profile-image-view {
+    width: 100%;
+  }
+}

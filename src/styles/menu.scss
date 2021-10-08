@@ -1,5 +1,11 @@
 .menu-button {
   background-color: $selectionColor;
   border-radius: $defaultBorderRadius;
+  padding: 0.5em 1em;
   overflow: hidden;
+}
+
+.menu-button-transparent {
+  @extend .menu-button;
+  background-color: rgba($selectionColor, 0.6);
 }
