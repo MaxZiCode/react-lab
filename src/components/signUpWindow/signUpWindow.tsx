@@ -1,15 +1,15 @@
 import { signUp } from "@/api/apiAuth";
 import FormInput from "@/elements/formInput/formInput";
-import SignModal from "@/elements/signModal/signModal";
+import FormWindow from "@/elements/formWindow/formWindow";
 import { useState } from "react";
 
-export interface SignUpModalProps {
+export interface SignUpWindowProps {
   active: boolean;
   onClose: () => void;
   onSignedUp: (username: string) => void;
 }
 
-export default function SignUpModal(props: SignUpModalProps): JSX.Element {
+export default function SignUpModal(props: SignUpWindowProps): JSX.Element {
   const [username, setUserName] = useState("");
   const [usernameProblem, setUsernameProblem] = useState<string>();
 
@@ -50,7 +50,7 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
   };
 
   return (
-    <SignModal active={props.active} title="Registration" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow active={props.active} title="Registration" onClose={props.onClose} onSubmit={onSubmit}>
       <FormInput
         id="signup-username"
         name="user-name"
@@ -74,6 +74,6 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
         validationProblem={repeatPasswordProblem}
         isPassword
       />
-    </SignModal>
+    </FormWindow>
   );
 }

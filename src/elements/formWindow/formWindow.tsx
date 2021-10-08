@@ -1,22 +1,22 @@
-import "./signModal.scss";
+import "./formWindow.scss";
 
 import closeIcon from "@/assets/vectors/close.svg";
 // eslint-disable-next-line no-use-before-define
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import Modal from "../modal/modal";
 
-export interface SignModalProps {
-  active?: boolean;
+export interface FormWindowProps {
+  active: boolean;
   title: string;
   onSubmit: () => Promise<void>;
   onClose: () => void;
 }
 
-const SignModal: React.FC<SignModalProps> = (props) => {
+const FormWindow: React.FC<FormWindowProps> = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  return ReactDOM.createPortal(
-    props.active ? (
+  return (
+    <Modal active={props.active}>
       <div className="modal">
         <div className="modal-window">
           <form>
@@ -32,7 +32,6 @@ const SignModal: React.FC<SignModalProps> = (props) => {
               onClick={(e) => {
                 e.preventDefault();
                 if (isSubmitting) return;
-
                 setIsSubmitting(true);
                 props.onSubmit().then(() => {
                   setIsSubmitting(false);
@@ -44,9 +43,8 @@ const SignModal: React.FC<SignModalProps> = (props) => {
           </form>
         </div>
       </div>
-    ) : null,
-    document.getElementById("app") as Element
+    </Modal>
   );
 };
 
-export default SignModal;
+export default FormWindow;

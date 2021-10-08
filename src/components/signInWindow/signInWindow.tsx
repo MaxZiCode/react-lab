@@ -1,15 +1,15 @@
 import FormInput from "@/elements/formInput/formInput";
-import SignModal from "@/elements/signModal/signModal";
+import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
 
-export interface SignInModalProps {
+export interface SignInWindowProps {
   active: boolean;
   onClose: () => void;
   onSignedIn: (username: string) => void;
 }
 
-export default function SignInModal(props: SignInModalProps): JSX.Element {
+export default function SignInWindow(props: SignInWindowProps): JSX.Element {
   const [login, setLogin] = useState("");
   const [loginProblem, setLoginProblem] = useState<string>();
   const [password, setPassword] = useState("");
@@ -37,7 +37,7 @@ export default function SignInModal(props: SignInModalProps): JSX.Element {
     });
 
   return (
-    <SignModal active={props.active} title="Authorization" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow active={props.active} title="Authorization" onClose={props.onClose} onSubmit={onSubmit}>
       <FormInput
         id="signin-username"
         name="user-name"
@@ -53,6 +53,6 @@ export default function SignInModal(props: SignInModalProps): JSX.Element {
         onChange={setPassword}
         validationProblem={passwordProblem}
       />
-    </SignModal>
+    </FormWindow>
   );
 }

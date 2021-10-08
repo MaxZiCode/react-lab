@@ -10,8 +10,8 @@ import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
 import Profile from "./profile";
-import SignInModal from "../signInModal/signInModal";
-import SignUpModal from "../signUpModal/signUpModal";
+import SignInWindow from "../signInWindow/signInWindow";
+import SignUpModal from "../signUpWindow/signUpWindow";
 
 interface AppState {
   username: string;
@@ -60,7 +60,7 @@ class App extends Component<RouteComponentProps, AppState> {
 
     return (
       <>
-        <SignInModal
+        <SignInWindow
           active={this.state.shouldShowSignIn}
           onClose={() => this.setState({ shouldShowSignIn: false, signInRedirectPath: undefined })}
           onSignedIn={(username) => {
