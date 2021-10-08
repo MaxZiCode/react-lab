@@ -2,6 +2,7 @@ import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
+import { getTop, Product } from "@/api/apiProducts";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -14,6 +15,7 @@ import SignUpModal from "../signUpModal/signUpModal";
 
 interface AppState {
   username: string;
+  topProducts: Product[];
   shouldShowSignIn: boolean;
   shouldShowSignUp: boolean;
   signInRedirectPath?: string;
@@ -22,7 +24,7 @@ interface AppState {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { username: "", shouldShowSignIn: false, shouldShowSignUp: false };
+    this.state = { username: "", shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
     this.redirect.bind(this);
     this.isSignedIn.bind(this);
   }
@@ -30,6 +32,10 @@ class App extends Component<RouteComponentProps, AppState> {
   // eslint-disable-next-line react/sort-comp
   redirect(path: string): void {
     this.props.history.push(path);
+  }
+
+  componentDidMount() {
+    getTop().then((ps) => this.setState({ topProducts: ps }));
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
@@ -81,9 +87,7 @@ class App extends Component<RouteComponentProps, AppState> {
         />
         <main>
           <Switch>
-            <Route exact path={relativeLinks.HOME}>
-              <Home />
-            </Route>
+            <Route exact path={relativeLinks.HOME} render={() => <Home products={this.state.topProducts} />} />
             <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...authRouteCommonProps}>
               <Products />
             </AuthRoute>
