@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { getTop, Product } from "@/api/apiProducts";
 import categoriesValues from "@/constants/categoriesValues";
 
-import CardMenu from "@/elements/cardMenu/cardMenu";
 import Search from "../search/search";
 import Category from "../../elements/category/category";
 import GameCard from "../../elements/gameCard/gameCard";
@@ -24,16 +23,22 @@ export default function Home(): JSX.Element {
   return (
     <div className="home">
       <Search />
-      <CardMenu title="Categories">
-        {categoryInfos.map((c) => (
-          <Category key={c.id} {...c} />
-        ))}
-      </CardMenu>
-      <CardMenu title="New games">
-        {products.map((p) => (
-          <GameCard key={p.id} {...p} />
-        ))}
-      </CardMenu>
+      <div className="big-menu home-menu">
+        <h2 className="big-menu-title">Categories</h2>
+        <div className="card-container">
+          {categoryInfos.map((c) => (
+            <Category key={c.id} {...c} />
+          ))}
+        </div>
+      </div>
+      <div className="big-menu home-menu">
+        <h2 className="big-menu-title">New games</h2>
+        <div className="card-container">
+          {products.map((p) => (
+            <GameCard key={p.id} {...p} />
+          ))}
+        </div>
+      </div>
       <br />
     </div>
   );

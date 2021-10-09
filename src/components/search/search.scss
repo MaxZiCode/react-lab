@@ -15,7 +15,6 @@ $searchBorderRadius: 20px;
 .search {
   width: 80%;
   max-width: 600px;
-  // box-sizing: content-box;
   background-color: $homeItemsBackgroundColor;
   border: $searchBorder;
   border-radius: $searchBorderRadius;
@@ -37,6 +36,7 @@ $searchBorderRadius: 20px;
 }
 
 .search-input-text {
+  width: 100%;
   font-size: $searchFontSize;
   color: $basicColor;
   padding-top: $searchInputPadding;

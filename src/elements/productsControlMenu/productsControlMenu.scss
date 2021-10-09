@@ -1,0 +1,32 @@
+.products-control-menu {
+  max-width: 300px;
+  width: auto;
+}
+
+.products-control-menu-section {
+  font-size: 14px;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+.ps-title {
+  font-size: medium;
+  padding-left: 0.5em;
+}
+
+.ps-sort-field {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 6px;
+
+  select {
+    max-width: 130px;
+    width: 100%;
+    padding-left: 10px;
+  }
+}
+
+.ps-filter-field {
+  margin-left: 4px;
+}
