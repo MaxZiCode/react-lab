@@ -1,4 +1,5 @@
 import "./home.scss";
+import "@/styles/cardContainer.scss";
 
 import { useEffect, useState } from "react";
 import { getTop, Product } from "@/api/apiProducts";
@@ -6,7 +7,7 @@ import categoriesValues from "@/constants/categoriesValues";
 
 import Search from "../search/search";
 import Category from "../../elements/category/category";
-import GameCard from "../../elements/gameCard/gameCard";
+import ProductsMenu from "../productsMenu/productsMenu";
 
 export default function Home(): JSX.Element {
   const [categoryInfos] = useState([...categoriesValues.values()]);
@@ -31,15 +32,7 @@ export default function Home(): JSX.Element {
           ))}
         </div>
       </div>
-      <div className="big-menu home-menu">
-        <h2 className="big-menu-title">New games</h2>
-        <div className="card-container">
-          {products.map((p) => (
-            <GameCard key={p.id} {...p} />
-          ))}
-        </div>
-      </div>
-      <br />
+      <ProductsMenu products={products} />
     </div>
   );
 }

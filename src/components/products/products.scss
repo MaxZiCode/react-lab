@@ -1,0 +1,23 @@
+.products {
+  display: flex;
+  justify-content: center;
+}
+
+.products-left-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.products-center-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+
+  .big-menu {
+    width: 850px;
+  }
+}

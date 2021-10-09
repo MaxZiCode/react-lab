@@ -2,7 +2,6 @@ import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
-import ProductsControlMenu from "@/elements/productsControlMenu/productsControlMenu";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -12,7 +11,7 @@ import Profile from "../profile/profile";
 import SignInModal from "../signInModal/signInModal";
 import SignUpModal from "../signUpModal/signUpModal";
 import UserContext, { UserContextProps } from "../userContext/userContext";
-import Products from "./products";
+import Products from "../products/products";
 
 interface AppState extends UserContextProps {
   shouldShowSignIn: boolean;
@@ -86,7 +85,7 @@ class App extends Component<RouteComponentProps, AppState> {
               <Home />
             </Route>
             <Route exact path={`${relativeLinks.PRODUCTS}/:categoryId`}>
-              <ProductsControlMenu />
+              <Products />
             </Route>
             <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...authRouteCommonProps}>
               <Products />

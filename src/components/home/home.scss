@@ -2,28 +2,11 @@
   display: flex;
   flex-flow: column;
   align-items: center;
+  max-width: 100vw;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .home > * {
   margin: 30px 0;
-}
-
-.card-container {
-  display: grid;
-  width: 100%;
-  grid-template: auto / repeat(3, auto);
-  justify-content: center;
-  gap: 40px;
-}
-
-@media screen and (max-width: 950px) {
-  .card-container {
-    grid-template: auto / repeat(2, auto);
-  }
-}
-
-@media screen and (max-width: 650px) {
-  .card-container {
-    grid-template: auto / auto;
-  }
 }
