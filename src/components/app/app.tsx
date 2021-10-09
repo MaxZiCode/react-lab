@@ -12,6 +12,7 @@ import SignInModal from "../signInModal/signInModal";
 import SignUpModal from "../signUpModal/signUpModal";
 import UserContext, { UserContextProps } from "../userContext/userContext";
 import Products from "../products/products";
+import Cart from "../cart/cart";
 
 interface AppState extends UserContextProps {
   shouldShowSignIn: boolean;
@@ -96,6 +97,9 @@ class App extends Component<RouteComponentProps, AppState> {
             <AuthRoute path={relativeLinks.USER} {...authRouteCommonProps}>
               <Profile />
             </AuthRoute>
+            <Route path={relativeLinks.CART}>
+              <Cart />
+            </Route>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
