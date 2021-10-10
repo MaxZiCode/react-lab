@@ -1,19 +1,25 @@
-import { VFC } from "react";
+import "@/elements/signModal/signModal.scss";
+import "./cardEditWindow.scss";
 
 import closeIcon from "@/assets/vectors/close.svg";
 
+import { VFC } from "react";
+
 const CardEditWindow: VFC = () => (
   <div id="card-edit">
-    <button className="modal-close-button" type="button">
-      <img src={closeIcon} alt="close icon" />
-    </button>
-    <div className="modal-title">Edit Card</div>
-    <div className="card-edit-content">
-      <div className="first-row">
+    <div className="top">
+      <div className="modal-title">Edit Card</div>
+      <button className="modal-close-button" type="button">
+        <img src={closeIcon} alt="close icon" />
+      </button>
+    </div>
+
+    <div className="middle">
+      <div className="first-column">
         <div className="title">Card image</div>
         <img src="https://upload.wikimedia.org/wikipedia/ru/9/98/Battlefield_1.jpg" alt="card" />
       </div>
-      <div className="second-row">
+      <div className="second-column">
         <div className="title">Information</div>
         <label htmlFor="card-edit-name">
           Name
@@ -38,12 +44,10 @@ const CardEditWindow: VFC = () => (
         </label>
         <label htmlFor="card-edit-description">
           Description
-          <input
-            type="text"
-            aria-multiline
+          <textarea
             name="description"
             id="card-edit-description"
-            defaultValue="Battlefield 1 is a first-person shooter video game developed by DICE and published by Electronic Arts. Battlefield 1 is the fifteenth installment in the Battlefield series,[1] and the first main entry in the series since Battlefield 4.[2] It was released worldwide for Microsoft Windows, PlayStation 4, and Xbox One on October 21, 2016."
+            defaultValue="Battlefield 1 is a first-person shooter video game developed by DICE and published by Electronic Arts. Battlefield 1 is the fifteenth installment in the Battlefield series, and the first main entry in the series since Battlefield 4. It was released worldwide for Microsoft Windows, PlayStation 4, and Xbox One on October 21, 2016."
           />
         </label>
         <label htmlFor="card-edit-age">
@@ -67,7 +71,8 @@ const CardEditWindow: VFC = () => (
         </label>
       </div>
     </div>
-    <div className="card-edit-bottom">
+
+    <div className="bottom">
       <button className="menu-button" type="button">
         Submit
       </button>
