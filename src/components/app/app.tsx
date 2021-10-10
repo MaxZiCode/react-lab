@@ -2,6 +2,7 @@ import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
+import CardEditWindow from "@/elements/cardEditWindow/cardEditWindow";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -82,6 +83,9 @@ class App extends Component<RouteComponentProps, AppState> {
         />
         <main>
           <Switch>
+            <Route path="/card">
+              <CardEditWindow />
+            </Route>
             <Route exact path={relativeLinks.HOME}>
               <Home />
             </Route>
