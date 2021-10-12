@@ -1,6 +1,10 @@
 import ReactDOM from "react-dom";
 
-const Modal: React.FC<{ active: boolean }> = ({ active, children }) =>
+export interface ModalProps {
+  active: boolean;
+}
+
+const Modal: React.FC<ModalProps> = ({ active, children }) =>
   ReactDOM.createPortal(active ? children : null, document.getElementById("app") as Element);
 
 export default Modal;

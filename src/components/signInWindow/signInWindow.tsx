@@ -2,14 +2,14 @@ import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
+import Modal, { ModalProps } from "@/elements/modal/modal";
 
 export interface SignInWindowProps {
-  active: boolean;
   onClose: () => void;
   onSignedIn: (username: string) => void;
 }
 
-export default function SignInWindow(props: SignInWindowProps): JSX.Element {
+function SignInWindow(props: SignInWindowProps): JSX.Element {
   const [login, setLogin] = useState("");
   const [loginProblem, setLoginProblem] = useState<string>();
   const [password, setPassword] = useState("");
@@ -37,7 +37,7 @@ export default function SignInWindow(props: SignInWindowProps): JSX.Element {
     });
 
   return (
-    <FormWindow active={props.active} title="Authorization" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow title="Authorization" onClose={props.onClose} onSubmit={onSubmit}>
       <FormInput
         id="signin-username"
         name="user-name"
@@ -56,3 +56,9 @@ export default function SignInWindow(props: SignInWindowProps): JSX.Element {
     </FormWindow>
   );
 }
+
+export default ({ active, ...props }: ModalProps & SignInWindowProps): JSX.Element => (
+  <Modal active={active}>
+    <SignInWindow {...props} />
+  </Modal>
+);
