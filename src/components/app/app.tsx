@@ -25,8 +25,16 @@ class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
     this.state = { username: "", shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
-    this.redirect.bind(this);
-    this.isSignedIn.bind(this);
+    this.redirect = this.redirect.bind(this);
+    this.isSignedIn = this.isSignedIn.bind(this);
+    this.showSignInCallback = this.showSignInCallback.bind(this);
+    this.showSignUpnCallback = this.showSignUpnCallback.bind(this);
+    this.signOutCallback = this.signOutCallback.bind(this);
+    this.onSignedIn = this.onSignedIn.bind(this);
+    this.onSignedUp = this.onSignedUp.bind(this);
+    this.setSignInRedirectPath = this.setSignInRedirectPath.bind(this);
+    this.onCloseSignIn = this.onCloseSignIn.bind(this);
+    this.onCloseSignUp = this.onCloseSignUp.bind(this);
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -49,45 +57,64 @@ class App extends Component<RouteComponentProps, AppState> {
     return this.state.username !== "";
   }
 
+  showSignInCallback() {
+    this.setState({ shouldShowSignIn: true });
+  }
+
+  showSignUpnCallback() {
+    this.setState({ shouldShowSignUp: true });
+  }
+
+  signOutCallback() {
+    this.setState({ username: "" });
+    this.redirect(relativeLinks.HOME);
+  }
+
+  onSignedIn(username: string) {
+    this.setState({ username });
+    if (this.state.signInRedirectPath) this.redirect(this.state.signInRedirectPath);
+  }
+
+  setSignInRedirectPath(path: string) {
+    this.setState({ signInRedirectPath: path });
+  }
+
+  onSignedUp(username: string) {
+    this.setState({ username });
+    this.redirect(relativeLinks.USER);
+  }
+
+  onCloseSignIn() {
+    this.setState({ shouldShowSignIn: false, signInRedirectPath: undefined });
+  }
+
+  onCloseSignUp() {
+    this.setState({ shouldShowSignUp: false });
+  }
+
   render(): JSX.Element {
-    const showSignInCallback = () => this.setState({ shouldShowSignIn: true });
     const authRouteCommonProps = {
       isSignedIn: this.isSignedIn(),
       defaultPath: relativeLinks.HOME,
-      showSignInCallback,
-      setSignInRedirectPath: (path: string) => this.setState({ signInRedirectPath: path }),
+      showSignInCallback: this.showSignInCallback,
+      setSignInRedirectPath: this.setSignInRedirectPath,
     };
 
     return (
       <>
-        <SignInWindow
-          active={this.state.shouldShowSignIn}
-          onClose={() => this.setState({ shouldShowSignIn: false, signInRedirectPath: undefined })}
-          onSignedIn={(username) => {
-            this.setState({ username });
-            if (this.state.signInRedirectPath) this.redirect(this.state.signInRedirectPath);
-          }}
-        />
-        <SignUpModal
-          active={this.state.shouldShowSignUp}
-          onClose={() => this.setState({ shouldShowSignUp: false })}
-          onSignedUp={(username) => {
-            this.setState({ username });
-            this.redirect(relativeLinks.USER);
-          }}
-        />
+        <SignInWindow active={this.state.shouldShowSignIn} onClose={this.onCloseSignIn} onSignedIn={this.onSignedIn} />
+        <SignUpModal active={this.state.shouldShowSignUp} onClose={this.onCloseSignUp} onSignedUp={this.onSignedUp} />
         <Header
           userName={this.state.username}
-          signInCallback={showSignInCallback}
-          signUpCallback={() => this.setState({ shouldShowSignUp: true })}
-          signOutCallback={() => {
-            this.setState({ username: "" });
-            this.redirect(relativeLinks.HOME);
-          }}
+          signInCallback={this.showSignInCallback}
+          signUpCallback={this.showSignUpnCallback}
+          signOutCallback={this.signOutCallback}
         />
         <main>
           <Switch>
-            <Route exact path={relativeLinks.HOME} render={() => <Home products={this.state.topProducts} />} />
+            <Route exact path={relativeLinks.HOME}>
+              <Home products={this.state.topProducts} />
+            </Route>
             <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...authRouteCommonProps}>
               <Products />
             </AuthRoute>
