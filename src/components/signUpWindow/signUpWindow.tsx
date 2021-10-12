@@ -1,15 +1,15 @@
 import { signUp } from "@/api/apiAuth";
 import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
+import Modal, { ModalProps } from "@/elements/modal/modal";
 import { useState } from "react";
 
 export interface SignUpWindowProps {
-  active: boolean;
   onClose: () => void;
   onSignedUp: (username: string) => void;
 }
 
-export default function SignUpModal(props: SignUpWindowProps): JSX.Element {
+function SignUpModal(props: SignUpWindowProps): JSX.Element {
   const [username, setUserName] = useState("");
   const [usernameProblem, setUsernameProblem] = useState<string>();
 
@@ -50,7 +50,7 @@ export default function SignUpModal(props: SignUpWindowProps): JSX.Element {
   };
 
   return (
-    <FormWindow active={props.active} title="Registration" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow title="Registration" onClose={props.onClose} onSubmit={onSubmit}>
       <FormInput
         id="signup-username"
         name="user-name"
@@ -77,3 +77,9 @@ export default function SignUpModal(props: SignUpWindowProps): JSX.Element {
     </FormWindow>
   );
 }
+
+export default ({ active, ...props }: ModalProps & SignUpWindowProps) => (
+  <Modal active={active}>
+    <SignUpModal {...props} />
+  </Modal>
+);
