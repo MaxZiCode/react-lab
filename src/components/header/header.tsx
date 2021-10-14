@@ -9,6 +9,7 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/urls";
 import { useEffect, useState } from "react";
+import UserContext from "../userContext/userContext";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -31,7 +32,7 @@ function ButtonContent(params: ButtonContentParams) {
 }
 
 export interface HeaderProps {
-  userName: string;
+  isSignedIn: boolean;
   signInCallback: () => void;
   signUpCallback: () => void;
   signOutCallback: () => void;
@@ -120,7 +121,9 @@ export default function Header(props: HeaderProps): JSX.Element {
       id: "user",
       node: (
         <NavLink to={relativeLinks.USER} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label={props.userName} icon={{ imagePath: userIcon, alt: "user icon" }} />
+          <UserContext.Consumer>
+            {({ username }) => <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />}
+          </UserContext.Consumer>
         </NavLink>
       ),
     },
@@ -142,7 +145,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     },
   ];
 
-  const items = props.userName ? signedInItems : anonItems;
+  const items = props.isSignedIn ? signedInItems : anonItems;
 
   return (
     <header>

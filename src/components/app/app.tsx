@@ -12,9 +12,9 @@ import About from "./about";
 import Profile from "./profile";
 import SignInWindow from "../signInWindow/signInWindow";
 import SignUpModal from "../signUpWindow/signUpWindow";
+import UserContext, { UserContextProps } from "../userContext/userContext";
 
-interface AppState {
-  username: string;
+interface AppState extends UserContextProps {
   topProducts: Product[];
   shouldShowSignIn: boolean;
   shouldShowSignUp: boolean;
@@ -24,7 +24,7 @@ interface AppState {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { username: "", shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
+    this.state = { shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
     this.redirect = this.redirect.bind(this);
     this.isSignedIn = this.isSignedIn.bind(this);
     this.showSignInCallback = this.showSignInCallback.bind(this);
@@ -54,7 +54,7 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   isSignedIn(): boolean {
-    return this.state.username !== "";
+    return this.state.username !== undefined;
   }
 
   showSignInCallback() {
@@ -66,7 +66,7 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   signOutCallback() {
-    this.setState({ username: "" });
+    this.setState({ username: undefined });
     this.redirect(relativeLinks.HOME);
   }
 
@@ -101,11 +101,11 @@ class App extends Component<RouteComponentProps, AppState> {
     };
 
     return (
-      <>
+      <UserContext.Provider value={this.state}>
         <SignInWindow active={this.state.shouldShowSignIn} onClose={this.onCloseSignIn} onSignedIn={this.onSignedIn} />
         <SignUpModal active={this.state.shouldShowSignUp} onClose={this.onCloseSignUp} onSignedUp={this.onSignedUp} />
         <Header
-          userName={this.state.username}
+          isSignedIn={this.isSignedIn()}
           signInCallback={this.showSignInCallback}
           signUpCallback={this.showSignUpnCallback}
           signOutCallback={this.signOutCallback}
@@ -122,13 +122,13 @@ class App extends Component<RouteComponentProps, AppState> {
               <About />
             </AuthRoute>
             <AuthRoute path={relativeLinks.USER} {...authRouteCommonProps}>
-              <Profile name={this.state.username} />
+              <Profile />
             </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
         <Footer />
-      </>
+      </UserContext.Provider>
     );
   }
 }
