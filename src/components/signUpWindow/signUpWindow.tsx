@@ -2,7 +2,9 @@ import { signUp } from "@/api/apiAuth";
 import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import Modal, { ModalProps } from "@/elements/modal/modal";
+import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export interface SignUpWindowProps {
   onClose: () => void;
@@ -10,6 +12,8 @@ export interface SignUpWindowProps {
 }
 
 function SignUpModal(props: SignUpWindowProps): JSX.Element {
+  const dispatch = useDispatch();
+
   const [username, setUserName] = useState("");
   const [usernameProblem, setUsernameProblem] = useState<string>();
 
@@ -43,6 +47,7 @@ function SignUpModal(props: SignUpWindowProps): JSX.Element {
     if (validate())
       await signUp(username, password).then((r) => {
         if (r.status === 201) {
+          dispatch(signInUser(username));
           props.onSignedUp(username);
           props.onClose();
         } else alert("Unknown error");
@@ -78,7 +83,7 @@ function SignUpModal(props: SignUpWindowProps): JSX.Element {
   );
 }
 
-export default ({ active, ...props }: ModalProps & SignUpWindowProps) => (
+export default ({ active, ...props }: ModalProps & SignUpWindowProps): JSX.Element => (
   <Modal active={active}>
     <SignUpModal {...props} />
   </Modal>

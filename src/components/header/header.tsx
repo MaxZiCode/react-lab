@@ -9,6 +9,9 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/urls";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { signOutUser } from "@/redux/user/userActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -31,13 +34,14 @@ function ButtonContent(params: ButtonContentParams) {
 }
 
 export interface HeaderProps {
-  userName: string;
   signInCallback: () => void;
   signUpCallback: () => void;
   signOutCallback: () => void;
 }
 
 export default function Header(props: HeaderProps): JSX.Element {
+  const dispatch = useDispatch();
+
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
   const [navBarStyle, setNavBarStyle] = useState("navbar");
 
@@ -114,13 +118,19 @@ export default function Header(props: HeaderProps): JSX.Element {
     },
   ];
 
+  const { username } = useSelector((s: RootState) => s.user);
+  const onSignOut = () => {
+    dispatch(signOutUser());
+    props.signOutCallback();
+  };
+
   const signedInItems = [
     ...commonItems,
     {
       id: "user",
       node: (
         <NavLink to={relativeLinks.USER} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label={props.userName} icon={{ imagePath: userIcon, alt: "user icon" }} />
+          <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />
         </NavLink>
       ),
     },
@@ -135,14 +145,15 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "logout",
       node: (
-        <button type="button" className={linkClassName} onClick={props.signOutCallback}>
+        <button type="button" className={linkClassName} onClick={onSignOut}>
           <ButtonContent icon={{ imagePath: logoutIcon, alt: "logout icon" }} />
         </button>
       ),
     },
   ];
 
-  const items = props.userName ? signedInItems : anonItems;
+  const { isSignedIn } = useSelector((s: RootState) => s.user);
+  const items = isSignedIn ? signedInItems : anonItems;
 
   return (
     <header>

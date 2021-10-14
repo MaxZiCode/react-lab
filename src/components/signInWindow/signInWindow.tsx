@@ -3,13 +3,16 @@ import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
 import Modal, { ModalProps } from "@/elements/modal/modal";
+import { useDispatch } from "react-redux";
+import { signInUser } from "@/redux/user/userActions";
 
 export interface SignInWindowProps {
   onClose: () => void;
-  onSignedIn: (username: string) => void;
 }
 
 function SignInWindow(props: SignInWindowProps): JSX.Element {
+  const dispatch = useDispatch();
+
   const [login, setLogin] = useState("");
   const [loginProblem, setLoginProblem] = useState<string>();
   const [password, setPassword] = useState("");
@@ -29,7 +32,9 @@ function SignInWindow(props: SignInWindowProps): JSX.Element {
     signIn(login, password).then((r) => {
       if (r.ok) {
         resetProblems();
-        props.onSignedIn(login);
+
+        dispatch(signInUser(login));
+
         props.onClose();
       } else if (r.status === 400) {
         setProblem("Invalid login or password.");

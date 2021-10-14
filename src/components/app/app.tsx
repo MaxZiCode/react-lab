@@ -14,7 +14,6 @@ import SignInWindow from "../signInWindow/signInWindow";
 import SignUpModal from "../signUpWindow/signUpWindow";
 
 interface AppState {
-  username: string;
   topProducts: Product[];
   shouldShowSignIn: boolean;
   shouldShowSignUp: boolean;
@@ -24,9 +23,8 @@ interface AppState {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { username: "", shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
+    this.state = { shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
     this.redirect = this.redirect.bind(this);
-    this.isSignedIn = this.isSignedIn.bind(this);
     this.showSignInCallback = this.showSignInCallback.bind(this);
     this.showSignUpnCallback = this.showSignUpnCallback.bind(this);
     this.signOutCallback = this.signOutCallback.bind(this);
@@ -53,10 +51,6 @@ class App extends Component<RouteComponentProps, AppState> {
     this.redirect(relativeLinks.HOME);
   }
 
-  isSignedIn(): boolean {
-    return this.state.username !== "";
-  }
-
   showSignInCallback() {
     this.setState({ shouldShowSignIn: true });
   }
@@ -66,12 +60,10 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   signOutCallback() {
-    this.setState({ username: "" });
     this.redirect(relativeLinks.HOME);
   }
 
-  onSignedIn(username: string) {
-    this.setState({ username });
+  onSignedIn() {
     if (this.state.signInRedirectPath) this.redirect(this.state.signInRedirectPath);
   }
 
@@ -79,8 +71,7 @@ class App extends Component<RouteComponentProps, AppState> {
     this.setState({ signInRedirectPath: path });
   }
 
-  onSignedUp(username: string) {
-    this.setState({ username });
+  onSignedUp() {
     this.redirect(relativeLinks.USER);
   }
 
@@ -94,7 +85,6 @@ class App extends Component<RouteComponentProps, AppState> {
 
   render(): JSX.Element {
     const authRouteCommonProps = {
-      isSignedIn: this.isSignedIn(),
       defaultPath: relativeLinks.HOME,
       showSignInCallback: this.showSignInCallback,
       setSignInRedirectPath: this.setSignInRedirectPath,
@@ -102,10 +92,9 @@ class App extends Component<RouteComponentProps, AppState> {
 
     return (
       <>
-        <SignInWindow active={this.state.shouldShowSignIn} onClose={this.onCloseSignIn} onSignedIn={this.onSignedIn} />
+        <SignInWindow active={this.state.shouldShowSignIn} onClose={this.onCloseSignIn} />
         <SignUpModal active={this.state.shouldShowSignUp} onClose={this.onCloseSignUp} onSignedUp={this.onSignedUp} />
         <Header
-          userName={this.state.username}
           signInCallback={this.showSignInCallback}
           signUpCallback={this.showSignUpnCallback}
           signOutCallback={this.signOutCallback}
@@ -122,7 +111,7 @@ class App extends Component<RouteComponentProps, AppState> {
               <About />
             </AuthRoute>
             <AuthRoute path={relativeLinks.USER} {...authRouteCommonProps}>
-              <Profile name={this.state.username} />
+              <Profile />
             </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
