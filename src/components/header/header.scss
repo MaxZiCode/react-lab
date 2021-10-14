@@ -1,4 +1,5 @@
 @import "@/styles/panels.scss";
+
 $titleMargin: 10px;
 $triangleHeight: 5px;
 $paddingItemBottom: 5px;
@@ -20,21 +21,30 @@ header {
 }
 
 .navbar-item {
+  @extend .panel-link-hover-focus;
+  font-family: inherit;
+  font-size: inherit;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-grow: 1;
   padding: $paddingItem;
   width: 100%;
+  cursor: pointer;
+}
+
+.navbar-item-icon {
+  height: 1.5em;
+  margin-right: 5px;
 }
 
 .navbar-item:hover,
-a .navbar-item:hover {
+.navbar-dropdown-navlink:hover .navbar-dropdown-button {
   background-color: $panelBackgroundColorLignt;
 }
 
 .navbar-item.selected,
-a.selected .navbar-item {
+.navbar-dropdown-navlink.selected .navbar-dropdown-button {
   padding-bottom: 0;
   border-bottom: $paddingItemBottom solid $selectionColor;
 }
@@ -90,7 +100,7 @@ a.selected .navbar-item {
   margin-top: 0;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 750px) {
   .navbar-menu {
     display: none;
   }

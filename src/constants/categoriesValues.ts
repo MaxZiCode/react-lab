@@ -1,4 +1,4 @@
-import headerValues from "./headerValues";
+import headerValues from "./urls";
 import windowsLogo from "../assets/vectors/Vector_windows.svg";
 import psLogo from "../assets/vectors/Vector_playstation.svg";
 import xboxLogo from "../assets/vectors/Vector_xbox.svg";

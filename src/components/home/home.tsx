@@ -1,25 +1,16 @@
 import "./home.scss";
 
-import { useEffect, useState } from "react";
-import { getTop, Product } from "@/api/apiProducts";
+import { useState } from "react";
+import { Product } from "@/api/apiProducts";
 import categoriesValues from "@/constants/categoriesValues";
 
-import HomeMenu from "../homeMenu/homeMenu";
+import HomeMenu from "../../elements/homeMenu/homeMenu";
 import Search from "../search/search";
-import Category from "../category/category";
-import GameCard from "../gameCard/gameCard";
+import Category from "../../elements/category/category";
+import GameCard from "../../elements/gameCard/gameCard";
 
-export default function Home(): JSX.Element {
+export default function Home({ products }: { products: Product[] }): JSX.Element {
   const [categoryInfos] = useState([...categoriesValues.values()]);
-
-  const [products, setProducts] = useState([] as Product[]);
-  const [isProductsRequested, setIsProductsRequested] = useState(false);
-  useEffect(() => {
-    if (products.length === 0 && !isProductsRequested) {
-      getTop().then((ps) => setProducts(ps));
-      setIsProductsRequested(true);
-    }
-  });
 
   return (
     <div className="home">
