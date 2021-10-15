@@ -1,4 +1,4 @@
-import { Product } from "@/api/apiProducts";
+import { Product } from "@/types";
 
 export interface UserState {
   username?: string;
@@ -14,6 +14,6 @@ export interface ModalsState {
   isSignUpShowing: boolean;
 }
 
-export interface RouteState {
+export interface RoutesState {
   signInRedirectPath?: string;
 }

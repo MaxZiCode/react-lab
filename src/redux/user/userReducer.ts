@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
-import { UserConstants } from "./userConstants";
-import { UserState } from "../types";
+import { UserConstants } from "../constants";
+import { UserState } from "../states";
 
 const initialState: UserState = {
   isSignedIn: false,

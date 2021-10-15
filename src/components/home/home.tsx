@@ -1,16 +1,30 @@
 import "./home.scss";
 
-import { useState } from "react";
-import { Product } from "@/api/apiProducts";
+import { useEffect, useState, VFC } from "react";
 import categoriesValues from "@/constants/categoriesValues";
 
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { getTop } from "@/api/apiProducts";
+import { setTopProducts } from "@/redux/products/productsActions";
 import HomeMenu from "../../elements/homeMenu/homeMenu";
 import Search from "../search/search";
 import Category from "../../elements/category/category";
 import GameCard from "../../elements/gameCard/gameCard";
 
-export default function Home({ products }: { products: Product[] }): JSX.Element {
+const Home: VFC = () => {
+  const dispatch = useDispatch();
+  const { topProducts } = useSelector((s: RootState) => s.products);
+
   const [categoryInfos] = useState([...categoriesValues.values()]);
+  const [hasProductsRequested, setHasProductsRequested] = useState(false);
+
+  useEffect(() => {
+    if (!hasProductsRequested && topProducts.length === 0) {
+      getTop().then((ps) => dispatch(setTopProducts(ps)));
+      setHasProductsRequested(true);
+    }
+  });
 
   return (
     <div className="home">
@@ -21,11 +35,13 @@ export default function Home({ products }: { products: Product[] }): JSX.Element
         ))}
       </HomeMenu>
       <HomeMenu title="New games">
-        {products.map((p) => (
+        {topProducts.map((p) => (
           <GameCard key={p.id} {...p} />
         ))}
       </HomeMenu>
       <br />
     </div>
   );
-}
+};
+
+export default Home;
