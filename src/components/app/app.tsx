@@ -22,12 +22,7 @@ interface AppState extends UserContextProps {
 }
 
 class App extends Component<RouteComponentProps, AppState> {
-  authRouteCommonProps = {
-    isSignedIn: this.state.isSignedIn,
-    defaultPath: relativeLinks.HOME,
-    showSignInCallback: this.showSignInCallback,
-    setSignInRedirectPath: this.setSignInRedirectPath,
-  };
+  authRouteCommonProps;
 
   constructor(props: RouteComponentProps) {
     super(props);
@@ -41,6 +36,12 @@ class App extends Component<RouteComponentProps, AppState> {
     this.setSignInRedirectPath = this.setSignInRedirectPath.bind(this);
     this.onCloseSignIn = this.onCloseSignIn.bind(this);
     this.onCloseSignUp = this.onCloseSignUp.bind(this);
+    this.authRouteCommonProps = {
+      isSignedIn: this.state.isSignedIn,
+      defaultPath: relativeLinks.HOME,
+      showSignInCallback: this.showSignInCallback,
+      setSignInRedirectPath: this.setSignInRedirectPath,
+    };
   }
 
   // eslint-disable-next-line react/sort-comp
