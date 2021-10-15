@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
@@ -22,9 +23,8 @@ interface AppState extends UserContextProps {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { shouldShowSignIn: false, shouldShowSignUp: false };
+    this.state = { isSignedIn: false, shouldShowSignIn: false, shouldShowSignUp: false };
     this.redirect.bind(this);
-    this.isSignedIn.bind(this);
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -39,14 +39,10 @@ class App extends Component<RouteComponentProps, AppState> {
     this.redirect(relativeLinks.HOME);
   }
 
-  isSignedIn(): boolean {
-    return this.state.username !== undefined;
-  }
-
   render(): JSX.Element {
     const showSignInCallback = () => this.setState({ shouldShowSignIn: true });
     const authRouteCommonProps = {
-      isSignedIn: this.isSignedIn(),
+      isSignedIn: this.state.isSignedIn,
       defaultPath: relativeLinks.HOME,
       showSignInCallback,
       setSignInRedirectPath: (path: string) => this.setState({ signInRedirectPath: path }),
@@ -71,7 +67,7 @@ class App extends Component<RouteComponentProps, AppState> {
           }}
         />
         <Header
-          isSignedIn={this.isSignedIn()}
+          isSignedIn={this.state.isSignedIn}
           signInCallback={showSignInCallback}
           signUpCallback={() => this.setState({ shouldShowSignUp: true })}
           signOutCallback={() => {
