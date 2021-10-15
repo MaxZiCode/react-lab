@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
@@ -23,11 +22,17 @@ interface AppState extends UserContextProps {
 }
 
 class App extends Component<RouteComponentProps, AppState> {
+  authRouteCommonProps = {
+    isSignedIn: this.state.isSignedIn,
+    defaultPath: relativeLinks.HOME,
+    showSignInCallback: this.showSignInCallback,
+    setSignInRedirectPath: this.setSignInRedirectPath,
+  };
+
   constructor(props: RouteComponentProps) {
     super(props);
     this.state = { isSignedIn: false, shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
     this.redirect = this.redirect.bind(this);
-    this.isSignedIn = this.isSignedIn.bind(this);
     this.showSignInCallback = this.showSignInCallback.bind(this);
     this.showSignUpnCallback = this.showSignUpnCallback.bind(this);
     this.signOutCallback = this.signOutCallback.bind(this);
@@ -54,10 +59,6 @@ class App extends Component<RouteComponentProps, AppState> {
     this.redirect(relativeLinks.HOME);
   }
 
-  isSignedIn(): boolean {
-    return this.state.username !== undefined;
-  }
-
   showSignInCallback() {
     this.setState({ shouldShowSignIn: true });
   }
@@ -67,11 +68,13 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   signOutCallback() {
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ username: undefined });
     this.redirect(relativeLinks.HOME);
   }
 
   onSignedIn(username: string) {
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ username });
     if (this.state.signInRedirectPath) this.redirect(this.state.signInRedirectPath);
   }
@@ -81,6 +84,7 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   onSignedUp(username: string) {
+    // eslint-disable-next-line react/no-unused-state
     this.setState({ username });
     this.redirect(relativeLinks.USER);
   }
@@ -94,19 +98,12 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   render(): JSX.Element {
-    const authRouteCommonProps = {
-      isSignedIn: this.state.isSignedIn,
-      defaultPath: relativeLinks.HOME,
-      showSignInCallback: this.showSignInCallback,
-      setSignInRedirectPath: this.setSignInRedirectPath,
-    };
-
     return (
       <UserContext.Provider value={this.state}>
         <SignInWindow active={this.state.shouldShowSignIn} onClose={this.onCloseSignIn} onSignedIn={this.onSignedIn} />
         <SignUpModal active={this.state.shouldShowSignUp} onClose={this.onCloseSignUp} onSignedUp={this.onSignedUp} />
         <Header
-          isSignedIn={this.isSignedIn()}
+          isSignedIn={this.state.isSignedIn}
           signInCallback={this.showSignInCallback}
           signUpCallback={this.showSignUpnCallback}
           signOutCallback={this.signOutCallback}
@@ -116,13 +113,13 @@ class App extends Component<RouteComponentProps, AppState> {
             <Route exact path={relativeLinks.HOME}>
               <Home products={this.state.topProducts} />
             </Route>
-            <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...authRouteCommonProps}>
+            <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...this.authRouteCommonProps}>
               <Products />
             </AuthRoute>
-            <AuthRoute path={relativeLinks.ABOUT} {...authRouteCommonProps}>
+            <AuthRoute path={relativeLinks.ABOUT} {...this.authRouteCommonProps}>
               <About />
             </AuthRoute>
-            <AuthRoute path={relativeLinks.USER} {...authRouteCommonProps}>
+            <AuthRoute path={relativeLinks.USER} {...this.authRouteCommonProps}>
               <Profile />
             </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
