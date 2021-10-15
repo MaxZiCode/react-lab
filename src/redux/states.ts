@@ -15,5 +15,5 @@ export interface ModalsState {
 }
 
 export interface RoutesState {
-  signInRedirectPath?: string;
+  redirectSignIn?: string;
 }

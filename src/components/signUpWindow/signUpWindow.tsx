@@ -1,4 +1,5 @@
 import { signUp } from "@/api/apiAuth";
+import urls from "@/constants/urls";
 import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import Modal from "@/elements/modal/modal";
@@ -7,9 +8,11 @@ import { RootState } from "@/redux/store";
 import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 function SignUpModal(): JSX.Element {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [username, setUserName] = useState("");
   const [usernameProblem, setUsernameProblem] = useState<string>();
@@ -48,6 +51,7 @@ function SignUpModal(): JSX.Element {
         if (r.status === 201) {
           dispatch(signInUser(username));
           close();
+          history.push(urls.USER);
         } else alert("Unknown error");
       });
   };

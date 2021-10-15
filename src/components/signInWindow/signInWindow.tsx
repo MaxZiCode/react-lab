@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "@/redux/user/userActions";
 import { RootState } from "@/redux/store";
 import { closeSignIn } from "@/redux/modals/modalsActions";
+import { useHistory } from "react-router";
 
 function SignInWindow(): JSX.Element {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [login, setLogin] = useState("");
   const [loginProblem, setLoginProblem] = useState<string>();
@@ -34,6 +36,9 @@ function SignInWindow(): JSX.Element {
         resetProblems();
         dispatch(signInUser(login));
         close();
+
+        const redirectRoute = useSelector((s: RootState) => s.routes.redirectSignIn);
+        if (redirectRoute) history.push(redirectRoute);
       } else if (r.status === 400) {
         setProblem("Invalid login or password.");
       } else alert("Unknown error");

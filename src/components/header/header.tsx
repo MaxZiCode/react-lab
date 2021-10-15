@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { signOutUser } from "@/redux/user/userActions";
 import { showSignIn, showSignUp } from "@/redux/modals/modalsActions";
+import { useHistory } from "react-router";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -34,12 +35,9 @@ function ButtonContent(params: ButtonContentParams) {
   );
 }
 
-export interface HeaderProps {
-  signOutCallback: () => void;
-}
-
-export default function Header(props: HeaderProps): JSX.Element {
+export default function Header(): JSX.Element {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
   const [navBarStyle, setNavBarStyle] = useState("navbar");
@@ -120,7 +118,7 @@ export default function Header(props: HeaderProps): JSX.Element {
   const { username } = useSelector((s: RootState) => s.user);
   const onSignOut = () => {
     dispatch(signOutUser());
-    props.signOutCallback();
+    history.push(relativeLinks.HOME);
   };
 
   const signedInItems = [
