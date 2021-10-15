@@ -13,24 +13,18 @@ import SignInWindow from "../signInWindow/signInWindow";
 import SignUpModal from "../signUpWindow/signUpWindow";
 
 interface AppState {
-  shouldShowSignIn: boolean;
-  shouldShowSignUp: boolean;
   signInRedirectPath?: string;
 }
 
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { shouldShowSignIn: false, shouldShowSignUp: false };
     this.redirect = this.redirect.bind(this);
-    this.showSignInCallback = this.showSignInCallback.bind(this);
-    this.showSignUpnCallback = this.showSignUpnCallback.bind(this);
     this.signOutCallback = this.signOutCallback.bind(this);
     this.onSignedIn = this.onSignedIn.bind(this);
     this.onSignedUp = this.onSignedUp.bind(this);
     this.setSignInRedirectPath = this.setSignInRedirectPath.bind(this);
     this.onCloseSignIn = this.onCloseSignIn.bind(this);
-    this.onCloseSignUp = this.onCloseSignUp.bind(this);
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -43,14 +37,6 @@ class App extends Component<RouteComponentProps, AppState> {
     console.error(message);
     alert(message);
     this.redirect(relativeLinks.HOME);
-  }
-
-  showSignInCallback() {
-    this.setState({ shouldShowSignIn: true });
-  }
-
-  showSignUpnCallback() {
-    this.setState({ shouldShowSignUp: true });
   }
 
   signOutCallback() {
@@ -70,29 +56,20 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   onCloseSignIn() {
-    this.setState({ shouldShowSignIn: false, signInRedirectPath: undefined });
-  }
-
-  onCloseSignUp() {
-    this.setState({ shouldShowSignUp: false });
+    this.setState({ signInRedirectPath: undefined });
   }
 
   render(): JSX.Element {
     const authRouteCommonProps = {
       defaultPath: relativeLinks.HOME,
-      showSignInCallback: this.showSignInCallback,
       setSignInRedirectPath: this.setSignInRedirectPath,
     };
 
     return (
       <>
-        <SignInWindow active={this.state.shouldShowSignIn} onClose={this.onCloseSignIn} />
-        <SignUpModal active={this.state.shouldShowSignUp} onClose={this.onCloseSignUp} onSignedUp={this.onSignedUp} />
-        <Header
-          signInCallback={this.showSignInCallback}
-          signUpCallback={this.showSignUpnCallback}
-          signOutCallback={this.signOutCallback}
-        />
+        <SignInWindow />
+        <SignUpModal />
+        <Header signOutCallback={this.signOutCallback} />
         <main>
           <Switch>
             <Route exact path={relativeLinks.HOME}>

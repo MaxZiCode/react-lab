@@ -1,17 +1,14 @@
 import { signUp } from "@/api/apiAuth";
 import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
-import Modal, { ModalProps } from "@/elements/modal/modal";
+import Modal from "@/elements/modal/modal";
+import { closeSignUp } from "@/redux/modals/modalsActions";
+import { RootState } from "@/redux/store";
 import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export interface SignUpWindowProps {
-  onClose: () => void;
-  onSignedUp: (username: string) => void;
-}
-
-function SignUpModal(props: SignUpWindowProps): JSX.Element {
+function SignUpModal(): JSX.Element {
   const dispatch = useDispatch();
 
   const [username, setUserName] = useState("");
@@ -22,6 +19,8 @@ function SignUpModal(props: SignUpWindowProps): JSX.Element {
 
   const [repeatPassword, setRepeatPassword] = useState("");
   const [repeatPasswordProblem, setRepeatPasswordProblem] = useState<string>();
+
+  const close = () => dispatch(closeSignUp());
 
   const validate = () => {
     // Pattern source: https://ihateregex.io/expr/email/
@@ -48,14 +47,13 @@ function SignUpModal(props: SignUpWindowProps): JSX.Element {
       await signUp(username, password).then((r) => {
         if (r.status === 201) {
           dispatch(signInUser(username));
-          props.onSignedUp(username);
-          props.onClose();
+          close();
         } else alert("Unknown error");
       });
   };
 
   return (
-    <FormWindow title="Registration" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow title="Registration" onClose={close} onSubmit={onSubmit}>
       <FormInput
         id="signup-username"
         name="user-name"
@@ -83,8 +81,8 @@ function SignUpModal(props: SignUpWindowProps): JSX.Element {
   );
 }
 
-export default ({ active, ...props }: ModalProps & SignUpWindowProps): JSX.Element => (
-  <Modal active={active}>
-    <SignUpModal {...props} />
+export default (): JSX.Element => (
+  <Modal active={useSelector((s: RootState) => s.modals.isSignUpShowing)}>
+    <SignUpModal />
   </Modal>
 );

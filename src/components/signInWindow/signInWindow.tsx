@@ -2,15 +2,13 @@ import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
-import Modal, { ModalProps } from "@/elements/modal/modal";
-import { useDispatch } from "react-redux";
+import Modal from "@/elements/modal/modal";
+import { useDispatch, useSelector } from "react-redux";
 import { signInUser } from "@/redux/user/userActions";
+import { RootState } from "@/redux/store";
+import { closeSignIn } from "@/redux/modals/modalsActions";
 
-export interface SignInWindowProps {
-  onClose: () => void;
-}
-
-function SignInWindow(props: SignInWindowProps): JSX.Element {
+function SignInWindow(): JSX.Element {
   const dispatch = useDispatch();
 
   const [login, setLogin] = useState("");
@@ -28,21 +26,21 @@ function SignInWindow(props: SignInWindowProps): JSX.Element {
     setPasswordProblem(undefined);
   };
 
+  const close = () => dispatch(closeSignIn());
+
   const onSubmit = () =>
     signIn(login, password).then((r) => {
       if (r.ok) {
         resetProblems();
-
         dispatch(signInUser(login));
-
-        props.onClose();
+        close();
       } else if (r.status === 400) {
         setProblem("Invalid login or password.");
       } else alert("Unknown error");
     });
 
   return (
-    <FormWindow title="Authorization" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow title="Authorization" onClose={close} onSubmit={onSubmit}>
       <FormInput
         id="signin-username"
         name="user-name"
@@ -62,8 +60,8 @@ function SignInWindow(props: SignInWindowProps): JSX.Element {
   );
 }
 
-export default ({ active, ...props }: ModalProps & SignInWindowProps): JSX.Element => (
-  <Modal active={active}>
-    <SignInWindow {...props} />
+export default (): JSX.Element => (
+  <Modal active={useSelector((s: RootState) => s.modals.isSignInShowing)}>
+    <SignInWindow />
   </Modal>
 );

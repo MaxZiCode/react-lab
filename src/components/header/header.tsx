@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { signOutUser } from "@/redux/user/userActions";
+import { showSignIn, showSignUp } from "@/redux/modals/modalsActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -34,8 +35,6 @@ function ButtonContent(params: ButtonContentParams) {
 }
 
 export interface HeaderProps {
-  signInCallback: () => void;
-  signUpCallback: () => void;
   signOutCallback: () => void;
 }
 
@@ -103,7 +102,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign in",
       node: (
-        <button type="button" className={linkClassName} onClick={() => props.signInCallback()}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignIn())}>
           <ButtonContent label="Sign In" />
         </button>
       ),
@@ -111,7 +110,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName} onClick={() => props.signUpCallback()}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignUp())}>
           <ButtonContent label="Sign Up" />
         </button>
       ),
