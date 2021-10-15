@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
@@ -24,7 +25,7 @@ interface AppState extends UserContextProps {
 class App extends Component<RouteComponentProps, AppState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
+    this.state = { isSignedIn: false, shouldShowSignIn: false, shouldShowSignUp: false, topProducts: [] };
     this.redirect = this.redirect.bind(this);
     this.isSignedIn = this.isSignedIn.bind(this);
     this.showSignInCallback = this.showSignInCallback.bind(this);
@@ -94,7 +95,7 @@ class App extends Component<RouteComponentProps, AppState> {
 
   render(): JSX.Element {
     const authRouteCommonProps = {
-      isSignedIn: this.isSignedIn(),
+      isSignedIn: this.state.isSignedIn,
       defaultPath: relativeLinks.HOME,
       showSignInCallback: this.showSignInCallback,
       setSignInRedirectPath: this.setSignInRedirectPath,
