@@ -29,6 +29,7 @@ main {
 }
 
 input,
+textarea,
 button {
   display: block;
   font-family: inherit;
@@ -44,7 +45,8 @@ button {
   border: 0;
 }
 
-input {
+input,
+textarea {
   width: 100%;
   padding: 4px;
   border: 1px solid $basicColor;

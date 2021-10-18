@@ -22,13 +22,20 @@ const Profile: VFC = () => (
             </div>
             <div className="user-info-area">
               <FormInput id="profile-username" name="username" label="Username" type="text" style={"column" as const} />
-              <FormInput
-                id="profile-description"
-                name="profile-description"
-                label="Profile description"
-                type="textarea"
-                style={"column" as const}
-              />
+              <div className="form-field-column">
+                <label className="form-input-label" htmlFor="profile-description">
+                  Profile description
+                  <textarea
+                    id="profile-description"
+                    name="profile-description"
+                    rows={6}
+                    className="form-input-column"
+                    onChange={() => {
+                      // if (props.onChange) props.onChange(e.currentTarget.value);
+                    }}
+                  />
+                </label>
+              </div>
             </div>
             <div className="buttons-area">
               <button type="button" className="menu-button-transparent">
