@@ -2,7 +2,8 @@ import "./search.scss";
 import "@/styles/panels.scss";
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { Product, searchProducts } from "../../api/apiProducts";
+import { Product } from "@/types";
+import { searchProducts } from "../../api/apiProducts";
 
 const initialSearchStyle = "search";
 const initialIconStyle = "search-input-icon";

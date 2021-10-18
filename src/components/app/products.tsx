@@ -1,4 +1,5 @@
-import categoriesValues, { CategoryName } from "@/constants/categoriesValues";
+import categoriesValues from "@/constants/categoriesValues";
+import { CategoryName } from "@/types";
 import { useParams } from "react-router";
 
 export default function Products(): JSX.Element {

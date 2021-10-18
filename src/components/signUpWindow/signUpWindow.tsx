@@ -1,15 +1,19 @@
 import { signUp } from "@/api/apiAuth";
+import urls from "@/constants/urls";
 import FormInput from "@/elements/formInput/formInput";
-import SignModal from "@/elements/signModal/signModal";
+import FormWindow from "@/elements/formWindow/formWindow";
+import Modal from "@/elements/modal/modal";
+import { closeSignUp } from "@/redux/modals/modalsActions";
+import { RootState } from "@/redux/store";
+import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
-export interface SignUpModalProps {
-  active: boolean;
-  onClose: () => void;
-  onSignedUp: (username: string) => void;
-}
+function SignUpModal(): JSX.Element {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-export default function SignUpModal(props: SignUpModalProps): JSX.Element {
   const [username, setUserName] = useState("");
   const [usernameProblem, setUsernameProblem] = useState<string>();
 
@@ -18,6 +22,8 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
 
   const [repeatPassword, setRepeatPassword] = useState("");
   const [repeatPasswordProblem, setRepeatPasswordProblem] = useState<string>();
+
+  const close = () => dispatch(closeSignUp());
 
   const validate = () => {
     // Pattern source: https://ihateregex.io/expr/email/
@@ -43,14 +49,15 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
     if (validate())
       await signUp(username, password).then((r) => {
         if (r.status === 201) {
-          props.onSignedUp(username);
-          props.onClose();
+          dispatch(signInUser(username));
+          close();
+          history.push(urls.USER);
         } else alert("Unknown error");
       });
   };
 
   return (
-    <SignModal active={props.active} title="Registration" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow title="Registration" onClose={close} onSubmit={onSubmit}>
       <FormInput
         id="signup-username"
         name="user-name"
@@ -75,6 +82,12 @@ export default function SignUpModal(props: SignUpModalProps): JSX.Element {
         onChange={setRepeatPassword}
         validationProblem={repeatPasswordProblem}
       />
-    </SignModal>
+    </FormWindow>
   );
 }
+
+export default (): JSX.Element => (
+  <Modal active={useSelector((s: RootState) => s.modals.isSignUpShowing)}>
+    <SignUpModal />
+  </Modal>
+);

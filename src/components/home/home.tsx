@@ -1,23 +1,28 @@
 import "./home.scss";
 
-import { useEffect, useState } from "react";
-import { getTop, Product } from "@/api/apiProducts";
+import { useEffect, useState, VFC } from "react";
 import categoriesValues from "@/constants/categoriesValues";
 
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { getTop } from "@/api/apiProducts";
+import { setTopProducts } from "@/redux/products/productsActions";
 import CardMenu from "@/elements/cardMenu/cardMenu";
 import Search from "../search/search";
 import Category from "../../elements/category/category";
 import GameCard from "../../elements/gameCard/gameCard";
 
-export default function Home(): JSX.Element {
-  const [categoryInfos] = useState([...categoriesValues.values()]);
+const Home: VFC = () => {
+  const dispatch = useDispatch();
+  const { topProducts } = useSelector((s: RootState) => s.products);
 
-  const [products, setProducts] = useState([] as Product[]);
-  const [isProductsRequested, setIsProductsRequested] = useState(false);
+  const [categoryInfos] = useState([...categoriesValues.values()]);
+  const [hasProductsRequested, setHasProductsRequested] = useState(false);
+
   useEffect(() => {
-    if (products.length === 0 && !isProductsRequested) {
-      getTop().then((ps) => setProducts(ps));
-      setIsProductsRequested(true);
+    if (!hasProductsRequested && topProducts.length === 0) {
+      getTop().then((ps) => dispatch(setTopProducts(ps)));
+      setHasProductsRequested(true);
     }
   });
 
@@ -30,11 +35,13 @@ export default function Home(): JSX.Element {
         ))}
       </CardMenu>
       <CardMenu title="New games">
-        {products.map((p) => (
+        {topProducts.map((p) => (
           <GameCard key={p.id} {...p} />
         ))}
       </CardMenu>
       <br />
     </div>
   );
-}
+};
+
+export default Home;

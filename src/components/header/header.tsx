@@ -9,7 +9,11 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/urls";
 import { useEffect, useState } from "react";
-import UserContext from "../userContext/userContext";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { signOutUser } from "@/redux/user/userActions";
+import { showSignIn, showSignUp } from "@/redux/modals/modalsActions";
+import { useHistory } from "react-router";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -31,14 +35,10 @@ function ButtonContent(params: ButtonContentParams) {
   );
 }
 
-export interface HeaderProps {
-  isSignedIn: boolean;
-  signInCallback: () => void;
-  signUpCallback: () => void;
-  signOutCallback: () => void;
-}
+export default function Header(): JSX.Element {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-export default function Header(props: HeaderProps): JSX.Element {
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
   const [navBarStyle, setNavBarStyle] = useState("navbar");
 
@@ -100,7 +100,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign in",
       node: (
-        <button type="button" className={linkClassName} onClick={() => props.signInCallback()}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignIn())}>
           <ButtonContent label="Sign In" />
         </button>
       ),
@@ -108,12 +108,18 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName} onClick={() => props.signUpCallback()}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignUp())}>
           <ButtonContent label="Sign Up" />
         </button>
       ),
     },
   ];
+
+  const { username } = useSelector((s: RootState) => s.user);
+  const onSignOut = () => {
+    dispatch(signOutUser());
+    history.push(relativeLinks.HOME);
+  };
 
   const signedInItems = [
     ...commonItems,
@@ -121,9 +127,7 @@ export default function Header(props: HeaderProps): JSX.Element {
       id: "user",
       node: (
         <NavLink to={relativeLinks.USER} className={linkClassName} activeClassName={activeClassName}>
-          <UserContext.Consumer>
-            {({ username }) => <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />}
-          </UserContext.Consumer>
+          <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />
         </NavLink>
       ),
     },
@@ -138,14 +142,15 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "logout",
       node: (
-        <button type="button" className={linkClassName} onClick={props.signOutCallback}>
+        <button type="button" className={linkClassName} onClick={onSignOut}>
           <ButtonContent icon={{ imagePath: logoutIcon, alt: "logout icon" }} />
         </button>
       ),
     },
   ];
 
-  const items = props.isSignedIn ? signedInItems : anonItems;
+  const { isSignedIn } = useSelector((s: RootState) => s.user);
+  const items = isSignedIn ? signedInItems : anonItems;
 
   return (
     <header>
