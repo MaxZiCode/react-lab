@@ -49,6 +49,11 @@
       "email": "normas@normas.com",
       "password": "$2a$10$MCXjYDdQNPN5wwCEKKwBDuXSsV2memEGJTbLuHnnPuU5KvV23PWGq",
       "id": 10
+    },
+    {
+      "email": "max@max.maxa",
+      "password": "$2a$10$tV7NCD46QKhtQfWS09ugjO9qNHkAoHNbG37qJ9ET97uMOq1PSfpcC",
+      "id": 11
     }
   ],
   "products": [

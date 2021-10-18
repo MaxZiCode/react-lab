@@ -12,9 +12,11 @@ import About from "./about";
 import Profile from "./profile";
 import SignInWindow from "../signInWindow/signInWindow";
 import SignUpModal from "../signUpWindow/signUpWindow";
-import UserContext, { UserContextProps } from "../userContext/userContext";
+import UserContext from "../userContext/userContext";
 
-interface AppState extends UserContextProps {
+interface AppState {
+  username?: string;
+  isSignedIn: boolean;
   topProducts: Product[];
   shouldShowSignIn: boolean;
   shouldShowSignUp: boolean;
@@ -37,7 +39,6 @@ class App extends Component<RouteComponentProps, AppState> {
     this.onCloseSignIn = this.onCloseSignIn.bind(this);
     this.onCloseSignUp = this.onCloseSignUp.bind(this);
     this.authRouteCommonProps = {
-      isSignedIn: this.state.isSignedIn,
       defaultPath: relativeLinks.HOME,
       showSignInCallback: this.showSignInCallback,
       setSignInRedirectPath: this.setSignInRedirectPath,
@@ -69,14 +70,12 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   signOutCallback() {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ username: undefined });
+    this.setState({ username: undefined, isSignedIn: false });
     this.redirect(relativeLinks.HOME);
   }
 
   onSignedIn(username: string) {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ username });
+    this.setState({ username, isSignedIn: true });
     if (this.state.signInRedirectPath) this.redirect(this.state.signInRedirectPath);
   }
 
@@ -85,8 +84,7 @@ class App extends Component<RouteComponentProps, AppState> {
   }
 
   onSignedUp(username: string) {
-    // eslint-disable-next-line react/no-unused-state
-    this.setState({ username });
+    this.setState({ username, isSignedIn: true });
     this.redirect(relativeLinks.USER);
   }
 
@@ -100,11 +98,10 @@ class App extends Component<RouteComponentProps, AppState> {
 
   render(): JSX.Element {
     return (
-      <UserContext.Provider value={this.state}>
+      <UserContext.Provider value={{ username: this.state.username, isSignedIn: this.state.isSignedIn }}>
         <SignInWindow active={this.state.shouldShowSignIn} onClose={this.onCloseSignIn} onSignedIn={this.onSignedIn} />
         <SignUpModal active={this.state.shouldShowSignUp} onClose={this.onCloseSignUp} onSignedUp={this.onSignedUp} />
         <Header
-          isSignedIn={this.state.isSignedIn}
           signInCallback={this.showSignInCallback}
           signUpCallback={this.showSignUpnCallback}
           signOutCallback={this.signOutCallback}

@@ -8,7 +8,7 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/urls";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../userContext/userContext";
 
 const linkClassName = "navbar-item";
@@ -32,7 +32,6 @@ function ButtonContent(params: ButtonContentParams) {
 }
 
 export interface HeaderProps {
-  isSignedIn: boolean;
   signInCallback: () => void;
   signUpCallback: () => void;
   signOutCallback: () => void;
@@ -145,7 +144,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     },
   ];
 
-  const items = props.isSignedIn ? signedInItems : anonItems;
+  const items = useContext(UserContext).isSignedIn ? signedInItems : anonItems;
 
   return (
     <header>
