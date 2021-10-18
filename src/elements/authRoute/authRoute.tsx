@@ -1,20 +1,16 @@
-import { FC, useEffect } from "react";
+import UserContext from "@/components/userContext/userContext";
+import { FC, useContext, useEffect } from "react";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 
 export interface AuthRouteProps extends RouteProps {
-  isSignedIn: boolean;
   defaultPath: string;
   showSignInCallback: () => void;
   setSignInRedirectPath: (path: string) => void;
 }
 
-const AuthRoute: FC<AuthRouteProps> = ({
-  isSignedIn,
-  defaultPath,
-  showSignInCallback,
-  setSignInRedirectPath,
-  ...routeProps
-}) => {
+const AuthRoute: FC<AuthRouteProps> = ({ defaultPath, showSignInCallback, setSignInRedirectPath, ...routeProps }) => {
+  const { isSignedIn } = useContext(UserContext);
+
   useEffect(() => {
     if (isSignedIn) return;
 
