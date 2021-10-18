@@ -2,7 +2,7 @@ import "./formWindow.scss";
 
 import closeIcon from "@/assets/vectors/close.svg";
 // eslint-disable-next-line no-use-before-define
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface FormWindowProps {
   title: string;
@@ -12,6 +12,9 @@ export interface FormWindowProps {
 
 const FormWindow: React.FC<FormWindowProps> = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMounted, setIsMounted] = useState(true);
+
+  useEffect(() => () => setIsMounted(false), []);
 
   return (
     <div className="modal">
@@ -29,9 +32,10 @@ const FormWindow: React.FC<FormWindowProps> = (props) => {
             onClick={(e) => {
               e.preventDefault();
               if (isSubmitting) return;
+
               setIsSubmitting(true);
-              props.onSubmit().then(() => {
-                setIsSubmitting(false);
+              props.onSubmit().finally(() => {
+                if (isMounted) setIsSubmitting(false);
               });
             }}
           >
