@@ -8,6 +8,7 @@ import { signInUser } from "@/redux/user/userActions";
 import { RootState } from "@/redux/store";
 import { closeSignIn } from "@/redux/modals/modalsActions";
 import { useHistory } from "react-router";
+import { clearRedirectSignIn } from "@/redux/routes/routesActions";
 
 function SignInWindow(): JSX.Element {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ function SignInWindow(): JSX.Element {
   const [loginProblem, setLoginProblem] = useState<string>();
   const [password, setPassword] = useState("");
   const [passwordProblem, setPasswordProblem] = useState<string>();
+
+  const redirectRoute = useSelector((s: RootState) => s.routes.redirectSignIn);
 
   const setProblem = (problem: string) => {
     setLoginProblem("");
@@ -35,13 +38,17 @@ function SignInWindow(): JSX.Element {
       if (r.ok) {
         resetProblems();
         dispatch(signInUser(login));
+        dispatch(clearRedirectSignIn());
         close();
 
-        const redirectRoute = useSelector((s: RootState) => s.routes.redirectSignIn);
         if (redirectRoute) history.push(redirectRoute);
-      } else if (r.status === 400) {
+      }
+      //
+      else if (r.status === 400) {
         setProblem("Invalid login or password.");
-      } else alert("Unknown error");
+      }
+      //
+      else alert("Unknown error");
     });
 
   return (

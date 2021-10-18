@@ -12,6 +12,9 @@ export default function routesReducer(state: RoutesState = initialState, action:
         redirectSignIn: action.payload,
       };
 
+    case RoutesConstants.CLEAR_REDIRECT_SIGN_IN:
+      return { ...state, redirectSignIn: undefined };
+
     default:
       return state;
   }

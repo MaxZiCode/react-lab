@@ -17,4 +17,5 @@ export const enum ModalsConstants {
 
 export const enum RoutesConstants {
   SET_REDIRECT_SIGN_IN = "SET_REDIRECT_SIGN_IN",
+  CLEAR_REDIRECT_SIGN_IN = "CLEAR_REDIRECT_SIGN_IN",
 }
