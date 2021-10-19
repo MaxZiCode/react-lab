@@ -1,11 +1,9 @@
 import urls from "@/constants/urls";
 import { Profile } from "@/types";
 
-export async function getProfile(userId: number | string): Promise<Profile> {
+export function getProfile(userId: number | string): Promise<Response> {
   // TODO: add route to routes.json.
-  const responce = await fetch(`${urls.ROOT}/users/${userId}`);
-  const json = await responce.text();
-  return JSON.parse(json);
+  return fetch(`${urls.ROOT}/users/${userId}`);
 }
 
 export function saveProfile(userId: number | string, user: Profile): Promise<Response> {

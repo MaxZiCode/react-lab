@@ -1,5 +1,5 @@
 import { signUp } from "@/api/apiAuth";
-import { parseToUserResponseInfo } from "@/api/apiResponse";
+import { parseToUserResponseInfo } from "@/utilities/responseParser";
 import urls from "@/constants/urls";
 import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";

@@ -9,7 +9,7 @@ import { RootState } from "@/redux/store";
 import { closeSignIn } from "@/redux/modals/modalsActions";
 import { useHistory } from "react-router";
 import { clearRedirectSignIn } from "@/redux/routes/routesActions";
-import { parseToUserResponseInfo } from "@/api/apiResponse";
+import { parseToUserResponseInfo } from "@/utilities/responseParser";
 
 function SignInWindow(): JSX.Element {
   const dispatch = useDispatch();

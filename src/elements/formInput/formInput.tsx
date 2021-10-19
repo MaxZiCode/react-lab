@@ -8,6 +8,7 @@ export interface FormInputProps {
   onChange?: (value: string) => void;
   validationProblem?: string;
   style?: "row" | "column";
+  value?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({ style = "row", ...props }) => (
@@ -24,6 +25,7 @@ const FormInput: React.FC<FormInputProps> = ({ style = "row", ...props }) => (
         onChange={(e) => {
           if (props.onChange) props.onChange(e.currentTarget.value);
         }}
+        value={props.value}
       />
     </div>
     <div className="form-field-validation-problem">{props.validationProblem ? `*${props.validationProblem}` : ""}</div>
