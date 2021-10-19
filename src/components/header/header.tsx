@@ -11,9 +11,8 @@ import relativeLinks from "@/constants/urls";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { signOutUser } from "@/redux/user/userActions";
-import { showSignIn, showSignUp } from "@/redux/modals/modalsActions";
 import { useHistory } from "react-router";
+import { signOutUser } from "@/redux/user/userActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -35,7 +34,12 @@ function ButtonContent(params: ButtonContentParams) {
   );
 }
 
-export default function Header(): JSX.Element {
+export interface HeaderProps {
+  showSignIn: () => void;
+  showSignUp: () => void;
+}
+
+export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -100,7 +104,7 @@ export default function Header(): JSX.Element {
     {
       id: "sign in",
       node: (
-        <button type="button" className={linkClassName} onClick={() => dispatch(showSignIn())}>
+        <button type="button" className={linkClassName} onClick={showSignIn}>
           <ButtonContent label="Sign In" />
         </button>
       ),
@@ -108,7 +112,7 @@ export default function Header(): JSX.Element {
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName} onClick={() => dispatch(showSignUp())}>
+        <button type="button" className={linkClassName} onClick={showSignUp}>
           <ButtonContent label="Sign Up" />
         </button>
       ),

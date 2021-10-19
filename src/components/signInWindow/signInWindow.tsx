@@ -2,15 +2,18 @@ import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
-import Modal from "@/elements/modal/modal";
-import { useDispatch, useSelector } from "react-redux";
-import { signInUser } from "@/redux/user/userActions";
-import { RootState } from "@/redux/store";
-import { closeSignIn } from "@/redux/modals/modalsActions";
+import Modal, { ModalProps } from "@/elements/modal/modal";
 import { useHistory } from "react-router";
-import { clearRedirectSignIn } from "@/redux/routes/routesActions";
+import { signInUser } from "@/redux/user/userActions";
+import { useDispatch } from "react-redux";
 
-function SignInWindow(): JSX.Element {
+export interface SignInWindowProps {
+  close: () => void;
+  redirectRoute?: string;
+  clearRedirectRoute: () => void;
+}
+
+function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindowProps): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -18,8 +21,6 @@ function SignInWindow(): JSX.Element {
   const [loginProblem, setLoginProblem] = useState<string>();
   const [password, setPassword] = useState("");
   const [passwordProblem, setPasswordProblem] = useState<string>();
-
-  const redirectRoute = useSelector((s: RootState) => s.routes.redirectSignIn);
 
   const setProblem = (problem: string) => {
     setLoginProblem("");
@@ -31,14 +32,12 @@ function SignInWindow(): JSX.Element {
     setPasswordProblem(undefined);
   };
 
-  const close = () => dispatch(closeSignIn());
-
   const onSubmit = () =>
     signIn(login, password).then((r) => {
       if (r.ok) {
         resetProblems();
         dispatch(signInUser(login));
-        dispatch(clearRedirectSignIn());
+        clearRedirectRoute();
         close();
 
         if (redirectRoute) history.push(redirectRoute);
@@ -72,8 +71,8 @@ function SignInWindow(): JSX.Element {
   );
 }
 
-export default (): JSX.Element => (
-  <Modal active={useSelector((s: RootState) => s.modals.isSignInShowing)}>
-    <SignInWindow />
+export default (props: SignInWindowProps & ModalProps): JSX.Element => (
+  <Modal active={props.active}>
+    <SignInWindow {...props} />
   </Modal>
 );
