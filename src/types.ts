@@ -21,3 +21,14 @@ export interface Product {
   date: Date;
   platforms: CategoryName[];
 }
+
+export interface UserResponseInfo {
+  id: number;
+  email: string;
+}
+
+export interface Profile {
+  username: string;
+  description: string;
+  picture: string;
+}

@@ -1,6 +1,7 @@
 import { Product } from "@/types";
 
 export interface UserState {
+  id?: number;
   username?: string;
   isSignedIn: boolean;
 }

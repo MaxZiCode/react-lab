@@ -1,4 +1,5 @@
 import { signUp } from "@/api/apiAuth";
+import { parseToUserResponseInfo } from "@/api/apiResponse";
 import urls from "@/constants/urls";
 import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
@@ -47,9 +48,10 @@ function SignUpModal(): JSX.Element {
 
   const onSubmit = async () => {
     if (validate())
-      await signUp(username, password).then((r) => {
+      await signUp(username, password).then(async (r) => {
         if (r.status === 201) {
-          dispatch(signInUser(username));
+          const userResponseInfo = await parseToUserResponseInfo(r);
+          dispatch(signInUser(userResponseInfo.id, userResponseInfo.email));
           close();
           history.push(urls.USER);
         } else alert("Unknown error");

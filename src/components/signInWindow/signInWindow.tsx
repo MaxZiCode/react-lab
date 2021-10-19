@@ -9,6 +9,7 @@ import { RootState } from "@/redux/store";
 import { closeSignIn } from "@/redux/modals/modalsActions";
 import { useHistory } from "react-router";
 import { clearRedirectSignIn } from "@/redux/routes/routesActions";
+import { parseToUserResponseInfo } from "@/api/apiResponse";
 
 function SignInWindow(): JSX.Element {
   const dispatch = useDispatch();
@@ -34,10 +35,12 @@ function SignInWindow(): JSX.Element {
   const close = () => dispatch(closeSignIn());
 
   const onSubmit = () =>
-    signIn(login, password).then((r) => {
-      if (r.ok) {
+    signIn(login, password).then(async (r) => {
+      if (r.status === 200) {
         resetProblems();
-        dispatch(signInUser(login));
+
+        const user = await parseToUserResponseInfo(r);
+        dispatch(signInUser(user.id, user.email));
         dispatch(clearRedirectSignIn());
         close();
 

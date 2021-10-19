@@ -11,17 +11,13 @@ export default function userReducer(state: UserState = initialState, action: Any
     case UserConstants.SIGN_IN: {
       return {
         ...state,
+        ...action.payload,
         isSignedIn: true,
-        username: action.payload,
       };
     }
 
     case UserConstants.SIGN_OUT:
-      return {
-        ...state,
-        isSignedIn: false,
-        username: undefined,
-      };
+      return initialState;
 
     default: {
       return state;
