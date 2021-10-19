@@ -5,13 +5,14 @@ import FormInput from "@/elements/formInput/formInput";
 import { useEffect, useState, VFC } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
-import { getProfile } from "@/api/apiProfile";
+import { getProfile, saveProfile } from "@/api/apiProfile";
 import { parseBody } from "@/utilities/responseParser";
 import { Profile } from "@/types";
+import { getBase64 } from "@/utilities/converter";
 
 const Profile: VFC = () => {
   const { id, username: initialName } = useSelector((s: RootState) => s.user);
-  const [username, setUserName] = useState(initialName);
+  const [username, setUserName] = useState(initialName as string);
   const [picture, setPicture] = useState<string>();
   const [description, setDescription] = useState<string>();
 
@@ -28,8 +29,17 @@ const Profile: VFC = () => {
     update(getProfile(id));
   }, []);
 
+  const changePicture = (files: FileList | null) => {
+    if (files) getBase64(files[0]).then((s) => setPicture(s));
+  };
+
+  const save = () => {
+    if (!id) return;
+    update(saveProfile(id, { username, picture, description }));
+  };
+
   const image = picture ? (
-    <img src={`data:image/jpeg;base64,${picture}`} alt="profile" />
+    <img src={picture} alt="profile" />
   ) : (
     <div className="profile-image-no-picture">NO PICTURE</div>
   );
@@ -42,7 +52,15 @@ const Profile: VFC = () => {
           <div className="profile-change-image-area">
             <div className="profile-image-view">{image}</div>
             <button type="button" className="menu-button-transparent">
-              Change profile image
+              <label htmlFor="picture_input">
+                Change profile image
+                <input
+                  id="picture_input"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => changePicture(e.target.files)}
+                />
+              </label>
             </button>
           </div>
           <div className="user-info-area">
@@ -70,7 +88,7 @@ const Profile: VFC = () => {
             </div>
           </div>
           <div className="buttons-area">
-            <button type="button" className="menu-button-transparent">
+            <button type="button" className="menu-button-transparent" onClick={save}>
               Save profile
             </button>
             <button type="button" className="menu-button-transparent">

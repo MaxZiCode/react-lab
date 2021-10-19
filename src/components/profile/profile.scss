@@ -27,6 +27,11 @@ $imageWidth: 240px;
   background-color: $basicDarkColor;
   border-radius: $defaultBorderRadius;
   overflow: hidden;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 
 .profile-image-no-picture {
@@ -50,6 +55,10 @@ $imageWidth: 240px;
 
 .buttons-area > * {
   margin-bottom: 10px;
+}
+
+button label {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {

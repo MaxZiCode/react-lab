@@ -53,6 +53,10 @@ textarea {
   background-color: $homeItemsBackgroundColor;
 }
 
+input[type="file"] {
+  display: none;
+}
+
 a {
   color: inherit;
   text-decoration: none;

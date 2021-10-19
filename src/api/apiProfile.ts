@@ -7,12 +7,18 @@ export function getProfile(userId: number | string): Promise<Response> {
 }
 
 export function saveProfile(userId: number | string, user: Profile): Promise<Response> {
+  const { username, ...otherData } = user;
+  const data = {
+    email: username,
+    ...otherData,
+  };
+
   return fetch(`${urls.ROOT}/users/${userId}`, {
     method: "POST",
     headers: {
       "content-type": "application/json;charset=UTF-8",
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify(data),
   });
 }
 

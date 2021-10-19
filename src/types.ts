@@ -29,6 +29,6 @@ export interface UserResponseInfo {
 
 export interface Profile {
   username: string;
-  description: string;
-  picture: string;
+  description?: string;
+  picture?: string;
 }
