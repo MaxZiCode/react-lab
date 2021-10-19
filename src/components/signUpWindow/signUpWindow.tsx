@@ -3,15 +3,17 @@ import { parseToUserResponseInfo } from "@/utilities/responseParser";
 import urls from "@/constants/urls";
 import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
-import Modal from "@/elements/modal/modal";
-import { closeSignUp } from "@/redux/modals/modalsActions";
-import { RootState } from "@/redux/store";
+import Modal, { ModalProps } from "@/elements/modal/modal";
 import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
-function SignUpModal(): JSX.Element {
+export interface SignUpWindowProps {
+  close: () => void;
+}
+
+function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -23,8 +25,6 @@ function SignUpModal(): JSX.Element {
 
   const [repeatPassword, setRepeatPassword] = useState("");
   const [repeatPasswordProblem, setRepeatPasswordProblem] = useState<string>();
-
-  const close = () => dispatch(closeSignUp());
 
   const validate = () => {
     // Pattern source: https://ihateregex.io/expr/email/
@@ -88,8 +88,8 @@ function SignUpModal(): JSX.Element {
   );
 }
 
-export default (): JSX.Element => (
-  <Modal active={useSelector((s: RootState) => s.modals.isSignUpShowing)}>
-    <SignUpModal />
+export default (props: SignUpWindowProps & ModalProps): JSX.Element => (
+  <Modal active={props.active}>
+    <SignUpWindow {...props} />
   </Modal>
 );
