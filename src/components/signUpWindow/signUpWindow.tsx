@@ -8,6 +8,7 @@ import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { validatePassword, validatePasswordRepeat, validateUsername } from "@/utilities/validator";
 
 export interface SignUpWindowProps {
   close: () => void;
@@ -18,32 +19,25 @@ function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   const history = useHistory();
 
   const [username, setUserName] = useState("");
-  const [usernameProblem, setUsernameProblem] = useState<string>();
+  const [usernameProblem, setUsernameProblem] = useState("");
 
   const [password, setPassword] = useState("");
-  const [passwordProblem, setPasswordProblem] = useState<string>();
+  const [passwordProblem, setPasswordProblem] = useState("");
 
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [repeatPasswordProblem, setRepeatPasswordProblem] = useState<string>();
+  const [repeatPasswordProblem, setRepeatPasswordProblem] = useState("");
 
   const validate = () => {
-    // Pattern source: https://ihateregex.io/expr/email/
-    const userPattern = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
-    const userNameMessage = username.match(userPattern) ? undefined : "Invalid email.";
-    setUsernameProblem(userNameMessage);
+    const usernameState = validateUsername(username);
+    setUsernameProblem(usernameState.errorMessage);
 
-    // Pattern source: https://ihateregex.io/expr/password/
-    const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
-    const passwordMessage = password.match(passwordPattern)
-      ? undefined
-      : "Password must contain minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character.";
-    setPasswordProblem(passwordMessage);
+    const passwordState = validatePassword(password);
+    setPasswordProblem(passwordState.errorMessage);
 
-    const repeatPasswordMessage =
-      password === repeatPassword ? undefined : "Password and repeat password must be equal.";
-    setRepeatPasswordProblem(repeatPasswordMessage);
+    const passwordRepeatState = validatePasswordRepeat(password, repeatPassword);
+    setRepeatPasswordProblem(passwordRepeatState.errorMessage);
 
-    return !(userNameMessage || passwordMessage || repeatPasswordMessage);
+    return [usernameState, passwordState, passwordRepeatState].every((s) => s.isSucceed);
   };
 
   const onSubmit = async () => {

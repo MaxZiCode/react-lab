@@ -32,3 +32,8 @@ export interface Profile {
   description?: string;
   picture?: string;
 }
+
+export interface ValidationState {
+  isSucceed: boolean;
+  errorMessage: string;
+}
