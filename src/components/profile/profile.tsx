@@ -30,7 +30,7 @@ const Profile: VFC = () => {
   }, []);
 
   const changePicture = (files: FileList | null) => {
-    if (files) getBase64(files[0]).then((s) => setPicture(s));
+    if (files && files.length > 0) getBase64(files[0]).then((s) => setPicture(s));
   };
 
   const save = () => {

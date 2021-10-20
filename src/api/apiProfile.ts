@@ -10,11 +10,12 @@ export function saveProfile(userId: number | string, user: Profile): Promise<Res
   const { username, ...otherData } = user;
   const data = {
     email: username,
+    password: '`&Gz%Ed"7enWFE^_',
     ...otherData,
   };
 
   return fetch(`${urls.ROOT}/users/${userId}`, {
-    method: "POST",
+    method: "PUT",
     headers: {
       "content-type": "application/json;charset=UTF-8",
     },
