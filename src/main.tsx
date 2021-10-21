@@ -4,15 +4,19 @@ import "./styles/main.scss";
 import { Component, StrictMode } from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
 import App from "./components/app/app";
+import store from "./redux/store";
 
 class AppContainer extends Component {
   render() {
     return (
       <StrictMode>
-        <Router>
-          <App />
-        </Router>
+        <Provider store={store}>
+          <Router>
+            <App />
+          </Router>
+        </Provider>
       </StrictMode>
     );
   }

@@ -3,13 +3,20 @@ import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
 import Modal, { ModalProps } from "@/elements/modal/modal";
+import { useHistory } from "react-router";
+import { signInUser } from "@/redux/user/userActions";
+import { useDispatch } from "react-redux";
 
 export interface SignInWindowProps {
-  onClose: () => void;
-  onSignedIn: (username: string) => void;
+  close: () => void;
+  redirectRoute?: string;
+  clearRedirectRoute: () => void;
 }
 
-function SignInWindow(props: SignInWindowProps): JSX.Element {
+function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindowProps): JSX.Element {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [login, setLogin] = useState("");
   const [loginProblem, setLoginProblem] = useState<string>();
   const [password, setPassword] = useState("");
@@ -29,15 +36,22 @@ function SignInWindow(props: SignInWindowProps): JSX.Element {
     signIn(login, password).then((r) => {
       if (r.ok) {
         resetProblems();
-        props.onSignedIn(login);
-        props.onClose();
-      } else if (r.status === 400) {
+        dispatch(signInUser(login));
+        clearRedirectRoute();
+        close();
+
+        if (redirectRoute) history.push(redirectRoute);
+      }
+      //
+      else if (r.status === 400) {
         setProblem("Invalid login or password.");
-      } else alert("Unknown error");
+      }
+      //
+      else alert("Unknown error");
     });
 
   return (
-    <FormWindow title="Authorization" onClose={props.onClose} onSubmit={onSubmit}>
+    <FormWindow title="Authorization" onClose={close} onSubmit={onSubmit}>
       <FormInput
         id="signin-username"
         name="user-name"
@@ -57,8 +71,8 @@ function SignInWindow(props: SignInWindowProps): JSX.Element {
   );
 }
 
-export default ({ active, ...props }: ModalProps & SignInWindowProps): JSX.Element => (
-  <Modal active={active}>
+export default (props: SignInWindowProps & ModalProps): JSX.Element => (
+  <Modal active={props.active}>
     <SignInWindow {...props} />
   </Modal>
 );

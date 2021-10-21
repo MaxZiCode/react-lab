@@ -1,13 +1,10 @@
+import { RootState } from "@/redux/store";
 import { VFC } from "react";
-import UserContext from "../userContext/userContext";
+import { useSelector } from "react-redux";
 
 const Profile: VFC = () => (
-  <UserContext.Consumer>
-    {({ username }) => (
-      <div>
-        <h2>{`User ${username} profile`}</h2>
-      </div>
-    )}
-  </UserContext.Consumer>
+  <div>
+    <h2>{`User ${useSelector((s: RootState) => s.user.username)} profile`}</h2>
+  </div>
 );
 export default Profile;

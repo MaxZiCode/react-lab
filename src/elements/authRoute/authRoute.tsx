@@ -1,26 +1,26 @@
-import UserContext from "@/components/userContext/userContext";
-import { FC, useContext, useEffect } from "react";
+import urls from "@/constants/urls";
+import { RootState } from "@/redux/store";
+import { FC, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 
 export interface AuthRouteProps extends RouteProps {
-  defaultPath: string;
-  showSignInCallback: () => void;
-  setSignInRedirectPath: (path: string) => void;
+  showSignIn: () => void;
+  setRedirectSignIn: (pathName: string) => void;
 }
 
-const AuthRoute: FC<AuthRouteProps> = ({ defaultPath, showSignInCallback, setSignInRedirectPath, ...routeProps }) => {
-  const { isSignedIn } = useContext(UserContext);
+const AuthRoute: FC<AuthRouteProps> = ({ showSignIn, setRedirectSignIn, ...props }) => {
+  const isSignedIn = useSelector((s: RootState) => s.user.isSignedIn);
 
   useEffect(() => {
     if (isSignedIn) return;
 
-    showSignInCallback();
-    const pathname = routeProps.location?.pathname;
-    if (typeof pathname === "string") setSignInRedirectPath(pathname);
+    showSignIn();
+    const pathname = props.location?.pathname;
+    if (pathname) setRedirectSignIn(pathname);
   });
 
-  if (isSignedIn) return <Route {...routeProps} />;
-  return <Redirect to={defaultPath} />;
+  return isSignedIn ? <Route {...props} /> : <Redirect to={urls.HOME} />;
 };
 
 export default AuthRoute;

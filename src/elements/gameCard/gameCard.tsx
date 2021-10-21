@@ -1,8 +1,8 @@
 import "./gameCard.scss";
 import { RatingView } from "react-simple-star-rating";
 
-import { Product } from "@/api/apiProducts";
-import categoriesValues, { CategoryName } from "@/constants/categoriesValues";
+import { Product, CategoryName } from "@/types";
+import categoriesValues from "@/constants/categoriesValues";
 import PlatformIcon from "../platformIcon/platformIcon";
 
 export default function GameCard(product: Product): JSX.Element {
