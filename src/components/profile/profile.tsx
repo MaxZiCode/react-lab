@@ -3,29 +3,35 @@ import "@/styles/menu.scss";
 
 import FormInput from "@/elements/formInput/formInput";
 import { useEffect, useState, VFC } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { getProfile, saveProfile } from "@/api/apiProfile";
 import { parseBody } from "@/utilities/responseParser";
 import { Profile } from "@/types";
 import { getBase64 } from "@/utilities/converter";
+import { signInUser } from "@/redux/user/userActions";
 
 const Profile: VFC = () => {
-  const { id, username: initialName } = useSelector((s: RootState) => s.user);
+  const dispatch = useDispatch();
+
+  const { id, username: initialName, password } = useSelector((s: RootState) => s.user);
   const [username, setUserName] = useState(initialName as string);
   const [picture, setPicture] = useState<string>();
   const [description, setDescription] = useState<string>();
 
   const update = (promise: Promise<Response>) => {
-    promise.then(async (r) => {
-      const profile = await parseBody<Profile>(r);
-      setDescription(profile.description);
-      setPicture(profile.picture);
+    promise.then((r) => {
+      if (r.ok)
+        parseBody<Profile>(r).then((p) => {
+          setDescription(p.description);
+          setPicture(p.picture);
+          dispatch(signInUser(id, p.email, password));
+        });
+      else r.text().then((t) => console.error(t));
     });
   };
 
   useEffect(() => {
-    if (!id) return;
     update(getProfile(id));
   }, []);
 
@@ -34,8 +40,7 @@ const Profile: VFC = () => {
   };
 
   const save = () => {
-    if (!id) return;
-    update(saveProfile(id, { username, picture, description }));
+    update(saveProfile(id, password, { email: username, picture, description }));
   };
 
   const image = picture ? (
@@ -69,7 +74,6 @@ const Profile: VFC = () => {
               name="username"
               label="Username"
               type="text"
-              style={"column" as const}
               onChange={setUserName}
               value={username}
             />

@@ -3,6 +3,9 @@ import { UserConstants } from "../constants";
 import { UserState } from "../states";
 
 const initialState: UserState = {
+  id: 0,
+  username: "",
+  password: "",
   isSignedIn: false,
 };
 

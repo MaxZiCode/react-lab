@@ -39,7 +39,7 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
         resetProblems();
 
         const user = await parseToUserResponseInfo(r);
-        dispatch(signInUser(user.id, user.email));
+        dispatch(signInUser(user.id, user.email, password));
         clearRedirectRoute();
         close();
 

@@ -1,36 +1,33 @@
-import { ValidationState } from "@/types";
+type setProblem = (problem: string) => void;
 
-const succeedState: Readonly<ValidationState> = {
-  isSucceed: true,
-  errorMessage: "",
-};
+function validate(condition: boolean, setProblem: setProblem, problem: string) {
+  if (condition) return true;
 
-const generateErrorState = (error: string) => ({
-  isSucceed: false,
-  errorMessage: error,
-});
+  setProblem(problem);
+  return false;
+}
 
-export function validateUsername(username: string): ValidationState {
+export function validateUsername(username: string, setProblem: setProblem): boolean {
   // Pattern source: https://ihateregex.io/expr/email/
   const userPattern = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
-  if (username.match(userPattern)) return succeedState;
+  const match = username.match(userPattern);
 
-  return generateErrorState("Invalid email.");
+  return validate(match !== null && match.length > 0, setProblem, "Invalid email.");
 }
 
-export function validatePassword(password: string): ValidationState {
+export function validatePassword(password: string, setProblem: setProblem): boolean {
   // Pattern source: https://ihateregex.io/expr/password/
   const passwordPattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
-  if (password.match(passwordPattern)) return succeedState;
 
-  return generateErrorState(
-    "Password must contain minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character."
-  );
+  const match = password.match(passwordPattern);
+
+  const problem =
+    "Password must contain minimum eight characters, at least one upper case English letter, one lower case English letter, one number and one special character.";
+  return validate(match !== null && match.length > 0, setProblem, problem);
 }
 
-export function validatePasswordRepeat(password: string, repeatPassword: string): ValidationState {
-  if (password === repeatPassword) return succeedState;
-
-  return generateErrorState("Password and repeat password must be equal.");
+export function validatePasswordRepeat(password: string, repeatPassword: string, setProblem: setProblem): boolean {
+  const isEqual = password === repeatPassword;
+  return validate(isEqual, setProblem, "Password and repeat password must be equal.");
 }

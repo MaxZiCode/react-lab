@@ -28,12 +28,7 @@ export interface UserResponseInfo {
 }
 
 export interface Profile {
-  username: string;
+  email: string;
   description?: string;
   picture?: string;
-}
-
-export interface ValidationState {
-  isSucceed: boolean;
-  errorMessage: string;
 }
