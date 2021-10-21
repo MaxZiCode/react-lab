@@ -86,12 +86,12 @@ class App extends Component<RouteComponentProps, AppState> {
     return (
       <>
         <SignInWindow
-          active={this.state.isSignInShowing}
+          isActive={this.state.isSignInShowing}
           close={this.closeSignInWindow}
           redirectRoute={this.state.redirectRouteAfterSignIn}
           clearRedirectRoute={this.clearRedirectRoute}
         />
-        <SignUpModal active={this.state.isSignUpShowing} close={this.closeSignUpWindow} />
+        <SignUpModal isActive={this.state.isSignUpShowing} close={this.closeSignUpWindow} />
         <Header showSignIn={this.showSignInWindow} showSignUp={this.showSignUpWindow} />
         <main>
           <Switch>

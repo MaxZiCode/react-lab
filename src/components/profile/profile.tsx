@@ -11,16 +11,19 @@ import { getBase64 } from "@/utilities/converter";
 import { signInUser } from "@/redux/user/userActions";
 import ChangeUsernameField from "@/elements/changeUsernameField/changeUsernameField";
 import defaultValues from "@/constants/defaultValues";
+import ChangePasswordWindow from "../changePasswordWindow/changePasswordWindow";
 
 const Profile: VFC = () => {
   const dispatch = useDispatch();
-
   const { id, username: initialName, password } = useSelector((s: RootState) => s.user);
+
   const [username, setUserName] = useState(initialName as string);
   const [usernameValidationFn, setUsernameValidationFn] = useState(defaultValues.notImplementedValidationFn);
 
   const [picture, setPicture] = useState<string>();
   const [description, setDescription] = useState<string>();
+
+  const [isPasswordWindowShowing, setIsPasswordWindowShowing] = useState(false);
 
   const update = (promise: Promise<Response>) => {
     promise.then((r) => {
@@ -58,6 +61,7 @@ const Profile: VFC = () => {
 
   return (
     <div className="home">
+      <ChangePasswordWindow close={() => setIsPasswordWindowShowing(false)} isActive={isPasswordWindowShowing} />
       <div className="big-menu">
         <h2 className="big-menu-title">{`${initialName} profile page`}</h2>
         <div className="profile-page-container">
@@ -99,7 +103,7 @@ const Profile: VFC = () => {
             <button type="button" className="menu-button-transparent" onClick={save}>
               Save profile
             </button>
-            <button type="button" className="menu-button-transparent">
+            <button type="button" className="menu-button-transparent" onClick={() => setIsPasswordWindowShowing(true)}>
               Change password
             </button>
           </div>

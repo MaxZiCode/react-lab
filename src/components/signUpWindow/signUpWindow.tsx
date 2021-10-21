@@ -2,7 +2,7 @@ import { signUp } from "@/api/apiAuth";
 import { parseToUserResponseInfo } from "@/utilities/responseParser";
 import urls from "@/constants/urls";
 import FormWindow from "@/elements/formWindow/formWindow";
-import Modal, { ModalProps } from "@/elements/modal/modal";
+import withModal, { ModalProps } from "@/elements/modal/modal";
 import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -40,7 +40,7 @@ function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   };
 
   return (
-    <FormWindow title="Registration" onClose={close} onSubmit={onSubmit}>
+    <FormWindow title="Registration" close={close} onSubmit={onSubmit}>
       <ChangeUsernameField
         username={username}
         onChangeUsername={setUserName}
@@ -55,8 +55,5 @@ function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   );
 }
 
-export default (props: SignUpWindowProps & ModalProps): JSX.Element => (
-  <Modal active={props.active}>
-    <SignUpWindow {...props} />
-  </Modal>
-);
+export default ({ isActive, ...props }: SignUpWindowProps & ModalProps): JSX.Element =>
+  withModal(<SignUpWindow {...props} />, isActive);

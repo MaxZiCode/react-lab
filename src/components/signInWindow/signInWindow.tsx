@@ -2,7 +2,7 @@ import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
-import Modal, { ModalProps } from "@/elements/modal/modal";
+import withModal, { ModalProps } from "@/elements/modal/modal";
 import { useHistory } from "react-router";
 import { parseToUserResponseInfo } from "@/utilities/responseParser";
 import { signInUser } from "@/redux/user/userActions";
@@ -54,7 +54,7 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
     });
 
   return (
-    <FormWindow title="Authorization" onClose={close} onSubmit={onSubmit}>
+    <FormWindow title="Authorization" close={close} onSubmit={onSubmit}>
       <FormInput
         id="signin-username"
         name="user-name"
@@ -75,8 +75,5 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
   );
 }
 
-export default (props: SignInWindowProps & ModalProps): JSX.Element => (
-  <Modal active={props.active}>
-    <SignInWindow {...props} />
-  </Modal>
-);
+export default ({ isActive, ...props }: SignInWindowProps & ModalProps): JSX.Element =>
+  withModal(<SignInWindow {...props} />, isActive);
