@@ -17,11 +17,8 @@ const Profile: VFC = () => {
   const dispatch = useDispatch();
   const { id, username: initialName, password } = useSelector((s: RootState) => s.user);
 
-  const [username, setUserName] = useState(initialName as string);
+  const [profile, setProfile] = useState<Profile>({ email: initialName });
   const [usernameValidationFn, setUsernameValidationFn] = useState(defaultValues.notImplementedValidationFn);
-
-  const [picture, setPicture] = useState<string>();
-  const [description, setDescription] = useState<string>();
 
   const [isPasswordWindowShowing, setIsPasswordWindowShowing] = useState(false);
 
@@ -29,8 +26,7 @@ const Profile: VFC = () => {
     promise.then((r) => {
       if (r.ok)
         parseBody<Profile>(r).then((p) => {
-          setDescription(p.description);
-          setPicture(p.picture);
+          setProfile(p);
           dispatch(signInUser(id, p.email, password));
         });
       else r.text().then((t) => console.error(t));
@@ -42,17 +38,17 @@ const Profile: VFC = () => {
   }, []);
 
   const changePicture = (files: FileList | null) => {
-    if (files && files.length > 0) getBase64(files[0]).then((s) => setPicture(s));
+    if (files && files.length > 0) getBase64(files[0]).then((s) => setProfile({ ...profile, picture: s }));
   };
 
   const validate = () => usernameValidationFn();
 
   const save = () => {
-    if (validate()) update(saveProfile(id, password, { email: username, picture, description }));
+    if (validate()) update(saveProfile(id, password, profile));
   };
 
-  const image = picture ? (
-    <img src={picture} alt="profile" />
+  const image = profile.picture ? (
+    <img src={profile.picture} alt="profile" />
   ) : (
     <div className="profile-wrapper-no-picture">
       <div className="profile-image-no-picture">NO PICTURE</div>
@@ -61,7 +57,11 @@ const Profile: VFC = () => {
 
   return (
     <div className="home">
-      <ChangePasswordWindow close={() => setIsPasswordWindowShowing(false)} isActive={isPasswordWindowShowing} />
+      <ChangePasswordWindow
+        close={() => setIsPasswordWindowShowing(false)}
+        profile={profile}
+        isActive={isPasswordWindowShowing}
+      />
       <div className="big-menu">
         <h2 className="big-menu-title">{`${initialName} profile page`}</h2>
         <div className="profile-page-container">
@@ -81,8 +81,8 @@ const Profile: VFC = () => {
           </div>
           <div className="user-info-area">
             <ChangeUsernameField
-              username={username}
-              onChangeUsername={setUserName}
+              username={profile.email}
+              onChangeUsername={(email) => setProfile({ ...profile, email })}
               setValidationFn={setUsernameValidationFn}
             />
             <div className="form-field-column">
@@ -93,8 +93,8 @@ const Profile: VFC = () => {
                   name="profile-description"
                   rows={6}
                   className="form-input-column"
-                  onChange={(e) => setDescription(e.target.value)}
-                  value={description}
+                  onChange={(e) => setProfile({ ...profile, description: e.target.value })}
+                  value={profile.description}
                 />
               </label>
             </div>

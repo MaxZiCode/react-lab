@@ -21,12 +21,14 @@ export function saveProfile(userId: number | string, password: string, user: Pro
   });
 }
 
-export function changePassword(userId: number | string, email: string, newPassword: string): Promise<Response> {
+export function changePassword(userId: number | string, profile: Profile, newPassword: string): Promise<Response> {
+  // It deletes all info if put password only.
+
   return fetch(`${urls.ROOT}/users/${userId}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json;charset=UTF-8",
     },
-    body: JSON.stringify({ email, password: newPassword }),
+    body: JSON.stringify({ ...profile, password: newPassword }),
   });
 }

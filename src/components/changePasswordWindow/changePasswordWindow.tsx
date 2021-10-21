@@ -4,15 +4,17 @@ import ChangePasswordField from "@/elements/changePasswordField/changePasswordFi
 import FormWindow from "@/elements/formWindow/formWindow";
 import withModal, { ModalProps } from "@/elements/modal/modal";
 import { RootState } from "@/redux/store";
+import { Profile } from "@/types";
 import { useState, VFC } from "react";
 import { useSelector } from "react-redux";
 
 export interface ChangePasswordWindowProps {
+  profile: Profile;
   close: () => void;
 }
 
-const ChangePasswordWindowFC: VFC<ChangePasswordWindowProps> = ({ close }) => {
-  const { username, id } = useSelector((s: RootState) => s.user);
+const ChangePasswordWindowFC: VFC<ChangePasswordWindowProps> = ({ close, profile }) => {
+  const { id } = useSelector((s: RootState) => s.user);
 
   const [password, setPassword] = useState("");
   const [passwordValidationFn, setPasswordValidationFn] = useState(defaultValues.notImplementedValidationFn);
@@ -21,7 +23,7 @@ const ChangePasswordWindowFC: VFC<ChangePasswordWindowProps> = ({ close }) => {
 
   const onSubmit = async () => {
     if (validate()) {
-      await changePassword(id, username, password);
+      await changePassword(id, profile, password);
       close();
     }
   };
