@@ -2,5 +2,8 @@
   "/api/*": "/$1",
   "/api/auth/*": "/$1",
   "/getTopProducts": "/products?_sort=date&_order=desc&_limit=3",
-  "/search/:text": "/products?name_like=:text"
+  "/search/:text": "/products?name_like=:text",
+  "/getProfile/*": "/users/$1",
+  "/saveProfile/*": "/users/$1",
+  "/changePassword/*": "/users/$1"
 }
