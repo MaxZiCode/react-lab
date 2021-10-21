@@ -46,7 +46,9 @@ const Profile: VFC = () => {
   const image = picture ? (
     <img src={picture} alt="profile" />
   ) : (
-    <div className="profile-image-no-picture">NO PICTURE</div>
+    <div className="profile-wrapper-no-picture">
+      <div className="profile-image-no-picture">NO PICTURE</div>
+    </div>
   );
 
   return (
