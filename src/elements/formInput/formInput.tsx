@@ -12,10 +12,8 @@ export interface FormInputProps {
 
 const FormInput: React.VFC<FormInputProps> = ({ ...props }) => (
   <>
-    <div className="form-field">
-      <label className="form-input-label" htmlFor={props.id}>
-        {props.label}
-      </label>
+    <label className="form-field" htmlFor={props.id}>
+      {props.label}
       <input
         className={`form-input ${props.validationProblem && "form-input-invalid"}`}
         type={props.type}
@@ -26,7 +24,7 @@ const FormInput: React.VFC<FormInputProps> = ({ ...props }) => (
         }}
         value={props.value}
       />
-    </div>
+    </label>
     <div className="form-field-validation-problem">{props.validationProblem ? `*${props.validationProblem}` : ""}</div>
   </>
 );

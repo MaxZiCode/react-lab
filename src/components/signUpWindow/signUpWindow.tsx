@@ -9,10 +9,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import ChangePasswordField from "@/elements/changePasswordField/changePasswordField";
 import ChangeUsernameField from "@/elements/changeUsernameField/changeUsernameField";
-
-const notImplementedValidationFn: () => boolean = () => {
-  throw new Error("Function not implemented.");
-};
+import defaultValues from "@/constants/defaultValues";
 
 export interface SignUpWindowProps {
   close: () => void;
@@ -23,10 +20,10 @@ function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   const history = useHistory();
 
   const [username, setUserName] = useState("");
-  const [usernameValidationFn, setUsernameValidationFn] = useState(() => notImplementedValidationFn);
+  const [usernameValidationFn, setUsernameValidationFn] = useState(() => defaultValues.notImplementedValidationFn);
 
   const [password, setPassword] = useState("");
-  const [passwordValidatonFn, setPasswordValidationFn] = useState(() => notImplementedValidationFn);
+  const [passwordValidatonFn, setPasswordValidationFn] = useState(() => defaultValues.notImplementedValidationFn);
 
   const validate = () => usernameValidationFn() && passwordValidatonFn();
 

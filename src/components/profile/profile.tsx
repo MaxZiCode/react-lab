@@ -1,7 +1,6 @@
 import "./profile.scss";
 import "@/styles/menu.scss";
 
-import FormInput from "@/elements/formInput/formInput";
 import { useEffect, useState, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
@@ -10,12 +9,16 @@ import { parseBody } from "@/utilities/responseParser";
 import { Profile } from "@/types";
 import { getBase64 } from "@/utilities/converter";
 import { signInUser } from "@/redux/user/userActions";
+import ChangeUsernameField from "@/elements/changeUsernameField/changeUsernameField";
+import defaultValues from "@/constants/defaultValues";
 
 const Profile: VFC = () => {
   const dispatch = useDispatch();
 
   const { id, username: initialName, password } = useSelector((s: RootState) => s.user);
   const [username, setUserName] = useState(initialName as string);
+  const [usernameValidationFn, setUsernameValidationFn] = useState(defaultValues.notImplementedValidationFn);
+
   const [picture, setPicture] = useState<string>();
   const [description, setDescription] = useState<string>();
 
@@ -39,8 +42,10 @@ const Profile: VFC = () => {
     if (files && files.length > 0) getBase64(files[0]).then((s) => setPicture(s));
   };
 
+  const validate = () => usernameValidationFn();
+
   const save = () => {
-    update(saveProfile(id, password, { email: username, picture, description }));
+    if (validate()) update(saveProfile(id, password, { email: username, picture, description }));
   };
 
   const image = picture ? (
@@ -71,13 +76,10 @@ const Profile: VFC = () => {
             </button>
           </div>
           <div className="user-info-area">
-            <FormInput
-              id="profile-username"
-              name="username"
-              label="Username"
-              type="text"
-              onChange={setUserName}
-              value={username}
+            <ChangeUsernameField
+              username={username}
+              onChangeUsername={setUserName}
+              setValidationFn={setUsernameValidationFn}
             />
             <div className="form-field-column">
               <label className="form-input-label" htmlFor="profile-description">

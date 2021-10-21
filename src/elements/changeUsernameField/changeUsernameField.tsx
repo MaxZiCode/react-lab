@@ -29,6 +29,7 @@ const ChangeUsernameField: VFC<ChangeUsernameFieldProps> = ({
       type="text"
       onChange={onChangeUsername}
       validationProblem={usernameProblem}
+      value={username}
     />
   );
 };

@@ -31,6 +31,7 @@ const ChangePasswordField: VFC<ChangePasswordFieldProps> = ({ setValidationFn, p
         type="password"
         onChange={onChangePassword}
         validationProblem={passwordProblem}
+        value={password}
       />
       <FormInput
         id="repeat-password"
@@ -39,6 +40,7 @@ const ChangePasswordField: VFC<ChangePasswordFieldProps> = ({ setValidationFn, p
         type="password"
         onChange={setRepeatPassword}
         validationProblem={repeatPasswordProblem}
+        value={repeatPassword}
       />
     </>
   );

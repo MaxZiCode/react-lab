@@ -19,18 +19,18 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
   const history = useHistory();
 
   const [login, setLogin] = useState("");
-  const [loginProblem, setLoginProblem] = useState<string>();
+  const [loginProblem, setLoginProblem] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordProblem, setPasswordProblem] = useState<string>();
+  const [passwordProblem, setPasswordProblem] = useState("");
 
   const setProblem = (problem: string) => {
-    setLoginProblem("");
+    setLoginProblem(problem);
     setPasswordProblem(problem);
   };
 
   const resetProblems = () => {
-    setLoginProblem(undefined);
-    setPasswordProblem(undefined);
+    setLoginProblem("");
+    setPasswordProblem("");
   };
 
   const onSubmit = () =>

@@ -1,7 +1,10 @@
 type setProblem = (problem: string) => void;
 
 function validate(condition: boolean, setProblem: setProblem, problem: string) {
-  if (condition) return true;
+  if (condition) {
+    setProblem("");
+    return true;
+  }
 
   setProblem(problem);
   return false;

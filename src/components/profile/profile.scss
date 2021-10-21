@@ -55,6 +55,18 @@ $imageWidth: 240px;
 
 .user-info-area {
   width: 250px;
+
+  .form-field {
+    flex-direction: column;
+  }
+
+  .form-input {
+    width: 100%;
+  }
+
+  .form-field-validation-problem {
+    background-color: $homeItemsBackgroundColor;
+  }
 }
 
 .user-info-area > * {
