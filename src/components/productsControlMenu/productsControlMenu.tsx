@@ -1,7 +1,7 @@
 import "./productsControlMenu.scss";
 
 const ProductsControlMenu: React.VFC = () => (
-  <div className="big-menu products-control-menu">
+  <div id="products-control-menu" className="big-menu">
     <h2 className="big-menu-title-centered">PC</h2>
     <div className="products-control-menu-section">
       <h3 className="big-menu-title ps-title">Sort</h3>

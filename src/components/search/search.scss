@@ -12,7 +12,7 @@ $searchBorderRadius: 20px;
   }
 }
 
-.search {
+#search {
   width: 80%;
   max-width: 600px;
   background-color: $homeItemsBackgroundColor;
@@ -21,11 +21,11 @@ $searchBorderRadius: 20px;
   overflow: hidden;
 }
 
-.search.focused {
+#search.focused {
   background-color: $searchFocusedBackgroundColor;
 }
 
-.search.focused.show-results {
+#search.focused.show-results {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }

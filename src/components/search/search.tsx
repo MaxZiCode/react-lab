@@ -5,7 +5,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { Product } from "@/types";
 import { searchProducts } from "../../api/apiProducts";
 
-const initialSearchStyle = "search";
+const initialSearchStyle = "";
 const initialIconStyle = "search-input-icon";
 
 export default function Search(): JSX.Element {
@@ -53,7 +53,7 @@ export default function Search(): JSX.Element {
   }, 300);
 
   return (
-    <div className={searchStyle} onFocus={() => setHasFocused(true)} onBlur={() => setHasFocused(false)}>
+    <div id="search" className={searchStyle} onFocus={() => setHasFocused(true)} onBlur={() => setHasFocused(false)}>
       <div className="search-input">
         <div className={iconStyle} />
         <input type="text" onChange={(e) => debouncedCallBack(e.currentTarget.value)} className="search-input-text" />
