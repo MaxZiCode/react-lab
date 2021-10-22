@@ -95,37 +95,79 @@
     {
       "id": 4,
       "name": "Fallout 76",
-      "date": "2000-01-28"
+      "price": 19.99,
+      "rating": 2,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/ru/0/06/Fallout_76_cover.jpg",
+      "description": "The game isn't absolute trash, but it is all about collecting trash. Sadly collecting stuff isn't possible in this game since you will reach the stash limit within the first few hours of the game and you will struggle with the carry weight limit for the rest of the game.",
+      "age": "10+",
+      "date": "2019-01-28",
+      "platforms": ["PC", "PS5", "XONE"]
     },
     {
       "id": 5,
       "name": "WWE 2K20",
-      "date": "2000-01-28"
+      "price": 29.99,
+      "rating": 1,
+      "imagePath": "https://image.api.playstation.com/vulcan/img/cfn/11307qoqS-1PR6A2EVQe_enXhG9iBC1zqDuPcOjGf9m9VBmUvJtRZZzcOOgkp64z2uWXkx8SLliFbtlhrOzUq9T50Ho5JYUr.png",
+      "description": "Worst game ever. Shame 2k for this garbage. Its an insult for gamers and for pro wrestling fans.",
+      "age": "16+",
+      "platforms": ["PC", "XONE"],
+      "date": "2019-10-22"
     },
     {
       "id": 6,
       "name": "Star Wars Battlefront II",
-      "date": "2000-01-28"
+      "price": 9.99,
+      "rating": 1,
+      "imagePath": "https://image.api.playstation.com/cdn/UP0006/CUSA05770_00/nHKRkAnRMYjNzZLbt7oFNKQU4FnmECOP6H1hX52klZsz8tXHX16PNqvU5Gk4GsCF.png",
+      "description": "The game is the embodiment of greed. It's a money grab at a popular movie and series of games that turned out to be a subpar modern shooter filled with microtransactions for a full price triple-A game. Very disappointing",
+      "age": "16+",
+      "platforms": ["PC", "PS5", "XONE"],
+      "date": "2017-11-16"
     },
     {
       "id": 7,
       "name": "No Man's Sky",
-      "date": "2000-01-28"
+      "price": 34.99,
+      "rating": 2,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/ru/c/ca/No_Mans_Sky_logo.png",
+      "description": "Didn't deliver on multiple promises and lacks any sort of gameplay. As an artsy game it does wonders but only if you want to call it a game. If you take away the game title and call it an experience it would be much better. Game felt more like a VR experience trying to be a game, it doesn't hit any standard for gameplay.",
+      "age": "10+",
+      "platforms": ["PC", "PS5", "XONE"],
+      "date": "2016-08-12"
     },
     {
       "id": 8,
       "name": "Umbrella Corps",
-      "date": "2000-01-28"
+      "price": 14.99,
+      "rating": 2,
+      "imagePath": "https://upload.wikimedia.org/wikipedia/en/1/1b/Umbrella_Corps_cover_art.jpg",
+      "description": "Umbrella Corps is BY FAR one of the worst games of 2016. Clunky controls, ignorant A.I., and an almost pointless multiplayer mode make this game torturous to play. Not to mention textures that look like they came from 2010. AVOID THIS GAME AT ALL COSTS. 1/10",
+      "age": "18+",
+      "platforms": ["PC", "PS5"],
+      "date": "2012-05-21"
     },
     {
       "id": 9,
       "name": "Tony Hawk's Pro Skater 5",
-      "date": "2000-01-28"
+      "price": 49.5,
+      "rating": 1,
+      "imagePath": "https://m.media-amazon.com/images/I/81Ia39LcJuL._SL1500_.jpg",
+      "description": "How Tony Hawk has fallen from grace. This game looks and feels like a re-skinned Goat Simulator and is possibly the worst game I'v seen since superman 64. Avoid.",
+      "age": "6+",
+      "platforms": ["PS5", "XONE"],
+      "date": "2015-09-29"
     },
     {
       "id": 10,
       "name": "Alone in the Dark: Illumination",
-      "date": "2000-01-28"
+      "price": 12.59,
+      "rating": 1,
+      "imagePath": "https://m.media-amazon.com/images/M/MV5BNmRlOGY4MTAtZjc4Ny00ZDI0LWFiMWEtYmZlM2NhYzNmMTBiXkEyXkFqcGdeQXVyNjg5MjUzMTI@._V1_.jpg",
+      "description": "It's like a Left for Dead without fun, good combat and shooting, art design, ballance and players. Don't buy it. It's a new game what is already dead. No lobby, no players. Single Player is horrible.",
+      "age": "18+",
+      "platforms": ["PC"],
+      "date": "2015-05-11"
     }
   ]
 }
