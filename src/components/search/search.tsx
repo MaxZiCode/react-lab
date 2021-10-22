@@ -1,5 +1,6 @@
 import "./search.scss";
 import "@/styles/panels.scss";
+import "@/styles/animation.scss";
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Product } from "@/types";
@@ -44,7 +45,7 @@ export default function Search(): JSX.Element {
 
   useEffect(() => {
     const styles = [initialIconStyle];
-    if (isSearching) styles.push("searching");
+    if (isSearching) styles.push("loading-spinner");
     setIconStyle(styles.join(" "));
   }, [isSearching]);
 
