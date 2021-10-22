@@ -1,23 +1,28 @@
 import "./home.scss";
 import "@/styles/cardContainer.scss";
 
-import { useEffect, useState } from "react";
-import { getTop, Product } from "@/api/apiProducts";
+import { useEffect, useState, VFC } from "react";
 import categoriesValues from "@/constants/categoriesValues";
 
+import { Product } from "@/types";
+import { getTop } from "@/api/apiProducts";
 import Search from "../search/search";
 import Category from "../../elements/category/category";
 import ProductsMenu from "../productsMenu/productsMenu";
 
-export default function Home(): JSX.Element {
-  const [categoryInfos] = useState([...categoriesValues.values()]);
+export interface HomeProps {
+  topProducts: Product[];
+  setTopProducts: (ps: Product[]) => void;
+}
 
-  const [products, setProducts] = useState([] as Product[]);
-  const [isProductsRequested, setIsProductsRequested] = useState(false);
+const Home: VFC<HomeProps> = ({ topProducts, setTopProducts }) => {
+  const [categoryInfos] = useState([...categoriesValues.values()]);
+  const [hasProductsRequested, setHasProductsRequested] = useState(false);
+
   useEffect(() => {
-    if (products.length === 0 && !isProductsRequested) {
-      getTop().then((ps) => setProducts(ps));
-      setIsProductsRequested(true);
+    if (!hasProductsRequested && topProducts.length === 0) {
+      getTop().then((ps) => setTopProducts(ps));
+      setHasProductsRequested(true);
     }
   });
 
@@ -32,7 +37,9 @@ export default function Home(): JSX.Element {
           ))}
         </div>
       </div>
-      <ProductsMenu products={products} />
+      <ProductsMenu products={topProducts} />
     </div>
   );
-}
+};
+
+export default Home;

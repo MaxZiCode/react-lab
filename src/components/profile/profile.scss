@@ -19,14 +19,27 @@ $imageWidth: 240px;
 .profile-image-view {
   display: flex;
   align-items: center;
-  justify-content: center;
   width: $imageWidth;
   height: 320px;
   margin-left: auto;
   margin-right: auto;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+  }
+}
+
+.profile-wrapper-no-picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: $basicDarkColor;
   border-radius: $defaultBorderRadius;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .profile-image-no-picture {
@@ -42,6 +55,18 @@ $imageWidth: 240px;
 
 .user-info-area {
   width: 250px;
+
+  .form-field {
+    flex-direction: column;
+  }
+
+  .form-input {
+    width: 100%;
+  }
+
+  .form-field-validation-problem {
+    background-color: $homeItemsBackgroundColor;
+  }
 }
 
 .user-info-area > * {
@@ -50,6 +75,10 @@ $imageWidth: 240px;
 
 .buttons-area > * {
   margin-bottom: 10px;
+}
+
+button label {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 900px) {

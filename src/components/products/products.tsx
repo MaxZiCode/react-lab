@@ -4,7 +4,8 @@ import "./products.scss";
 import ProductsControlMenu from "@/components/productsControlMenu/productsControlMenu";
 // import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { getTop, Product } from "@/api/apiProducts";
+import { getTop } from "@/api/apiProducts";
+import { Product } from "@/types";
 import Search from "../search/search";
 import ProductsMenu from "../productsMenu/productsMenu";
 

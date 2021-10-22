@@ -37,6 +37,7 @@ select {
 
 input,
 select,
+textarea,
 button {
   font-family: inherit;
   font-size: inherit;
@@ -50,6 +51,18 @@ button {
   background-color: inherit;
   padding: 0;
   border: 0;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid $basicColor;
+  background-color: $homeItemsBackgroundColor;
+}
+
+input[type="file"] {
+  display: none;
 }
 
 a {

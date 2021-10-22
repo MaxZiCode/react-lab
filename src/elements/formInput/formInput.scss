@@ -1,32 +1,24 @@
-@mixin form-field() {
+.form-field {
   display: flex;
-}
-
-.form-field-row {
   justify-content: space-between;
   align-items: baseline;
-  @include form-field();
 }
 
-.form-field-column {
-  flex-direction: column;
-  @include form-field();
-}
-
-.form-input-row {
+.form-input {
   width: 60%;
 }
 
-.form-input-column {
-  margin-top: 10px;
-  width: 100%;
-}
+// .form-input-column {
+//   margin-top: 10px;
+//   width: 100%;
+// }
 
 .form-input-invalid {
   border-color: red;
 }
 
 .form-field-validation-problem {
+  font-weight: bold;
   font-size: 12px;
   color: red;
   text-align: end;

@@ -1,6 +1,6 @@
 import "@/styles/cardContainer.scss";
 
-import { Product } from "@/api/apiProducts";
+import { Product } from "@/types";
 import GameCard from "@/elements/gameCard/gameCard";
 import { VFC } from "react";
 
