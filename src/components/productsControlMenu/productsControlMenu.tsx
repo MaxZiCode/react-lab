@@ -1,8 +1,12 @@
 import "./productsControlMenu.scss";
 
-const ProductsControlMenu: React.VFC = () => (
+export interface ProductsControlMenuProps {
+  title: string;
+}
+
+const ProductsControlMenu: React.VFC<ProductsControlMenuProps> = ({ title }) => (
   <div id="products-control-menu" className="big-menu">
-    <h2 className="big-menu-title-centered">PC</h2>
+    <h2 className="big-menu-title-centered">{title}</h2>
     <div className="products-control-menu-section">
       <h3 className="big-menu-title ps-title">Sort</h3>
       <div className="ps-sort-field">
