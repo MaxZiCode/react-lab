@@ -28,6 +28,10 @@ $searchBorderRadius: 20px;
 .search-input {
   display: flex;
   align-items: center;
+
+  .loading-spinner {
+    margin: 10px;
+  }
 }
 
 .search-input-text {

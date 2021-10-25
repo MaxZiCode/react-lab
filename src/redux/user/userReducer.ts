@@ -22,6 +22,12 @@ export default function userReducer(state: UserState = initialState, action: Any
     case UserConstants.SIGN_OUT:
       return initialState;
 
+    case UserConstants.CHANGE_EMAIL:
+      return {
+        ...state,
+        ...action.payload,
+      };
+
     default: {
       return state;
     }

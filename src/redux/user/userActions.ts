@@ -9,3 +9,7 @@ export function signInUser(id: number, username: string, password: string): AnyA
 export function signOutUser(): AnyAction {
   return action(UserConstants.SIGN_OUT);
 }
+
+export function changeUsername(newUsername: string): AnyAction {
+  return action(UserConstants.CHANGE_EMAIL, { username: newUsername });
+}

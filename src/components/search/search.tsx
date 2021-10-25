@@ -1,13 +1,12 @@
 import "./search.scss";
 import "@/styles/panels.scss";
-import "@/styles/animation.scss";
 import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Product } from "@/types";
+import LoadingSpinner from "@/elements/loadingSpinner/loadingSpinner";
 import { searchProducts } from "../../api/apiProducts";
 
 const initialSearchStyle = "search";
-const initialIconStyle = "search-input-icon";
 
 export default function Search(): JSX.Element {
   const [currentValue, setCurrentValue] = useState("");
@@ -17,7 +16,6 @@ export default function Search(): JSX.Element {
   const [hasFocused, setHasFocused] = useState(false);
 
   const [searchStyle, setSearchStyle] = useState(initialSearchStyle);
-  const [iconStyle, setIconStyle] = useState(initialIconStyle);
   const hasResults = products.length > 0;
 
   useEffect(() => {
@@ -43,12 +41,6 @@ export default function Search(): JSX.Element {
     setSearchStyle(styles.join(" "));
   }, [hasFocused, shouldShowResults]);
 
-  useEffect(() => {
-    const styles = [initialIconStyle];
-    if (isSearching) styles.push("loading-spinner");
-    setIconStyle(styles.join(" "));
-  }, [isSearching]);
-
   const debouncedCallBack = useDebouncedCallback((value) => {
     setCurrentValue(value);
   }, 300);
@@ -56,7 +48,7 @@ export default function Search(): JSX.Element {
   return (
     <div className={searchStyle} onFocus={() => setHasFocused(true)} onBlur={() => setHasFocused(false)}>
       <div className="search-input">
-        <div className={iconStyle} />
+        {isSearching ? <LoadingSpinner /> : <div className="search-input-icon" />}
         <input type="text" onChange={(e) => debouncedCallBack(e.currentTarget.value)} className="search-input-text" />
       </div>
       {shouldShowResults ? (

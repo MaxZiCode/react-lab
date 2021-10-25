@@ -32,3 +32,7 @@ export interface Profile {
   description?: string;
   picture?: string;
 }
+
+export interface ProfileReader {
+  read: () => Profile;
+}
