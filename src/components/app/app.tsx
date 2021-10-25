@@ -2,8 +2,8 @@ import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
-import ProfileComp from "@/components/profile/profile";
-import { Product } from "@/types";
+import Profile from "@/components/profile/profile";
+import { Product, Profile as ProfileInfo } from "@/types";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
@@ -18,6 +18,7 @@ interface AppState {
   isSignUpShowing: boolean;
   topProducts: Product[];
   redirectRouteAfterSignIn?: string;
+  profile?: ProfileInfo;
 }
 
 const initialState: AppState = {
@@ -35,6 +36,7 @@ class App extends Component<RouteComponentProps, AppState> {
 
     this.setRedirectRoute = this.setRedirectRoute.bind(this);
     this.setTopProducts = this.setTopProducts.bind(this);
+    this.setProfile = this.setProfile.bind(this);
     this.showSignInWindow = this.showSignInWindow.bind(this);
     this.showSignUpWindow = this.showSignUpWindow.bind(this);
     this.closeSignInWindow = this.closeSignInWindow.bind(this);
@@ -60,6 +62,10 @@ class App extends Component<RouteComponentProps, AppState> {
 
   setTopProducts(products: Product[]) {
     this.setState({ topProducts: products });
+  }
+
+  setProfile(profile: ProfileInfo) {
+    this.setState({ profile });
   }
 
   showSignInWindow() {
@@ -105,7 +111,7 @@ class App extends Component<RouteComponentProps, AppState> {
               <About />
             </AuthRoute>
             <AuthRoute path={relativeLinks.USER} {...this._authRouteProps}>
-              <ProfileComp />
+              <Profile profile={this.state.profile} setProfile={this.setProfile} />
             </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
