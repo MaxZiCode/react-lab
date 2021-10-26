@@ -16,31 +16,27 @@ import { UserState } from "@/redux/states";
 import ChangePasswordWindow from "../changePasswordWindow/changePasswordWindow";
 
 export interface ProfileProps {
-  profile?: Profile;
-  setProfile: (profile: Profile) => void;
-}
-
-interface ProfileCompProps extends ProfileProps {
-  profile: Profile;
   profileReader: ProfileReader;
   setProfileReader: (p: ProfileReader) => void;
   user: UserState;
 }
 
-const ProfileComp: VFC<ProfileCompProps> = ({ profile, setProfile, profileReader, setProfileReader, user }) => {
+const ProfileComp: VFC<ProfileProps> = ({ profileReader, setProfileReader, user }) => {
   const dispatch = useDispatch();
+
+  const [profile, setProfile] = useState<Profile>(profileReader.read());
   const [usernameValidationFn, setUsernameValidationFn] = useState(defaultValues.notImplementedValidationFn);
 
   const [isPasswordWindowShowing, setIsPasswordWindowShowing] = useState(false);
 
   useEffect(() => {
     const p = profileReader.read();
-    dispatch(changeUsername(p.email));
     setProfile(p);
+    dispatch(changeUsername(p.email));
   }, [profileReader]);
 
   const changePicture = (files: FileList | null) => {
-    if (files && files.length > 0) getBase64(files[0]).then((s) => setProfile({ ...profile, picture: s }));
+    if (profile && files && files.length > 0) getBase64(files[0]).then((s) => setProfile({ ...profile, picture: s }));
   };
 
   const validate = () => usernameValidationFn();
@@ -50,7 +46,7 @@ const ProfileComp: VFC<ProfileCompProps> = ({ profile, setProfile, profileReader
   };
 
   const save = () => {
-    if (validate()) update(saveProfile(user.id, user.password, profile));
+    if (profile && validate()) update(saveProfile(user.id, user.password, profile));
   };
 
   const image = profile?.picture ? (
@@ -111,7 +107,7 @@ const ProfileComp: VFC<ProfileCompProps> = ({ profile, setProfile, profileReader
   );
 };
 
-export default function Profile(props: ProfileProps): JSX.Element {
+export default function Profile(): JSX.Element {
   const user = useSelector((s: RootState) => s.user);
   const [profileReader, setProfileReader] = useState(wrapProfilePromise(getProfile(user.id)));
 
@@ -121,15 +117,12 @@ export default function Profile(props: ProfileProps): JSX.Element {
     </div>
   );
 
-  const profile = props.profile ?? { email: "" };
-  const { setProfile } = props;
-
   return (
     <div className="home">
       <div className="big-menu">
         <h2 className="big-menu-title">{`${user.username} profile page`}</h2>
         <Suspense fallback={loading}>
-          <ProfileComp {...{ profile, setProfile, user, profileReader, setProfileReader }} />
+          <ProfileComp {...{ user, profileReader, setProfileReader }} />
         </Suspense>
       </div>
     </div>
