@@ -4,3 +4,8 @@ export const enum UserConstants {
   SIGN_OUT = "SIGN_OUT",
   CHANGE_EMAIL = "CHANGE_EMAIL",
 }
+
+export const enum ProfileConstants {
+  SET_PROFILE = "SET_PROFILE",
+  CLEAR_PROFILE = "CLEAR_PROFILE",
+}

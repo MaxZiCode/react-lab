@@ -2,7 +2,7 @@ import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
-import ProfileComp from "@/components/profile/profile";
+import Profile from "@/components/profile/profile";
 import { Product } from "@/types";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
@@ -105,7 +105,7 @@ class App extends Component<RouteComponentProps, AppState> {
               <About />
             </AuthRoute>
             <AuthRoute path={relativeLinks.USER} {...this._authRouteProps}>
-              <ProfileComp />
+              <Profile />
             </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
