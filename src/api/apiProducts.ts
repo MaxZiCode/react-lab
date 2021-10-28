@@ -9,14 +9,31 @@ export async function getProduct(id: number | string): Promise<Product> {
   return result;
 }
 
-export async function getProducts(category: CategoryName): Promise<Product[]> {
-  const resp = await fetch(`${urls.ROOT}/api/products?platforms_like=${category}`);
+export async function getProducts(
+  category?: CategoryName,
+  genre?: string,
+  age?: string,
+  sort?: string,
+  order?: string
+): Promise<Product[]> {
+  const baseUrl = `${urls.ROOT}/api/products`;
+
+  const query: string[] = [];
+  if (category) query.push(`platforms_like=${category}`);
+  if (genre) query.push(`genre=${genre}`);
+  if (age) query.push(`age=${age}`);
+  if (sort) query.push(`_sort=${sort}`);
+  if (order) query.push(`_order=${order}`);
+
+  const fullUrl = [baseUrl, query.join("&")].join("?");
+
+  const resp = await fetch(fullUrl);
   const result: Product[] = await resp.json();
   return result;
 }
 
-export async function searchProducts(query: string): Promise<Product[]> {
-  const resp = await fetch(`${urls.ROOT}/api/search/${query}`);
+export async function searchProducts(value: string): Promise<Product[]> {
+  const resp = await fetch(`${urls.ROOT}/api/search/${value}`);
   const result: Product[] = await resp.json();
   return result;
 }

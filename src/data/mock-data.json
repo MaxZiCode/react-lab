@@ -56,6 +56,11 @@
       "description": "Test",
       "password": "$2a$10$DKx7ynlxbcut5N6f0IA2deEmv.iWwr1MKqCo5z/6bE5iSnYAxMVKW",
       "id": 11
+    },
+    {
+      "email": "max@max.maxa",
+      "password": "$2a$10$t.eib1N4kGd45lQy1vadQ.bZGNn2bjCyFGYGfSMs2XcnqK9xK11q6",
+      "id": 12
     }
   ],
   "products": [

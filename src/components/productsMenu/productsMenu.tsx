@@ -6,7 +6,7 @@ import { VFC } from "react";
 
 const ProductsMenu: VFC<{ products: Product[] }> = ({ products }) => (
   <div className="big-menu home-menu">
-    <h2 className="big-menu-title">New games</h2>
+    <h2 className="big-menu-title">Products</h2>
     <div className="card-container">
       {products.map((p) => (
         <GameCard key={p.id} {...p} />

@@ -1,25 +1,63 @@
+import { Product } from "@/types";
+import productValues from "@/constants/productValues";
 import "./productsControlMenu.scss";
+import { capitalize } from "@/utilities/stringHelper";
+
+const sortCriteriaMap = new Map(productValues.sortCriterias.map((sc) => [sc, capitalize(sc)]));
+const sortTypeMap = new Map([
+  ["asc", "Ascending"],
+  ["desc", "Descending"],
+]);
 
 export interface ProductsControlMenuProps {
   title: string;
+
+  sortBy: keyof Product;
+  setSortBy: (sortBy: keyof Product) => void;
+
+  sortType: string;
+  setSortType: (sortType: string) => void;
 }
 
-const ProductsControlMenu: React.VFC<ProductsControlMenuProps> = ({ title }) => (
+const ProductsControlMenu: React.VFC<ProductsControlMenuProps> = ({
+  title,
+  sortBy,
+  setSortBy,
+  sortType,
+  setSortType,
+}) => (
   <div id="products-control-menu" className="big-menu">
     <h2 className="big-menu-title-centered">{title}</h2>
     <div className="products-control-menu-section">
       <h3 className="big-menu-title ps-title">Sort</h3>
       <div className="ps-sort-field">
         Criteria
-        <select name="sort-criteria" id="ps-sort-criteria" defaultValue="name">
-          <option value="name">Name</option>
+        <select
+          name="sort-criteria"
+          id="ps-sort-criteria"
+          value={sortBy}
+          onChange={(e) => setSortBy(e.currentTarget.value as keyof Product)}
+        >
+          {productValues.sortCriterias.map((sc) => (
+            <option value={sc} key={sc}>
+              {sortCriteriaMap.get(sc)}
+            </option>
+          ))}
         </select>
       </div>
       <div className="ps-sort-field">
         Type
-        <select name="sort-type" id="ps-sort-type" defaultValue="asc">
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+        <select
+          name="sort-type"
+          id="ps-sort-type"
+          value={sortType}
+          onChange={(e) => setSortType(e.currentTarget.value)}
+        >
+          {productValues.sortTypes.map((st) => (
+            <option value={st} key={st}>
+              {sortTypeMap.get(st)}
+            </option>
+          ))}
         </select>
       </div>
     </div>
