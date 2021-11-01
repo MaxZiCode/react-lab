@@ -1,56 +1,6 @@
 {
   "users": [
     {
-      "email": "maxim@maxim.com",
-      "password": "$2a$10$5Pw7JoWG4VZJsQBf5JtDfuFvwPoSE1fo4tlhru13hivSqe2QzZKQ2",
-      "id": 1
-    },
-    {
-      "email": "maxim@max.max",
-      "password": "$2a$10$hoVPvuzJJ/g5h9gpjignBuPgY4YN6oCx.yhIxouChDBkcyc3agzaK",
-      "id": 2
-    },
-    {
-      "email": "maxim@m.max",
-      "password": "$2a$10$osZ1bHsg3zucuhPs6shKKeDWYiHefGl2570mkK1yL.2B8cHCUvQGi",
-      "id": 3
-    },
-    {
-      "email": "max.max@max.max",
-      "password": "$2a$10$ceuVunhywwxbY5iqg/rCPug/Wn4dIGr9Z8uIGbAuniKrQjAI29WhC",
-      "id": 4
-    },
-    {
-      "email": "ma@ma.max",
-      "password": "$2a$10$3B0oQbnaAQehQGWnD6G0ueE2RyT/B7gCG0ooKsyHAPxX.Iu1UBwHW",
-      "id": 5
-    },
-    {
-      "email": "ma@max.ma",
-      "password": "$2a$10$/PB4RJfQwPIUxwkeVymJZO38n9lzK0DU7PrNK339J4nl1eO2WwsRC",
-      "id": 6
-    },
-    {
-      "email": "maxi@max.max",
-      "password": "$2a$10$EQD5BVW3rctwT.57UgLGC.kbTDw.TUAjc5DJpt9P8chd9HTGKRTie",
-      "id": 7
-    },
-    {
-      "email": "ma@ma.maxx",
-      "password": "$2a$10$GJVi3CarTr71wWNGcoBLruAiVMxixXSboOb5JTGN09j6TFvJk2yvG",
-      "id": 8
-    },
-    {
-      "email": "jadislaw@jad.com",
-      "password": "$2a$10$kTXOUIIYKqZRwh8pwFcEPu.ZTOQ5YyyadqQTojd.EXR28.Oj.kq4i",
-      "id": 9
-    },
-    {
-      "email": "normas@normas.com",
-      "password": "$2a$10$MCXjYDdQNPN5wwCEKKwBDuXSsV2memEGJTbLuHnnPuU5KvV23PWGq",
-      "id": 10
-    },
-    {
       "email": "max@max.max",
       "picture": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALGSURBVFhH7Zc7aFVBEIYvIoigiKJcH1fiI/dZ3JQ2AbESq4AIFhZphIDYiIWQJoJWChEshDRBEGIhREGMRVBIIYiIQZAICtqlsEglFwvhON8wezj3nD1PHyBk4Cd3d2fmn52Z3bOpbcp/Ka1Wa6Tdbp+Mgjlb/jvS7/d3dTqda4J33W43SMGaYEZQN7Pfl0ajsQ2nQrxhJEUwEMwStLmpJjgQRy8jjkuBbFUujaU8K92FQOaazWbb3BYTS3vlnXvwpVQ5xGA25iBEY/5ZcOjBctA+NxnOdc6cDec746eG9CNYMPfZIop1AU2UcHLk1v3g6M05Jd/3/L2SMrfnxaegefFKMHp5Wud8toYxo0kXUeIY+Yx1h60Ll8Lx/sdvgt0rX4d06k9Xh8YxzBtNuogSZ9lnPBTA6NUbGgA7HrmzEOpkBUBD0l9GlRS61WcIqO2BR6+Cvctrmv4db7/p7sHO1+s6Dzl/6QmfD8CtaXRJ6fV6p31G7JA6U2+COPhwResNEf0Q7QlAEGkNKQFMGl1SWIwbQIQzN4aIACDd+uF7sOXjD9U5PPdEs+L0CJY5N45gxuiSIotTMWV1dOz63XBM3XEMae3zTwXrnA5K4fQ4Fei6cQSZAUzElBU4Igsu1aSY3xATIKmmRJSH5iRA9NDx+JsyuqRIl57wGCiOT9/WHW5f3dAAaD6CApARgFsnGz4fhgmj84sEse4xUkBG6jmK9AFd75rO7TbnHhjkXskSwD2PoYIAohcRZGQi2u0598CS0aSLKI7FDR3YLTXmN/Un9dSdwAgCpDSeQ3b6nUikix5jJYCUXUZvP2rOfEbj6dvA3OcLj4isXqiAQek3gQTAifB+FSugWOrjQhCCMm/BOAZif97cVRPKIY5Kv46EmOdc/ve/qPAVE6dLcSIPCLZayosIF4l9tHi4hLC5P/f/wKb8G6nVfgEw22CHssxJ1gAAAABJRU5ErkJggg==",
       "description": "Test",

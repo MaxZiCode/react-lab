@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useHistory } from "react-router";
 import { signOutUser } from "@/redux/user/userActions";
+import { clearProfile } from "@/redux/profile/profileActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -122,6 +123,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
   const { username } = useSelector((s: RootState) => s.user);
   const onSignOut = () => {
     dispatch(signOutUser());
+    dispatch(clearProfile());
     history.push(relativeLinks.HOME);
   };
 

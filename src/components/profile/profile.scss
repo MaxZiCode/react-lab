@@ -81,6 +81,12 @@ button label {
   cursor: pointer;
 }
 
+.loading-bounds {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+}
+
 @media screen and (max-width: 900px) {
   .profile-page-container {
     flex-flow: column;
