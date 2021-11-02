@@ -98,9 +98,6 @@ class App extends Component<RouteComponentProps, AppState> {
             <Route exact path={relativeLinks.HOME}>
               <Home topProducts={this.state.topProducts} setTopProducts={this.setTopProducts} />
             </Route>
-            <Route exact path={`${relativeLinks.PRODUCTS}/:categoryId`}>
-              <Products />
-            </Route>
             <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...this._authRouteProps}>
               <Products />
             </AuthRoute>
