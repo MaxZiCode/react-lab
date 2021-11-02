@@ -1,18 +1,17 @@
 import "./products.scss";
 
 import ProductsControlMenu from "@/components/productsControlMenu/productsControlMenu";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getProducts } from "@/api/apiProducts";
 import { CategoryName, Product } from "@/types";
 import { useParams } from "react-router";
 import categoriesValues from "@/constants/categoriesValues";
 import pv from "@/constants/productValues";
+import useLoadingPromise from "@/hooks/useLoadingPromise";
 import Search from "../search/search";
 import ProductsMenu from "../productsMenu/productsMenu";
 
 export default function Products(): JSX.Element {
-  const [products, setProducts] = useState([] as Product[]);
-
   const { categoryId } = useParams<{ categoryId: string }>();
   const categoryValue = categoriesValues.get(categoryId.toUpperCase() as CategoryName);
 
@@ -20,13 +19,11 @@ export default function Products(): JSX.Element {
   const [sortType, setSortType] = useState<string>(pv.sortTypes[0]);
   const [filterGenres, setFilterGenres] = useState<string>(pv.filterGenres[0]);
   const [filterAge, setFilterAge] = useState<string>(pv.filterAge[0]);
-
-  useEffect(() => {
-    if (!categoryValue) return;
-
+  const [products, isLoading] = useLoadingPromise(() => {
     const genre = filterGenres === "all" ? undefined : filterGenres;
     const age = filterAge === "all" ? undefined : filterAge;
-    getProducts(categoryValue.id, genre, age, sortBy, sortType).then((ps) => setProducts(ps));
+
+    return getProducts(categoryValue?.id, genre, age, sortBy, sortType);
   }, [categoryId, sortBy, sortType, filterGenres, filterAge]);
 
   return (
@@ -39,7 +36,7 @@ export default function Products(): JSX.Element {
       </div>
       <div className="products-center-area">
         <Search />
-        <ProductsMenu products={products} />
+        <ProductsMenu products={products ?? []} isLoading={isLoading} />
       </div>
     </div>
   );

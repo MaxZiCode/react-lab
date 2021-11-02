@@ -17,14 +17,12 @@ export interface HomeProps {
 
 const Home: VFC<HomeProps> = ({ topProducts, setTopProducts }) => {
   const [categoryInfos] = useState([...categoriesValues.values()]);
-  const [hasProductsRequested, setHasProductsRequested] = useState(false);
 
   useEffect(() => {
-    if (!hasProductsRequested && topProducts.length === 0) {
+    if (topProducts.length === 0) {
       getTop().then((ps) => setTopProducts(ps));
-      setHasProductsRequested(true);
     }
-  });
+  }, []);
 
   return (
     <div className="home">
