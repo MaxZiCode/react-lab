@@ -3,6 +3,9 @@ import { UserConstants } from "../constants";
 import { UserState } from "../states";
 
 const initialState: UserState = {
+  id: 0,
+  username: "",
+  password: "",
   isSignedIn: false,
 };
 
@@ -11,16 +14,18 @@ export default function userReducer(state: UserState = initialState, action: Any
     case UserConstants.SIGN_IN: {
       return {
         ...state,
+        ...action.payload,
         isSignedIn: true,
-        username: action.payload,
       };
     }
 
     case UserConstants.SIGN_OUT:
+      return initialState;
+
+    case UserConstants.CHANGE_EMAIL:
       return {
         ...state,
-        isSignedIn: false,
-        username: undefined,
+        ...action.payload,
       };
 
     default: {

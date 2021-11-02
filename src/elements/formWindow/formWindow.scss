@@ -36,11 +36,11 @@
   margin: 30px 0;
 }
 
+.modal-fields > div {
+  margin-bottom: 20px;
+}
+
 .modal-submit-button {
   width: 40%;
-  background-color: $selectionColor;
-  border-radius: 5px;
-  overflow: hidden;
   margin: 0 auto;
-  padding: 5px;
 }

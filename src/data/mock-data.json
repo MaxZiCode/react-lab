@@ -1,64 +1,11 @@
 {
   "users": [
     {
-      "email": "maxim@maxim.com",
-      "password": "$2a$10$5Pw7JoWG4VZJsQBf5JtDfuFvwPoSE1fo4tlhru13hivSqe2QzZKQ2",
-      "id": 1
-    },
-    {
-      "email": "maxim@max.max",
-      "password": "$2a$10$hoVPvuzJJ/g5h9gpjignBuPgY4YN6oCx.yhIxouChDBkcyc3agzaK",
-      "id": 2
-    },
-    {
-      "email": "maxim@m.max",
-      "password": "$2a$10$osZ1bHsg3zucuhPs6shKKeDWYiHefGl2570mkK1yL.2B8cHCUvQGi",
-      "id": 3
-    },
-    {
-      "email": "max.max@max.max",
-      "password": "$2a$10$ceuVunhywwxbY5iqg/rCPug/Wn4dIGr9Z8uIGbAuniKrQjAI29WhC",
-      "id": 4
-    },
-    {
-      "email": "ma@ma.max",
-      "password": "$2a$10$3B0oQbnaAQehQGWnD6G0ueE2RyT/B7gCG0ooKsyHAPxX.Iu1UBwHW",
-      "id": 5
-    },
-    {
-      "email": "ma@max.ma",
-      "password": "$2a$10$/PB4RJfQwPIUxwkeVymJZO38n9lzK0DU7PrNK339J4nl1eO2WwsRC",
-      "id": 6
-    },
-    {
-      "email": "maxi@max.max",
-      "password": "$2a$10$EQD5BVW3rctwT.57UgLGC.kbTDw.TUAjc5DJpt9P8chd9HTGKRTie",
-      "id": 7
-    },
-    {
-      "email": "ma@ma.maxx",
-      "password": "$2a$10$GJVi3CarTr71wWNGcoBLruAiVMxixXSboOb5JTGN09j6TFvJk2yvG",
-      "id": 8
-    },
-    {
-      "email": "jadislaw@jad.com",
-      "password": "$2a$10$kTXOUIIYKqZRwh8pwFcEPu.ZTOQ5YyyadqQTojd.EXR28.Oj.kq4i",
-      "id": 9
-    },
-    {
-      "email": "normas@normas.com",
-      "password": "$2a$10$MCXjYDdQNPN5wwCEKKwBDuXSsV2memEGJTbLuHnnPuU5KvV23PWGq",
-      "id": 10
-    },
-    {
-      "email": "max@max.maxaa",
-      "password": "$2a$10$7zJnv0unsr9yTZktIWGVgeTUkj7tyQasIHkwQD6n86hqq7rlRJ.yC",
-      "id": 11
-    },
-    {
-      "email": "max@max.maxa",
-      "password": "$2a$10$OaDkChJDkgxMfOocq5C6rObzGwoeHsZiruuBNBotLToHEAqfJcjRO",
-      "id": 12
+      "email": "max@max.max",
+      "password": "$2a$10$XT0M2Ya7aPlYI7AKAw5xE.cDhSrWU3z5J1yX7oBo3LpyuqVDlGSWm",
+      "id": 1,
+      "picture": "data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic2hhcmVkLW5hdi1wcy1sb2dvIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjQuMyA5LjUgNDEuMTAwMDAwMDAwMDAwMDEgMzEiIHdpZHRoPSIyNTAwIiBoZWlnaHQ9IjE0NjEiPjxwYXRoIGQ9Ik01LjggMzIuMWMtMS41IDEtMSAyLjkgMi4yIDMuOCAzLjMgMS4xIDYuOSAxLjQgMTAuNC44LjIgMCAuNC0uMS41LS4xdi0zLjRsLTMuNCAxLjFjLTEuMy40LTIuNi41LTMuOS4yLTEtLjMtLjgtLjkuNC0xLjRsNi45LTIuNFYyN2wtOS42IDMuM2MtMS4yLjQtMi40IDEtMy41IDEuOHptMjMuMi0xNXY5LjdjNC4xIDIgNy4zIDAgNy4zLTUuMiAwLTUuMy0xLjktNy43LTcuNC05LjZDMjYgMTEgMjMgMTAuMSAyMCA5LjV2MjguOWw3IDIuMVYxNi4yYzAtMS4xIDAtMS45LjgtMS42IDEuMS4zIDEuMiAxLjQgMS4yIDIuNXptMTMgMTIuN2MtMi45LTEtNi0xLjQtOS0xLjEtMS42LjEtMy4xLjUtNC41IDFsLS4zLjF2My45bDYuNS0yLjRjMS4zLS40IDIuNi0uNSAzLjktLjIgMSAuMy44LjktLjQgMS40bC0xMCAzLjdWNDBMNDIgMzQuOWMxLS40IDEuOS0uOSAyLjctMS43LjctMSAuNC0yLjQtMi43LTMuNHoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==",
+      "description": "I'm MAX"
     }
   ],
   "products": [

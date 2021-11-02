@@ -2,8 +2,9 @@ import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
-import Modal, { ModalProps } from "@/elements/modal/modal";
+import withModal, { ModalProps } from "@/elements/modal/modal";
 import { useHistory } from "react-router";
+import { parseToUserResponseInfo } from "@/utilities/responseParser";
 import { signInUser } from "@/redux/user/userActions";
 import { useDispatch } from "react-redux";
 
@@ -18,25 +19,27 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
   const history = useHistory();
 
   const [login, setLogin] = useState("");
-  const [loginProblem, setLoginProblem] = useState<string>();
+  const [loginProblem, setLoginProblem] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordProblem, setPasswordProblem] = useState<string>();
+  const [passwordProblem, setPasswordProblem] = useState("");
 
   const setProblem = (problem: string) => {
-    setLoginProblem("");
+    setLoginProblem(problem);
     setPasswordProblem(problem);
   };
 
   const resetProblems = () => {
-    setLoginProblem(undefined);
-    setPasswordProblem(undefined);
+    setLoginProblem("");
+    setPasswordProblem("");
   };
 
   const onSubmit = () =>
-    signIn(login, password).then((r) => {
-      if (r.ok) {
+    signIn(login, password).then(async (r) => {
+      if (r.status === 200) {
         resetProblems();
-        dispatch(signInUser(login));
+
+        const user = await parseToUserResponseInfo(r);
+        dispatch(signInUser(user.id, user.email, password));
         clearRedirectRoute();
         close();
 
@@ -51,11 +54,12 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
     });
 
   return (
-    <FormWindow title="Authorization" onClose={close} onSubmit={onSubmit}>
+    <FormWindow title="Authorization" close={close} onSubmit={onSubmit}>
       <FormInput
         id="signin-username"
         name="user-name"
         label="Login"
+        type="text"
         onChange={setLogin}
         validationProblem={loginProblem}
       />
@@ -63,7 +67,7 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
         id="signin-password"
         name="password"
         label="Password"
-        isPassword
+        type="password"
         onChange={setPassword}
         validationProblem={passwordProblem}
       />
@@ -71,8 +75,5 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
   );
 }
 
-export default (props: SignInWindowProps & ModalProps): JSX.Element => (
-  <Modal active={props.active}>
-    <SignInWindow {...props} />
-  </Modal>
-);
+export default ({ isActive, ...props }: SignInWindowProps & ModalProps): JSX.Element =>
+  withModal(<SignInWindow {...props} />, isActive);

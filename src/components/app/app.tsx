@@ -2,6 +2,7 @@ import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
+import Profile from "@/components/profile/profile";
 import { Product } from "@/types";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
@@ -9,7 +10,6 @@ import Footer from "../footer/footer";
 import Home from "../home/home";
 import Products from "./products";
 import About from "./about";
-import Profile from "./profile";
 import SignInWindow from "../signInWindow/signInWindow";
 import SignUpModal from "../signUpWindow/signUpWindow";
 
@@ -86,12 +86,12 @@ class App extends Component<RouteComponentProps, AppState> {
     return (
       <>
         <SignInWindow
-          active={this.state.isSignInShowing}
+          isActive={this.state.isSignInShowing}
           close={this.closeSignInWindow}
           redirectRoute={this.state.redirectRouteAfterSignIn}
           clearRedirectRoute={this.clearRedirectRoute}
         />
-        <SignUpModal active={this.state.isSignUpShowing} close={this.closeSignUpWindow} />
+        <SignUpModal isActive={this.state.isSignUpShowing} close={this.closeSignUpWindow} />
         <Header showSignIn={this.showSignInWindow} showSignUp={this.showSignUpWindow} />
         <main>
           <Switch>

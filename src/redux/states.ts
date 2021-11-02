@@ -1,4 +1,12 @@
+import { Profile } from "@/types";
+
 export interface UserState {
-  username?: string;
+  id: number;
+  username: string;
+  password: string;
   isSignedIn: boolean;
+}
+
+export interface ProfileState {
+  state: Profile;
 }

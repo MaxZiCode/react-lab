@@ -32,7 +32,9 @@ export default function GameCard(product: Product): JSX.Element {
         <div className="card-back">
           <div className="card-description">{product.description}</div>
           <div className="card-age">{product.age}</div>
-          <input type="button" className="card-purchase" value="Add to cart" onClick={() => alert("Adding to cart")} />
+          <button type="button" className="card-purchase menu-button" onClick={() => alert("Adding to cart")}>
+            Add to cart
+          </button>
         </div>
       </div>
     </div>

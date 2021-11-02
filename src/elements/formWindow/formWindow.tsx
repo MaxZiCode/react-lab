@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 export interface FormWindowProps {
   title: string;
   onSubmit: () => Promise<void>;
-  onClose: () => void;
+  close: () => void;
 }
 
 const FormWindow: React.FC<FormWindowProps> = (props) => {
@@ -20,14 +20,14 @@ const FormWindow: React.FC<FormWindowProps> = (props) => {
     <div className="modal">
       <div className="modal-window">
         <form>
-          <button className="modal-close-button" type="button" onClick={() => props.onClose()}>
+          <button className="modal-close-button" type="button" onClick={() => props.close()}>
             <img src={closeIcon} alt="close icon" />
           </button>
           <div className="modal-title">{props.title}</div>
           <div className="modal-fields">{props.children}</div>
           <button
             disabled={isSubmitting}
-            className="modal-submit-button"
+            className="modal-submit-button menu-button"
             type="button"
             onClick={(e) => {
               e.preventDefault();

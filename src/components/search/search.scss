@@ -6,12 +6,6 @@ $searchBorderSize: 2px;
 $searchBorder: $searchBorderSize solid $basicColor;
 $searchBorderRadius: 20px;
 
-@keyframes spinner-border {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .search {
   width: 80%;
   max-width: 600px;
@@ -34,16 +28,21 @@ $searchBorderRadius: 20px;
 .search-input {
   display: flex;
   align-items: center;
+
+  .loading-spinner {
+    margin: 10px;
+  }
 }
 
 .search-input-text {
   font-size: $searchFontSize;
   color: $basicColor;
-  width: 100%;
   padding-top: $searchInputPadding;
   padding-right: $searchInputPadding;
   padding-bottom: $searchInputPadding * 0.75;
   padding-left: $searchInputPaddingLeft;
+  border: 0;
+  background-color: inherit;
 }
 
 .search-input-icon {
@@ -55,15 +54,6 @@ $searchBorderRadius: 20px;
   background-image: url("../../assets/vectors/Vector_search_icon.svg");
   background-size: cover;
   margin: $searchInputPadding;
-}
-
-.search-input-icon.searching {
-  content: " ";
-  background: none;
-  border: 0.25em solid gray;
-  border-right-color: transparent;
-  border-radius: 50%;
-  animation: spinner-border 0.75s linear infinite;
 }
 
 .search-results {
