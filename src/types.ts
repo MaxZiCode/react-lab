@@ -33,3 +33,10 @@ export interface Profile {
   description?: string;
   picture?: string;
 }
+
+export interface CartItem {
+  productId: number;
+  selectedPlatform: CategoryName;
+  orderDate: number;
+  amount: number;
+}

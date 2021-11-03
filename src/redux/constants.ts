@@ -9,3 +9,8 @@ export const enum ProfileConstants {
   SET_PROFILE = "SET_PROFILE",
   CLEAR_PROFILE = "CLEAR_PROFILE",
 }
+
+export const enum CartConstants {
+  ADD_PRODUCT = "ADD_PRODUCT",
+  REMOVE_PRODUCT = "REMOVE_PRODUCT",
+}
