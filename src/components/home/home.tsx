@@ -1,14 +1,14 @@
 import "./home.scss";
+import "@/styles/cardContainer.scss";
 
 import { useEffect, useState, VFC } from "react";
 import categoriesValues from "@/constants/categoriesValues";
 
-import { getTop } from "@/api/apiProducts";
-import CardMenu from "@/elements/cardMenu/cardMenu";
 import { Product } from "@/types";
+import { getTop } from "@/api/apiProducts";
 import Search from "../search/search";
 import Category from "../../elements/category/category";
-import GameCard from "../../elements/gameCard/gameCard";
+import ProductsMenu from "../productsMenu/productsMenu";
 
 export interface HomeProps {
   topProducts: Product[];
@@ -17,29 +17,25 @@ export interface HomeProps {
 
 const Home: VFC<HomeProps> = ({ topProducts, setTopProducts }) => {
   const [categoryInfos] = useState([...categoriesValues.values()]);
-  const [hasProductsRequested, setHasProductsRequested] = useState(false);
 
   useEffect(() => {
-    if (!hasProductsRequested && topProducts.length === 0) {
+    if (topProducts.length === 0) {
       getTop().then((ps) => setTopProducts(ps));
-      setHasProductsRequested(true);
     }
-  });
+  }, []);
 
   return (
     <div className="home">
       <Search />
-      <CardMenu title="Categories">
-        {categoryInfos.map((c) => (
-          <Category key={c.id} {...c} />
-        ))}
-      </CardMenu>
-      <CardMenu title="New games">
-        {topProducts.map((p) => (
-          <GameCard key={p.id} {...p} />
-        ))}
-      </CardMenu>
-      <br />
+      <div className="big-menu home-menu">
+        <h2 className="big-menu-title">Categories</h2>
+        <div className="card-container">
+          {categoryInfos.map((c) => (
+            <Category key={c.id} {...c} />
+          ))}
+        </div>
+      </div>
+      <ProductsMenu products={topProducts} />
     </div>
   );
 };

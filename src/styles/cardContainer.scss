@@ -1,19 +1,15 @@
-.card-container {
+@mixin card-container($threshold2: none, $threshold1: none) {
   display: grid;
   width: 100%;
   grid-template: auto / repeat(3, auto);
   justify-content: center;
   gap: 40px;
-}
 
-@media screen and (max-width: 950px) {
-  .card-container {
+  @media screen and (max-width: $threshold2) {
     grid-template: auto / repeat(2, auto);
   }
-}
 
-@media screen and (max-width: 650px) {
-  .card-container {
+  @media screen and (max-width: $threshold1) {
     grid-template: auto / auto;
   }
 }

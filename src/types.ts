@@ -20,6 +20,7 @@ export interface Product {
   age: string;
   date: Date;
   platforms: CategoryName[];
+  genre?: string;
 }
 
 export interface UserResponseInfo {

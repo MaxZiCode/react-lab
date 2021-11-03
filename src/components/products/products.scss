@@ -1,0 +1,39 @@
+@import "../../styles/cardContainer.scss";
+
+.products {
+  display: grid;
+  grid-template: auto / 1fr 3fr 1fr;
+  gap: 30px;
+  margin: 30px 10px;
+
+  #products-control-menu {
+    margin-left: auto;
+  }
+
+  #search {
+    margin: 0 auto;
+  }
+
+  .card-container {
+    @include card-container(1200px, 600px);
+  }
+
+  @media screen and (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+
+    #products-control-menu {
+      margin-right: auto;
+    }
+  }
+}
+
+.products-center-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .big-menu {
+    margin-top: 30px;
+  }
+}
