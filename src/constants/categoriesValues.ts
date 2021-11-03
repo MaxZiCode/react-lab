@@ -1,19 +1,8 @@
+import { CategoryInfo, CategoryName } from "@/types";
 import headerValues from "./urls";
 import windowsLogo from "../assets/vectors/Vector_windows.svg";
 import psLogo from "../assets/vectors/Vector_playstation.svg";
 import xboxLogo from "../assets/vectors/Vector_xbox.svg";
-
-export type CategoryName = "PC" | "PS5" | "XONE";
-
-export interface CategoryInfo {
-  readonly id: CategoryName;
-
-  readonly label: string;
-
-  readonly logo: string;
-
-  readonly link: string;
-}
 
 function createCategoryInfo(id: CategoryName, label: string, logo: string) {
   return {
