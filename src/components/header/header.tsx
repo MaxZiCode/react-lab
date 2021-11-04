@@ -23,7 +23,7 @@ interface ButtonContentParams {
     imagePath: string;
     alt: string;
   };
-  label?: string;
+  label?: string | number;
 }
 
 function ButtonContent(params: ButtonContentParams) {
@@ -121,6 +121,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
   ];
 
   const { username } = useSelector((s: RootState) => s.user);
+  const cartAmount = useSelector((s: RootState) => s.cart.items.length);
   const onSignOut = () => {
     dispatch(signOutUser());
     dispatch(clearProfile());
@@ -141,7 +142,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
       id: "cart",
       node: (
         <NavLink to={relativeLinks.CART} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label="0" icon={{ imagePath: cartIcon, alt: "cart icon" }} />
+          <ButtonContent label={cartAmount} icon={{ imagePath: cartIcon, alt: "cart icon" }} />
         </NavLink>
       ),
     },

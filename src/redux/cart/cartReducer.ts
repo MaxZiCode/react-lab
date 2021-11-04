@@ -10,14 +10,17 @@ const initialState: CartState = {
 export default function cartReducer(state = initialState, action: AnyAction): CartState {
   switch (action.type) {
     case CartConstants.ADD_PRODUCT: {
-      const args = action.type.payload;
-      const item: CartItem = {
-        productId: args.id,
-        selectedPlatform: args.platform ?? "PC",
-        orderDate: args.date ?? Date.now(),
-        amount: 1,
-      };
-      state.items.push(item);
+      const args = action.payload;
+      const { id } = args;
+      if (!state.items.some((i) => i.productId === id)) {
+        const item: CartItem = {
+          productId: args.id,
+          selectedPlatform: args.platform ?? "PC",
+          orderDate: args.date ?? Date.now(),
+          amount: 1,
+        };
+        state.items.push(item);
+      }
       return {
         ...state,
       };
