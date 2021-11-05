@@ -14,6 +14,7 @@ import { RootState } from "@/redux/store";
 import { useHistory } from "react-router";
 import { signOutUser } from "@/redux/user/userActions";
 import { clearProfile } from "@/redux/profile/profileActions";
+import { ClearCart } from "@/redux/cart/cartActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -125,6 +126,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
   const onSignOut = () => {
     dispatch(signOutUser());
     dispatch(clearProfile());
+    dispatch(ClearCart());
     history.push(relativeLinks.HOME);
   };
 

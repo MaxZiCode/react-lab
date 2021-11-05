@@ -5,10 +5,12 @@ import { Product, CategoryName } from "@/types";
 import categoriesValues from "@/constants/categoriesValues";
 import { useDispatch } from "react-redux";
 import { AddProduct } from "@/redux/cart/cartActions";
+import useCategoryParam from "@/hooks/useCategoryParam";
 import PlatformIcon from "../platformIcon/platformIcon";
 
 export default function GameCard(product: Product): JSX.Element {
   const dispatch = useDispatch();
+  const categoryInfo = useCategoryParam();
 
   const platformImages = product.platforms.sort().map((p) => {
     const category = categoriesValues.get(p as CategoryName);
@@ -17,7 +19,7 @@ export default function GameCard(product: Product): JSX.Element {
     ) : undefined;
   });
 
-  const addToCart = () => dispatch(AddProduct(product));
+  const addToCart = () => dispatch(AddProduct(product, categoryInfo?.id));
 
   return (
     <div className="card">

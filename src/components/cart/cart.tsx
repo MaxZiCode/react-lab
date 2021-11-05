@@ -6,8 +6,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import categoriesValues from "@/constants/categoriesValues";
 
-const categoryInfos = [...categoriesValues.values()];
-
 const Cart: VFC = () => {
   const items = useSelector((s: RootState) => s.cart.items);
   const balance = useSelector((s: RootState) => s.user.balance);
@@ -38,14 +36,14 @@ const Cart: VFC = () => {
                   <select
                     name="select-platform"
                     id={`cart-select-platform${i.product.id}`}
-                    defaultValue={i.selectedPlatform}
+                    defaultValue={i.selectedPlatform ?? i.product.platforms[0]}
                     onChange={(e) => {
                       items[index].selectedPlatform = e.currentTarget.value;
                     }}
                   >
-                    {categoryInfos.map(({ id, label }) => (
+                    {i.product.platforms.map((id) => (
                       <option key={id} value={id}>
-                        {label}
+                        {categoriesValues.get(id)?.label}
                       </option>
                     ))}
                   </select>

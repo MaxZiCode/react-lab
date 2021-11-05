@@ -15,7 +15,7 @@ export default function cartReducer(state = initialState, action: AnyAction): Ca
       if (!state.items.some((i) => i.product.id === id)) {
         const item: CartItem = {
           product: args.product,
-          selectedPlatform: args.platform ?? "PC",
+          selectedPlatform: args.platform,
           orderDate: args.date ?? new Date(),
           amount: 1,
         };
