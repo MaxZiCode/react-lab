@@ -17,7 +17,7 @@ export default function GameCard(product: Product): JSX.Element {
     ) : undefined;
   });
 
-  const addToCart = () => dispatch(AddProduct(product.id));
+  const addToCart = () => dispatch(AddProduct(product));
 
   return (
     <div className="card">
@@ -37,7 +37,7 @@ export default function GameCard(product: Product): JSX.Element {
         </div>
         <div className="card-back">
           <div className="card-description">{product.description}</div>
-          <div className="card-age">{product.age}</div>
+          <div className="card-age">{`${product.age}+`}</div>
           <button type="button" className="card-purchase menu-button" onClick={addToCart}>
             Add to cart
           </button>

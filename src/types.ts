@@ -1,4 +1,4 @@
-export type CategoryName = "PC" | "PS5" | "XONE";
+export type CategoryName = string;
 
 export interface CategoryInfo {
   readonly id: CategoryName;

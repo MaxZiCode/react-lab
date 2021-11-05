@@ -108,9 +108,9 @@ class App extends Component<RouteComponentProps, AppState> {
             <AuthRoute path={relativeLinks.USER} {...this._authRouteProps}>
               <Profile />
             </AuthRoute>
-            <Route path={relativeLinks.CART}>
+            <AuthRoute path={relativeLinks.CART} {...this._authRouteProps}>
               <Cart />
-            </Route>
+            </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>

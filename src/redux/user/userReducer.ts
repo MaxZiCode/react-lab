@@ -6,6 +6,7 @@ const initialState: UserState = {
   id: 0,
   username: "",
   password: "",
+  balance: 0,
   isSignedIn: false,
 };
 
@@ -15,6 +16,7 @@ export default function userReducer(state: UserState = initialState, action: Any
       return {
         ...state,
         ...action.payload,
+        balance: 100,
         isSignedIn: true,
       };
     }

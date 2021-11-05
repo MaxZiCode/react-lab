@@ -34,6 +34,9 @@ export default function cartReducer(state = initialState, action: AnyAction): Ca
       };
     }
 
+    case CartConstants.CLEAR_CART:
+      return initialState;
+
     default: {
       return state;
     }

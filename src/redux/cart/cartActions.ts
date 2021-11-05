@@ -10,3 +10,7 @@ export function AddProduct(product: Product, platform?: CategoryName, date?: Dat
 export function RemoveProduct(id: number): AnyAction {
   return action(CartConstants.REMOVE_PRODUCT, { id });
 }
+
+export function ClearCart(): AnyAction {
+  return action(CartConstants.CLEAR_CART);
+}
