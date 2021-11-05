@@ -11,12 +11,12 @@ export default function cartReducer(state = initialState, action: AnyAction): Ca
   switch (action.type) {
     case CartConstants.ADD_PRODUCT: {
       const args = action.payload;
-      const { id } = args;
-      if (!state.items.some((i) => i.productId === id)) {
+      const { id } = args.product;
+      if (!state.items.some((i) => i.product.id === id)) {
         const item: CartItem = {
-          productId: args.id,
+          product: args.product,
           selectedPlatform: args.platform ?? "PC",
-          orderDate: args.date ?? Date.now(),
+          orderDate: args.date ?? new Date(),
           amount: 1,
         };
         state.items.push(item);
@@ -27,7 +27,7 @@ export default function cartReducer(state = initialState, action: AnyAction): Ca
     }
 
     case CartConstants.REMOVE_PRODUCT: {
-      const removeIndex = state.items.findIndex((item) => item.productId === action.payload.id);
+      const removeIndex = state.items.findIndex((item) => item.product.id === action.payload.id);
       state.items.splice(removeIndex, 1);
       return {
         ...state,

@@ -35,8 +35,8 @@ export interface Profile {
 }
 
 export interface CartItem {
-  productId: number;
+  product: Product;
   selectedPlatform: CategoryName;
-  orderDate: number;
+  orderDate: Date;
   amount: number;
 }
