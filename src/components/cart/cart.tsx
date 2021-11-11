@@ -2,16 +2,19 @@ import "@/styles/menu.scss";
 import "./cart.scss";
 
 import { useState, VFC } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import categoriesValues from "@/constants/categoriesValues";
+import { ChangeProductAmount, ChangeProductPlatform, RemoveProducts } from "@/redux/cart/cartActions";
 
 const Cart: VFC = () => {
-  const items = useSelector((s: RootState) => s.cart.items);
+  const dispatch = useDispatch();
+  const cart = useSelector((s: RootState) => s.cart);
   const balance = useSelector((s: RootState) => s.user.balance);
+  const [idsToRemove, setIdsToRemove] = useState(new Set<number>());
 
-  const calculateAndSetCost = () => items.reduce((prev, i) => prev + i.product.price * i.amount, 0);
-  const [cost, setCost] = useState(calculateAndSetCost);
+  const { items } = cart;
+  const cost = items.reduce((prev, i) => prev + i.product.price * i.amount, 0);
 
   return (
     <div className="cart">
@@ -35,11 +38,9 @@ const Cart: VFC = () => {
                 <td>
                   <select
                     name="select-platform"
-                    id={`cart-select-platform${i.product.id}`}
-                    defaultValue={i.selectedPlatform ?? i.product.platforms[0]}
-                    onChange={(e) => {
-                      items[index].selectedPlatform = e.currentTarget.value;
-                    }}
+                    id={`cart-select-platform${index}`}
+                    value={i.selectedPlatform ?? i.product.platforms[0]}
+                    onChange={(e) => dispatch(ChangeProductPlatform(index, e.target.value))}
                   >
                     {i.product.platforms.map((id) => (
                       <option key={id} value={id}>
@@ -54,26 +55,43 @@ const Cart: VFC = () => {
                     type="number"
                     name="amount"
                     min={1}
-                    id={`cart-amount${i.product.id}`}
+                    id={`cart-amount${index}`}
                     value={i.amount}
                     onChange={(e) => {
-                      const value = e.currentTarget.valueAsNumber;
+                      const value = e.target.valueAsNumber;
                       if (!value) return;
-                      items[index].amount = value;
-                      setCost(calculateAndSetCost);
+
+                      dispatch(ChangeProductAmount(index, value));
                     }}
                   />
                 </td>
                 <td>{i.product.price.toFixed(2)}</td>
                 <td>
-                  <input type="checkbox" name="remove" id="cart-remove1" />
+                  <input
+                    type="checkbox"
+                    name="remove"
+                    id={`cart-remove${i.product.id}`}
+                    onChange={(e) => {
+                      setIdsToRemove((ids) => {
+                        if (e.target.checked) ids.add(i.product.id);
+                        else ids.delete(i.product.id);
+                        return ids;
+                      });
+                    }}
+                  />
                 </td>
               </tr>
             ))}
             <tr>
               <td colSpan={5} />
               <td>
-                <button type="button" className="menu-button">
+                <button
+                  type="button"
+                  className="menu-button"
+                  onClick={() => {
+                    dispatch(RemoveProducts([...idsToRemove]));
+                  }}
+                >
                   Remove
                 </button>
               </td>

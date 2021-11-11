@@ -26,16 +26,29 @@ export default function cartReducer(state = initialState, action: AnyAction): Ca
       };
     }
 
-    case CartConstants.REMOVE_PRODUCT: {
-      const removeIndex = state.items.findIndex((item) => item.product.id === action.payload.id);
-      state.items.splice(removeIndex, 1);
+    case CartConstants.REMOVE_PRODUCTS: {
+      const idsToRemove: number[] = action.payload.ids;
+      const items = state.items.filter((i) => !idsToRemove.some((id) => i.product.id === id));
       return {
         ...state,
+        items,
       };
     }
 
     case CartConstants.CLEAR_CART:
       return initialState;
+
+    case CartConstants.CHANGE_PRODUCT_PLATFORM: {
+      const newState = { ...state };
+      newState.items[action.payload.index].selectedPlatform = action.payload.platform;
+      return newState;
+    }
+
+    case CartConstants.CHANGE_PRODUCT_AMOUNT: {
+      const newState = { ...state };
+      newState.items[action.payload.index].amount = action.payload.amount;
+      return newState;
+    }
 
     default: {
       return state;
