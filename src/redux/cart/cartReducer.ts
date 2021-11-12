@@ -10,20 +10,20 @@ const initialState: CartState = {
 export default function cartReducer(state = initialState, action: AnyAction): CartState {
   switch (action.type) {
     case CartConstants.ADD_PRODUCT: {
+      console.log(initialState);
       const args = action.payload;
       const { id } = args.product;
-      if (!state.items.some((i) => i.product.id === id)) {
+      const items = [...state.items];
+      if (!items.some((i) => i.product.id === id)) {
         const item: CartItem = {
           product: args.product,
           selectedPlatform: args.platform,
           orderDate: args.date ?? new Date(),
           amount: 1,
         };
-        state.items.push(item);
+        items.push(item);
       }
-      return {
-        ...state,
-      };
+      return { ...state, items };
     }
 
     case CartConstants.REMOVE_PRODUCTS: {

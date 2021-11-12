@@ -12,14 +12,13 @@ const initialState: UserState = {
 
 export default function userReducer(state: UserState = initialState, action: AnyAction): UserState {
   switch (action.type) {
-    case UserConstants.SIGN_IN: {
+    case UserConstants.SIGN_IN:
       return {
         ...state,
         ...action.payload,
         balance: 100,
         isSignedIn: true,
       };
-    }
 
     case UserConstants.SIGN_OUT:
       return initialState;
@@ -28,6 +27,12 @@ export default function userReducer(state: UserState = initialState, action: Any
       return {
         ...state,
         ...action.payload,
+      };
+
+    case UserConstants.REDUCE_BALANCE:
+      return {
+        ...state,
+        balance: state.balance - action.payload.amount,
       };
 
     default: {

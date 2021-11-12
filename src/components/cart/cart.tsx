@@ -5,19 +5,30 @@ import { useState, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import categoriesValues from "@/constants/categoriesValues";
-import { ChangeProductAmount, ChangeProductPlatform, RemoveProducts } from "@/redux/cart/cartActions";
+import { ChangeProductAmount, ChangeProductPlatform, ClearCart, RemoveProducts } from "@/redux/cart/cartActions";
+import { ReduceBalance } from "@/redux/user/userActions";
+import BuyWindow from "../buyWindow/buyWindow";
 
 const Cart: VFC = () => {
   const dispatch = useDispatch();
   const cart = useSelector((s: RootState) => s.cart);
   const balance = useSelector((s: RootState) => s.user.balance);
+  const [isBuyWindowShowing, setIsBuyWindowShowing] = useState(false);
   const [idsToRemove, setIdsToRemove] = useState(new Set<number>());
 
   const { items } = cart;
   const cost = items.reduce((prev, i) => prev + i.product.price * i.amount, 0);
 
+  const cancelWindow = () => setIsBuyWindowShowing(false);
+  const buy = () => {
+    dispatch(ReduceBalance(cost));
+    dispatch(ClearCart());
+    setIsBuyWindowShowing(false);
+  };
+
   return (
     <div className="cart">
+      <BuyWindow isActive={isBuyWindowShowing} cancel={cancelWindow} cost={cost} buy={buy} />
       <div className="big-menu cart-menu">
         <h2 className="big-menu-title">Cart page</h2>
         <table className="cart-table">
@@ -101,7 +112,12 @@ const Cart: VFC = () => {
         <div className="cart-summary">
           <span>{`Games cost: ${cost.toFixed(2)}$`}</span>
           <span>{`Your balance: ${balance.toFixed(2)}$`}</span>
-          <button type="button" className="menu-button">
+          <button
+            type="button"
+            className="menu-button"
+            disabled={cost === 0 || cost > balance}
+            onClick={() => setIsBuyWindowShowing(true)}
+          >
             Buy
           </button>
         </div>

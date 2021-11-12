@@ -3,6 +3,7 @@ export const enum UserConstants {
   SIGN_IN = "SIGN_IN",
   SIGN_OUT = "SIGN_OUT",
   CHANGE_EMAIL = "CHANGE_EMAIL",
+  REDUCE_BALANCE = "REDUCE_BALANCE",
 }
 
 export const enum ProfileConstants {
