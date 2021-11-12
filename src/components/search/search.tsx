@@ -46,7 +46,7 @@ export default function Search(): JSX.Element {
   }, 300);
 
   return (
-    <div className={searchStyle} onFocus={() => setHasFocused(true)} onBlur={() => setHasFocused(false)}>
+    <div id="search" className={searchStyle} onFocus={() => setHasFocused(true)} onBlur={() => setHasFocused(false)}>
       <div className="search-input">
         {isSearching ? <LoadingSpinner /> : <div className="search-input-icon" />}
         <input type="text" onChange={(e) => debouncedCallBack(e.currentTarget.value)} className="search-input-text" />

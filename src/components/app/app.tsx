@@ -8,10 +8,11 @@ import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Home from "../home/home";
-import Products from "./products";
 import About from "./about";
 import SignInWindow from "../signInWindow/signInWindow";
 import SignUpModal from "../signUpWindow/signUpWindow";
+import Products from "../products/products";
+import Cart from "../cart/cart";
 
 interface AppState {
   isSignInShowing: boolean;
@@ -107,6 +108,9 @@ class App extends Component<RouteComponentProps, AppState> {
             <AuthRoute path={relativeLinks.USER} {...this._authRouteProps}>
               <Profile />
             </AuthRoute>
+            <Route path={relativeLinks.CART}>
+              <Cart />
+            </Route>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>

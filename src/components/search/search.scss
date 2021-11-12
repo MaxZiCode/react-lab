@@ -9,18 +9,17 @@ $searchBorderRadius: 20px;
 .search {
   width: 80%;
   max-width: 600px;
-  // box-sizing: content-box;
   background-color: $homeItemsBackgroundColor;
   border: $searchBorder;
   border-radius: $searchBorderRadius;
   overflow: hidden;
 }
 
-.search.focused {
+#search.focused {
   background-color: $searchFocusedBackgroundColor;
 }
 
-.search.focused.show-results {
+#search.focused.show-results {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -35,6 +34,7 @@ $searchBorderRadius: 20px;
 }
 
 .search-input-text {
+  width: 100%;
   font-size: $searchFontSize;
   color: $basicColor;
   padding-top: $searchInputPadding;

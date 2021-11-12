@@ -2,10 +2,15 @@
   "users": [
     {
       "email": "max@max.max",
-      "password": "$2a$10$XT0M2Ya7aPlYI7AKAw5xE.cDhSrWU3z5J1yX7oBo3LpyuqVDlGSWm",
-      "id": 1,
-      "picture": "data:image/svg+xml;base64,PHN2ZyBjbGFzcz0ic2hhcmVkLW5hdi1wcy1sb2dvIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjQuMyA5LjUgNDEuMTAwMDAwMDAwMDAwMDEgMzEiIHdpZHRoPSIyNTAwIiBoZWlnaHQ9IjE0NjEiPjxwYXRoIGQ9Ik01LjggMzIuMWMtMS41IDEtMSAyLjkgMi4yIDMuOCAzLjMgMS4xIDYuOSAxLjQgMTAuNC44LjIgMCAuNC0uMS41LS4xdi0zLjRsLTMuNCAxLjFjLTEuMy40LTIuNi41LTMuOS4yLTEtLjMtLjgtLjkuNC0xLjRsNi45LTIuNFYyN2wtOS42IDMuM2MtMS4yLjQtMi40IDEtMy41IDEuOHptMjMuMi0xNXY5LjdjNC4xIDIgNy4zIDAgNy4zLTUuMiAwLTUuMy0xLjktNy43LTcuNC05LjZDMjYgMTEgMjMgMTAuMSAyMCA5LjV2MjguOWw3IDIuMVYxNi4yYzAtMS4xIDAtMS45LjgtMS42IDEuMS4zIDEuMiAxLjQgMS4yIDIuNXptMTMgMTIuN2MtMi45LTEtNi0xLjQtOS0xLjEtMS42LjEtMy4xLjUtNC41IDFsLS4zLjF2My45bDYuNS0yLjRjMS4zLS40IDIuNi0uNSAzLjktLjIgMSAuMy44LjktLjQgMS40bC0xMCAzLjdWNDBMNDIgMzQuOWMxLS40IDEuOS0uOSAyLjctMS43LjctMSAuNC0yLjQtMi43LTMuNHoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==",
-      "description": "I'm MAX"
+      "picture": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALGSURBVFhH7Zc7aFVBEIYvIoigiKJcH1fiI/dZ3JQ2AbESq4AIFhZphIDYiIWQJoJWChEshDRBEGIhREGMRVBIIYiIQZAICtqlsEglFwvhON8wezj3nD1PHyBk4Cd3d2fmn52Z3bOpbcp/Ka1Wa6Tdbp+Mgjlb/jvS7/d3dTqda4J33W43SMGaYEZQN7Pfl0ajsQ2nQrxhJEUwEMwStLmpJjgQRy8jjkuBbFUujaU8K92FQOaazWbb3BYTS3vlnXvwpVQ5xGA25iBEY/5ZcOjBctA+NxnOdc6cDec746eG9CNYMPfZIop1AU2UcHLk1v3g6M05Jd/3/L2SMrfnxaegefFKMHp5Wud8toYxo0kXUeIY+Yx1h60Ll8Lx/sdvgt0rX4d06k9Xh8YxzBtNuogSZ9lnPBTA6NUbGgA7HrmzEOpkBUBD0l9GlRS61WcIqO2BR6+Cvctrmv4db7/p7sHO1+s6Dzl/6QmfD8CtaXRJ6fV6p31G7JA6U2+COPhwResNEf0Q7QlAEGkNKQFMGl1SWIwbQIQzN4aIACDd+uF7sOXjD9U5PPdEs+L0CJY5N45gxuiSIotTMWV1dOz63XBM3XEMae3zTwXrnA5K4fQ4Fei6cQSZAUzElBU4Igsu1aSY3xATIKmmRJSH5iRA9NDx+JsyuqRIl57wGCiOT9/WHW5f3dAAaD6CApARgFsnGz4fhgmj84sEse4xUkBG6jmK9AFd75rO7TbnHhjkXskSwD2PoYIAohcRZGQi2u0598CS0aSLKI7FDR3YLTXmN/Un9dSdwAgCpDSeQ3b6nUikix5jJYCUXUZvP2rOfEbj6dvA3OcLj4isXqiAQek3gQTAifB+FSugWOrjQhCCMm/BOAZif97cVRPKIY5Kv46EmOdc/ve/qPAVE6dLcSIPCLZayosIF4l9tHi4hLC5P/f/wKb8G6nVfgEw22CHssxJ1gAAAABJRU5ErkJggg==",
+      "description": "Test",
+      "password": "$2a$10$DKx7ynlxbcut5N6f0IA2deEmv.iWwr1MKqCo5z/6bE5iSnYAxMVKW",
+      "id": 11
+    },
+    {
+      "email": "max@max.maxa",
+      "password": "$2a$10$t.eib1N4kGd45lQy1vadQ.bZGNn2bjCyFGYGfSMs2XcnqK9xK11q6",
+      "id": 12
     }
   ],
   "products": [
@@ -14,9 +19,10 @@
       "name": "Balan Wonderworld",
       "price": 26.99,
       "rating": 2,
+      "genre": "platform",
       "imagePath": "https://upload.wikimedia.org/wikipedia/en/7/79/Balan_Wonderworld_cover_art.jpg",
       "description": "Unholydead metacritic: As a Square Enix fanboy, I cannot in good conscience play more than 5 seconds of this game. If there is a single positive review that WASN'T written by a bot here I'd be surprised. Stay away. This is a scam, dudes.",
-      "age": "10+",
+      "age": "10",
       "date": "2021-03-26",
       "platforms": ["PC", "PS5", "XONE"]
     },
@@ -25,9 +31,10 @@
       "name": "Cyberpunk 2077",
       "price": 29.99,
       "rating": 4,
+      "genre": "shooter",
       "imagePath": "https://upload.wikimedia.org/wikipedia/en/9/9f/Cyberpunk_2077_box_art.jpg",
       "description": "Brave_New_World metacritic: This game is just awful. Extremely overmarketed game that was promoted as next gen masterpiece, but it was all just a lie. It's time for Ubisoft and Rockstar Games to show them how to make actually good games and they will!",
-      "age": "18+",
+      "age": "18",
       "date": "2020-12-10",
       "platforms": ["PC", "XONE"]
     },
@@ -36,46 +43,96 @@
       "name": "Warcraft III: Reforged",
       "price": 29.99,
       "rating": 1,
+      "genre": "strategy",
       "imagePath": "https://upload.wikimedia.org/wikipedia/ru/5/51/Warcraft_III_Reforged_-_cover.png",
       "description": "Matarau metacritic: Game doesn’t even come close to what they promised on blizzcon 2018, they promised almost a new game, I barely see any difference between old 2002 and the new reforged terrain, new models become awkward sitting on top of the old 2002 graphics, it feels like just a half-done job to grab some money since they are charging almost what a new game nowadays cost.",
-      "age": "13+",
+      "age": "13",
       "date": "2020-01-28",
       "platforms": ["PC"]
     },
     {
       "id": 4,
       "name": "Fallout 76",
-      "date": "2000-01-28"
+      "price": 19.99,
+      "rating": 2,
+      "genre": "shooter",
+      "imagePath": "https://upload.wikimedia.org/wikipedia/ru/0/06/Fallout_76_cover.jpg",
+      "description": "The game isn't absolute trash, but it is all about collecting trash. Sadly collecting stuff isn't possible in this game since you will reach the stash limit within the first few hours of the game and you will struggle with the carry weight limit for the rest of the game.",
+      "age": "10",
+      "date": "2019-01-28",
+      "platforms": ["PC", "PS5", "XONE"]
     },
     {
       "id": 5,
       "name": "WWE 2K20",
-      "date": "2000-01-28"
+      "price": 29.99,
+      "rating": 1,
+      "genre": "simulation",
+      "imagePath": "https://image.api.playstation.com/vulcan/img/cfn/11307qoqS-1PR6A2EVQe_enXhG9iBC1zqDuPcOjGf9m9VBmUvJtRZZzcOOgkp64z2uWXkx8SLliFbtlhrOzUq9T50Ho5JYUr.png",
+      "description": "Worst game ever. Shame 2k for this garbage. Its an insult for gamers and for pro wrestling fans.",
+      "age": "16",
+      "platforms": ["PC", "XONE"],
+      "date": "2019-10-22"
     },
     {
       "id": 6,
       "name": "Star Wars Battlefront II",
-      "date": "2000-01-28"
+      "price": 9.99,
+      "rating": 1,
+      "genre": "shooter",
+      "imagePath": "https://image.api.playstation.com/cdn/UP0006/CUSA05770_00/nHKRkAnRMYjNzZLbt7oFNKQU4FnmECOP6H1hX52klZsz8tXHX16PNqvU5Gk4GsCF.png",
+      "description": "The game is the embodiment of greed. It's a money grab at a popular movie and series of games that turned out to be a subpar modern shooter filled with microtransactions for a full price triple-A game. Very disappointing",
+      "age": "16",
+      "platforms": ["PC", "PS5", "XONE"],
+      "date": "2017-11-16"
     },
     {
       "id": 7,
       "name": "No Man's Sky",
-      "date": "2000-01-28"
+      "price": 34.99,
+      "rating": 2,
+      "genre": "simulation",
+      "imagePath": "https://upload.wikimedia.org/wikipedia/ru/c/ca/No_Mans_Sky_logo.png",
+      "description": "Didn't deliver on multiple promises and lacks any sort of gameplay. As an artsy game it does wonders but only if you want to call it a game. If you take away the game title and call it an experience it would be much better. Game felt more like a VR experience trying to be a game, it doesn't hit any standard for gameplay.",
+      "age": "10",
+      "platforms": ["PC", "PS5", "XONE"],
+      "date": "2016-08-12"
     },
     {
       "id": 8,
       "name": "Umbrella Corps",
-      "date": "2000-01-28"
+      "price": 14.99,
+      "rating": 2,
+      "genre": "shooter",
+      "imagePath": "https://upload.wikimedia.org/wikipedia/en/1/1b/Umbrella_Corps_cover_art.jpg",
+      "description": "Umbrella Corps is BY FAR one of the worst games of 2016. Clunky controls, ignorant A.I., and an almost pointless multiplayer mode make this game torturous to play. Not to mention textures that look like they came from 2010. AVOID THIS GAME AT ALL COSTS. 1/10",
+      "age": "18",
+      "platforms": ["PC", "PS5"],
+      "date": "2012-05-21"
     },
     {
       "id": 9,
       "name": "Tony Hawk's Pro Skater 5",
-      "date": "2000-01-28"
+      "price": 49.5,
+      "rating": 1,
+      "genre": "simulation",
+      "imagePath": "https://m.media-amazon.com/images/I/81Ia39LcJuL._SL1500_.jpg",
+      "description": "How Tony Hawk has fallen from grace. This game looks and feels like a re-skinned Goat Simulator and is possibly the worst game I'v seen since superman 64. Avoid.",
+      "age": "6",
+      "platforms": ["PS5", "XONE"],
+      "date": "2015-09-29"
     },
     {
       "id": 10,
       "name": "Alone in the Dark: Illumination",
-      "date": "2000-01-28"
+      "price": 12.59,
+      "rating": 1,
+      "genre": "shooter",
+      "imagePath": "https://m.media-amazon.com/images/M/MV5BNmRlOGY4MTAtZjc4Ny00ZDI0LWFiMWEtYmZlM2NhYzNmMTBiXkEyXkFqcGdeQXVyNjg5MjUzMTI@._V1_.jpg",
+      "description": "It's like a Left for Dead without fun, good combat and shooting, art design, ballance and players. Don't buy it. It's a new game what is already dead. No lobby, no players. Single Player is horrible.",
+      "age": "18",
+      "platforms": ["PC"],
+      "date": "2015-05-11"
     }
   ]
 }

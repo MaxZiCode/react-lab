@@ -20,6 +20,7 @@ export interface Product {
   age: string;
   date: Date;
   platforms: CategoryName[];
+  genre?: string;
 }
 
 export interface UserResponseInfo {
@@ -31,4 +32,11 @@ export interface Profile {
   email: string;
   description?: string;
   picture?: string;
+}
+
+export interface CartItem {
+  productId: number;
+  selectedPlatform: CategoryName;
+  orderDate: number;
+  amount: number;
 }

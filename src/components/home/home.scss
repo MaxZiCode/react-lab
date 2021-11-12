@@ -1,7 +1,16 @@
+@import "../../styles/cardContainer.scss";
+
 .home {
   display: flex;
   flex-flow: column;
   align-items: center;
+  max-width: 100vw;
+  width: 90%;
+  margin: 0 auto;
+
+  .card-container {
+    @include card-container(950px, 650px);
+  }
 }
 
 .home > * {
