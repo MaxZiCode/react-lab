@@ -1,4 +1,3 @@
-import "@/elements/signModal/signModal.scss";
 import "./cardEditWindow.scss";
 
 import closeIcon from "@/assets/vectors/close.svg";

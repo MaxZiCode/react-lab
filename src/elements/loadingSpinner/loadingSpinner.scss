@@ -1,0 +1,16 @@
+@keyframes spinner-border {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  content: " ";
+  position: absolute;
+  width: 1.25em;
+  height: 1.25em;
+  border: 0.25em solid gray;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}

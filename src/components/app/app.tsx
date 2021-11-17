@@ -3,112 +3,123 @@ import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
 import CardEditWindow from "@/elements/cardEditWindow/cardEditWindow";
+import Profile from "@/components/profile/profile";
+import { Product } from "@/types";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Home from "../home/home";
 import About from "./about";
-import Profile from "../profile/profile";
-import SignInModal from "../signInModal/signInModal";
-import SignUpModal from "../signUpModal/signUpModal";
-import UserContext, { UserContextProps } from "../userContext/userContext";
+import SignInWindow from "../signInWindow/signInWindow";
+import SignUpModal from "../signUpWindow/signUpWindow";
 import Products from "../products/products";
 import Cart from "../cart/cart";
 
-interface AppState extends UserContextProps {
-  shouldShowSignIn: boolean;
-  shouldShowSignUp: boolean;
-  signInRedirectPath?: string;
+interface AppState {
+  isSignInShowing: boolean;
+  isSignUpShowing: boolean;
+  topProducts: Product[];
+  redirectRouteAfterSignIn?: string;
 }
 
+const initialState: AppState = {
+  isSignInShowing: false,
+  isSignUpShowing: false,
+  topProducts: [],
+};
+
 class App extends Component<RouteComponentProps, AppState> {
+  _authRouteProps;
+
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = { shouldShowSignIn: false, shouldShowSignUp: false };
-    this.redirect.bind(this);
-    this.isSignedIn.bind(this);
-  }
+    this.state = initialState;
 
-  // eslint-disable-next-line react/sort-comp
-  redirect(path: string): void {
-    this.props.history.push(path);
+    this.setRedirectRoute = this.setRedirectRoute.bind(this);
+    this.setTopProducts = this.setTopProducts.bind(this);
+    this.showSignInWindow = this.showSignInWindow.bind(this);
+    this.showSignUpWindow = this.showSignUpWindow.bind(this);
+    this.closeSignInWindow = this.closeSignInWindow.bind(this);
+    this.closeSignUpWindow = this.closeSignUpWindow.bind(this);
+    this.clearRedirectRoute = this.clearRedirectRoute.bind(this);
+
+    this._authRouteProps = {
+      showSignIn: this.showSignInWindow,
+      setRedirectSignIn: this.setRedirectRoute,
+    };
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
     const message = `Error: ${error.name}\nMessage: ${error.message}\nStack: ${error.stack}\nInfo: ${info.componentStack}`;
     console.error(message);
     alert(message);
-    this.redirect(relativeLinks.HOME);
+    this.props.history.push(relativeLinks.HOME);
   }
 
-  isSignedIn(): boolean {
-    return this.state.username !== undefined;
+  setRedirectRoute(path: string) {
+    this.setState({ redirectRouteAfterSignIn: path });
+  }
+
+  setTopProducts(products: Product[]) {
+    this.setState({ topProducts: products });
+  }
+
+  showSignInWindow() {
+    this.setState({ isSignInShowing: true });
+  }
+
+  showSignUpWindow() {
+    this.setState({ isSignUpShowing: true });
+  }
+
+  closeSignInWindow() {
+    this.setState({ isSignInShowing: false });
+  }
+
+  closeSignUpWindow() {
+    this.setState({ isSignUpShowing: false });
+  }
+
+  clearRedirectRoute() {
+    this.setState({ redirectRouteAfterSignIn: undefined });
   }
 
   render(): JSX.Element {
-    const showSignInCallback = () => this.setState({ shouldShowSignIn: true });
-    const authRouteCommonProps = {
-      isSignedIn: this.isSignedIn(),
-      defaultPath: relativeLinks.HOME,
-      showSignInCallback,
-      setSignInRedirectPath: (path: string) => this.setState({ signInRedirectPath: path }),
-    };
-
     return (
-      <UserContext.Provider value={this.state}>
-        <SignInModal
-          active={this.state.shouldShowSignIn}
-          onClose={() => this.setState({ shouldShowSignIn: false, signInRedirectPath: undefined })}
-          onSignedIn={(username) => {
-            this.setState({ username });
-            if (this.state.signInRedirectPath) this.redirect(this.state.signInRedirectPath);
-          }}
+      <>
+        <SignInWindow
+          isActive={this.state.isSignInShowing}
+          close={this.closeSignInWindow}
+          redirectRoute={this.state.redirectRouteAfterSignIn}
+          clearRedirectRoute={this.clearRedirectRoute}
         />
-        <SignUpModal
-          active={this.state.shouldShowSignUp}
-          onClose={() => this.setState({ shouldShowSignUp: false })}
-          onSignedUp={(username) => {
-            this.setState({ username });
-            this.redirect(relativeLinks.USER);
-          }}
-        />
-        <Header
-          isSignedIn={this.isSignedIn()}
-          signInCallback={showSignInCallback}
-          signUpCallback={() => this.setState({ shouldShowSignUp: true })}
-          signOutCallback={() => {
-            this.setState({ username: undefined });
-            this.redirect(relativeLinks.HOME);
-          }}
-        />
+        <SignUpModal isActive={this.state.isSignUpShowing} close={this.closeSignUpWindow} />
+        <Header showSignIn={this.showSignInWindow} showSignUp={this.showSignUpWindow} />
         <main>
           <Switch>
             <Route path="/card">
               <CardEditWindow />
             </Route>
             <Route exact path={relativeLinks.HOME}>
-              <Home />
+              <Home topProducts={this.state.topProducts} setTopProducts={this.setTopProducts} />
             </Route>
-            <Route exact path={`${relativeLinks.PRODUCTS}/:categoryId`}>
-              <Products />
-            </Route>
-            <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...authRouteCommonProps}>
+            <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...this._authRouteProps}>
               <Products />
             </AuthRoute>
-            <AuthRoute path={relativeLinks.ABOUT} {...authRouteCommonProps}>
+            <AuthRoute path={relativeLinks.ABOUT} {...this._authRouteProps}>
               <About />
             </AuthRoute>
-            <AuthRoute path={relativeLinks.USER} {...authRouteCommonProps}>
+            <AuthRoute path={relativeLinks.USER} {...this._authRouteProps}>
               <Profile />
             </AuthRoute>
-            <Route path={relativeLinks.CART}>
+            <AuthRoute path={relativeLinks.CART} {...this._authRouteProps}>
               <Cart />
-            </Route>
+            </AuthRoute>
             <Redirect to={relativeLinks.HOME} />
           </Switch>
         </main>
         <Footer />
-      </UserContext.Provider>
+      </>
     );
   }
 }

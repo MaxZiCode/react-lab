@@ -29,6 +29,10 @@
   overflow: hidden;
 }
 
+.menu-button:disabled {
+  background-color: gray;
+}
+
 .menu-button-transparent {
   @extend .menu-button;
   background-color: rgba($selectionColor, 0.6);

@@ -1,17 +1,25 @@
 import "./gameCard.scss";
 import { RatingView } from "react-simple-star-rating";
 
-import { Product } from "@/api/apiProducts";
-import categoriesValues, { CategoryName } from "@/constants/categoriesValues";
+import { Product, CategoryName } from "@/types";
+import categoriesValues from "@/constants/categoriesValues";
+import { useDispatch } from "react-redux";
+import { AddProduct } from "@/redux/cart/cartActions";
+import useCategoryParam from "@/hooks/useCategoryParam";
 import PlatformIcon from "../platformIcon/platformIcon";
 
 export default function GameCard(product: Product): JSX.Element {
+  const dispatch = useDispatch();
+  const categoryInfo = useCategoryParam();
+
   const platformImages = product.platforms.sort().map((p) => {
     const category = categoriesValues.get(p as CategoryName);
     return category ? (
       <PlatformIcon key={category.id} label={category.label} logo={category.logo} className="card-platform" />
     ) : undefined;
   });
+
+  const addToCart = () => dispatch(AddProduct(product, categoryInfo?.id));
 
   return (
     <div className="card">
@@ -31,8 +39,8 @@ export default function GameCard(product: Product): JSX.Element {
         </div>
         <div className="card-back">
           <div className="card-description">{product.description}</div>
-          <div className="card-age">{product.age}</div>
-          <button type="button" className="card-purchase menu-button" onClick={() => alert("Adding to cart")}>
+          <div className="card-age">{`${product.age}+`}</div>
+          <button type="button" className="card-purchase menu-button" onClick={addToCart}>
             Add to cart
           </button>
         </div>

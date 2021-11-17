@@ -9,7 +9,12 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/urls";
 import { useEffect, useState } from "react";
-import UserContext from "../userContext/userContext";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useHistory } from "react-router";
+import { signOutUser } from "@/redux/user/userActions";
+import { clearProfile } from "@/redux/profile/profileActions";
+import { ClearCart } from "@/redux/cart/cartActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -19,7 +24,7 @@ interface ButtonContentParams {
     imagePath: string;
     alt: string;
   };
-  label?: string;
+  label?: string | number;
 }
 
 function ButtonContent(params: ButtonContentParams) {
@@ -32,13 +37,14 @@ function ButtonContent(params: ButtonContentParams) {
 }
 
 export interface HeaderProps {
-  isSignedIn: boolean;
-  signInCallback: () => void;
-  signUpCallback: () => void;
-  signOutCallback: () => void;
+  showSignIn: () => void;
+  showSignUp: () => void;
 }
 
-export default function Header(props: HeaderProps): JSX.Element {
+export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Element {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
   const [navBarStyle, setNavBarStyle] = useState("navbar");
 
@@ -100,7 +106,7 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign in",
       node: (
-        <button type="button" className={linkClassName} onClick={() => props.signInCallback()}>
+        <button type="button" className={linkClassName} onClick={showSignIn}>
           <ButtonContent label="Sign In" />
         </button>
       ),
@@ -108,12 +114,21 @@ export default function Header(props: HeaderProps): JSX.Element {
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName} onClick={() => props.signUpCallback()}>
+        <button type="button" className={linkClassName} onClick={showSignUp}>
           <ButtonContent label="Sign Up" />
         </button>
       ),
     },
   ];
+
+  const { username } = useSelector((s: RootState) => s.user);
+  const cartAmount = useSelector((s: RootState) => s.cart.items.length);
+  const onSignOut = () => {
+    dispatch(signOutUser());
+    dispatch(clearProfile());
+    dispatch(ClearCart());
+    history.push(relativeLinks.HOME);
+  };
 
   const signedInItems = [
     ...commonItems,
@@ -121,9 +136,7 @@ export default function Header(props: HeaderProps): JSX.Element {
       id: "user",
       node: (
         <NavLink to={relativeLinks.USER} className={linkClassName} activeClassName={activeClassName}>
-          <UserContext.Consumer>
-            {({ username }) => <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />}
-          </UserContext.Consumer>
+          <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />
         </NavLink>
       ),
     },
@@ -131,21 +144,22 @@ export default function Header(props: HeaderProps): JSX.Element {
       id: "cart",
       node: (
         <NavLink to={relativeLinks.CART} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label="0" icon={{ imagePath: cartIcon, alt: "cart icon" }} />
+          <ButtonContent label={cartAmount} icon={{ imagePath: cartIcon, alt: "cart icon" }} />
         </NavLink>
       ),
     },
     {
       id: "logout",
       node: (
-        <button type="button" className={linkClassName} onClick={props.signOutCallback}>
+        <button type="button" className={linkClassName} onClick={onSignOut}>
           <ButtonContent icon={{ imagePath: logoutIcon, alt: "logout icon" }} />
         </button>
       ),
     },
   ];
 
-  const items = props.isSignedIn ? signedInItems : anonItems;
+  const { isSignedIn } = useSelector((s: RootState) => s.user);
+  const items = isSignedIn ? signedInItems : anonItems;
 
   return (
     <header>
