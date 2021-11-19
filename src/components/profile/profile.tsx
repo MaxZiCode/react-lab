@@ -87,7 +87,7 @@ const Profile: VFC = () => {
           <div className="profile-page-container">
             <div className="profile-change-image-area">
               <div className="profile-image-view">
-                {profile.picture ? <img src={profile.picture} alt="profile" /> : NoPicture}
+                {profile.picture ? <img src={profile.picture} alt="profile" /> : <NoPicture />}
               </div>
               <button type="button" className="menu-button-transparent">
                 <label htmlFor="picture_input">

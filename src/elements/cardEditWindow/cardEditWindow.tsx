@@ -36,7 +36,7 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
         <div className="middle">
           <div className="first-column">
             <div className="title">Card image</div>
-            {product?.imagePath ? <img src={product?.imagePath} alt="card" /> : NoPicture}
+            {product?.imagePath ? <img src={product?.imagePath} alt="card" /> : <NoPicture />}
           </div>
           <div className="second-column">
             <div className="title">Information</div>
