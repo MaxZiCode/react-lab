@@ -2,7 +2,6 @@ import "./app.scss";
 import { Component, ErrorInfo } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
-import CardEditWindow from "@/elements/cardEditWindow/cardEditWindow";
 import Profile from "@/components/profile/profile";
 import { Product } from "@/types";
 import relativeLinks from "../../constants/urls";
@@ -97,9 +96,6 @@ class App extends Component<RouteComponentProps, AppState> {
         <Header showSignIn={this.showSignInWindow} showSignUp={this.showSignUpWindow} />
         <main>
           <Switch>
-            <Route path="/card">
-              <CardEditWindow />
-            </Route>
             <Route exact path={relativeLinks.HOME}>
               <Home topProducts={this.state.topProducts} setTopProducts={this.setTopProducts} />
             </Route>

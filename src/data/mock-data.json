@@ -11,6 +11,11 @@
       "email": "max@max.maxa",
       "password": "$2a$10$t.eib1N4kGd45lQy1vadQ.bZGNn2bjCyFGYGfSMs2XcnqK9xK11q6",
       "id": 12
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$fhrzG9o6udesvS2sONwpgOT5cHSlCfJcjkEHhzKzogciYKLxoT.WG",
+      "id": 13
     }
   ],
   "products": [

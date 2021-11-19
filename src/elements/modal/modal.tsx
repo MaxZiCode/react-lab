@@ -8,6 +8,10 @@ export interface ModalProps {
 const Modal: FC<ModalProps> = ({ isActive, children }) =>
   ReactDOM.createPortal(isActive ? children : null, document.getElementById("app") as Element);
 
-export default function withModal(element: JSX.Element, isActive: boolean): JSX.Element {
-  return <Modal isActive={isActive}>{element}</Modal>;
+export default function withModal(element: JSX.Element, isActive: boolean, isNewChildEveryRender = false): JSX.Element {
+  return (
+    <Modal isActive={isActive} key={isNewChildEveryRender ? Math.random() : undefined}>
+      {element}
+    </Modal>
+  );
 }
