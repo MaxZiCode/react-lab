@@ -3,11 +3,16 @@ import "./cardEditWindow.scss";
 import closeIcon from "@/assets/vectors/close.svg";
 
 import { useState, VFC } from "react";
-import { Product } from "@/types";
+import { Product, ProductData } from "@/types";
 import productValues from "@/constants/productValues";
 import categoriesValues from "@/constants/categoriesValues";
 import { useDispatch } from "react-redux";
-import { addProduct, changeProduct, deleteProduct } from "@/redux/products/productsActions";
+import {
+  addProduct as addProductLocal,
+  changeProduct as changeProductLocal,
+  deleteProduct as deleteProductLocal,
+} from "@/redux/products/productsActions";
+import { addProduct, changeProduct, deleteProduct } from "@/api/apiProducts";
 import withModal, { ModalProps } from "../modal/modal";
 import NoPicture from "../noPicture/noPicture";
 import Window from "../window/window";
@@ -28,10 +33,13 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
   const [age, setAge] = useState(product?.age ?? productValues.ages[0]);
   const [platformMap, setPlatformMap] = useState(new Map(product?.platforms.map((p) => [p, true])));
 
-  const getPlatforms = () => [...platformMap.keys()].filter((p) => platformMap.get(p));
-
   const submitHandler = () => {
-    type ProductData = Omit<Product, "id">;
+    const platforms = [...platformMap.keys()].filter((p) => platformMap.get(p));
+    if (platforms.length === 0) {
+      const firstPlatform = categoriesValues.keys().next().value;
+      platforms.push(firstPlatform);
+    }
+
     const productData: ProductData = {
       name,
       genre: category,
@@ -39,22 +47,29 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
       imagePath: image,
       description,
       age,
-      platforms: getPlatforms(),
+      platforms,
       rating: product?.rating ?? 1,
       date: product?.date ?? new Date(),
     };
 
     if (product) {
-      dispatch(changeProduct({ id: product.id, ...productData }));
+      changeProduct({ id: product.id, ...productData }).then((p) => {
+        dispatch(changeProductLocal(p));
+      });
     } else {
-      dispatch(addProduct({ id: 0, ...productData }));
+      addProduct(productData).then((p) => {
+        dispatch(addProductLocal(p));
+      });
     }
 
     close();
   };
 
   const deleteHandler = () => {
-    if (product) dispatch(deleteProduct(product.id));
+    if (product)
+      deleteProduct(product.id).then(() => {
+        dispatch(deleteProductLocal(product.id));
+      });
 
     close();
   };

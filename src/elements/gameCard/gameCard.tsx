@@ -21,7 +21,9 @@ export default function GameCard(product: Product): JSX.Element {
     const category = categoriesValues.get(p as CategoryName);
     return category ? (
       <PlatformIcon key={category.id} label={category.label} logo={category.logo} className="card-platform" />
-    ) : undefined;
+    ) : (
+      []
+    );
   });
 
   const addToCart = () => dispatch(AddProduct(product, categoryInfo?.id));
