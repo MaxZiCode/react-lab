@@ -13,6 +13,7 @@ import {
   deleteProduct as deleteProductLocal,
 } from "@/redux/products/productsActions";
 import { addProduct, changeProduct, deleteProduct } from "@/api/apiProducts";
+import ConfirmationWindow from "@/components/confirmationWindow/confirmationWindow";
 import withModal, { ModalProps } from "../modal/modal";
 import NoPicture from "../noPicture/noPicture";
 import Window from "../window/window";
@@ -24,6 +25,8 @@ export interface CardEditWindowProps {
 
 const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
   const dispatch = useDispatch();
+
+  const [isDeleteWindowShowing, setIsDeleteWindowShowing] = useState(false);
 
   const [name, setName] = useState(product?.name ?? "");
   const [category, setCategory] = useState(product?.genre ?? "");
@@ -76,6 +79,15 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
 
   return (
     <Window>
+      <ConfirmationWindow
+        isActive={isDeleteWindowShowing}
+        message={`Are you sure you want to delete the product "${name}"?`}
+        actionText="Yes"
+        action={deleteHandler}
+        cancelText="No"
+        cancel={() => setIsDeleteWindowShowing(false)}
+        title="Delete confirmation"
+      />
       <div id="card-edit">
         <div className="top">
           <div className="modal-title">Edit Card</div>
@@ -178,7 +190,12 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
           <button className="menu-button" type="button" onClick={submitHandler}>
             Submit
           </button>
-          <button className="menu-button" type="button" disabled={!product} onClick={deleteHandler}>
+          <button
+            className="menu-button"
+            type="button"
+            disabled={!product}
+            onClick={() => setIsDeleteWindowShowing(true)}
+          >
             Delete card
           </button>
         </div>

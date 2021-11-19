@@ -38,6 +38,8 @@ export async function searchProducts(value: string): Promise<Product[]> {
   return result;
 }
 
+const productsPath = "/api/products";
+
 export async function getTop(): Promise<Product[]> {
   const resp = await fetch(`${urls.ROOT}/api/getTopProducts`);
   const result: Product[] = await resp.json();
@@ -45,7 +47,7 @@ export async function getTop(): Promise<Product[]> {
 }
 
 export async function addProduct(productData: ProductData): Promise<Product> {
-  const resp = await fetch(`${urls.ROOT}/products`, {
+  const resp = await fetch(`${urls.ROOT}${productsPath}`, {
     method: "POST",
     headers: {
       "content-type": "application/json;charset=UTF-8",
@@ -57,7 +59,7 @@ export async function addProduct(productData: ProductData): Promise<Product> {
 }
 
 export async function changeProduct(product: Product): Promise<Product> {
-  const resp = await fetch(`${urls.ROOT}/products/${product.id}`, {
+  const resp = await fetch(`${urls.ROOT}${productsPath}/${product.id}`, {
     method: "PUT",
     headers: {
       "content-type": "application/json;charset=UTF-8",
@@ -69,7 +71,7 @@ export async function changeProduct(product: Product): Promise<Product> {
 }
 
 export async function deleteProduct(productId: number): Promise<void> {
-  await fetch(`${urls.ROOT}/products/${productId}`, {
+  await fetch(`${urls.ROOT}${productsPath}/${productId}`, {
     method: "DELETE",
   });
 }

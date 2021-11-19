@@ -7,28 +7,36 @@ import { RootState } from "@/redux/store";
 import categoriesValues from "@/constants/categoriesValues";
 import { ChangeProductAmount, ChangeProductPlatform, ClearCart, RemoveProducts } from "@/redux/cart/cartActions";
 import { ReduceBalance } from "@/redux/user/userActions";
-import BuyWindow from "../buyWindow/buyWindow";
+import ConfirmationWindow from "../confirmationWindow/confirmationWindow";
 
 const Cart: VFC = () => {
   const dispatch = useDispatch();
   const cart = useSelector((s: RootState) => s.cart);
   const balance = useSelector((s: RootState) => s.user.balance);
-  const [isBuyWindowShowing, setIsBuyWindowShowing] = useState(false);
+  const [isconfirmationWindowShowing, setIsconfirmationWindowShowing] = useState(false);
   const [idsToRemove, setIdsToRemove] = useState(new Set<number>());
 
   const { items } = cart;
   const cost = items.reduce((prev, i) => prev + i.product.price * i.amount, 0);
 
-  const cancelWindow = () => setIsBuyWindowShowing(false);
+  const cancelWindow = () => setIsconfirmationWindowShowing(false);
   const buy = () => {
     dispatch(ReduceBalance(cost));
     dispatch(ClearCart());
-    setIsBuyWindowShowing(false);
+    setIsconfirmationWindowShowing(false);
   };
 
   return (
     <div className="cart">
-      <BuyWindow isActive={isBuyWindowShowing} cancel={cancelWindow} cost={cost} buy={buy} />
+      <ConfirmationWindow
+        isActive={isconfirmationWindowShowing}
+        message={`You buy this wrong games for ${cost}$. Are you sure?`}
+        actionText="Buy"
+        action={buy}
+        cancelText="Cancel"
+        cancel={cancelWindow}
+        title="Buying confirmation"
+      />
       <div className="big-menu cart-menu">
         <h2 className="big-menu-title">Cart page</h2>
         <table className="cart-table">
@@ -116,7 +124,7 @@ const Cart: VFC = () => {
             type="button"
             className="menu-button"
             disabled={cost === 0 || cost > balance}
-            onClick={() => setIsBuyWindowShowing(true)}
+            onClick={() => setIsconfirmationWindowShowing(true)}
           >
             Buy
           </button>
