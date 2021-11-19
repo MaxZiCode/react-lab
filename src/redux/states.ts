@@ -1,4 +1,4 @@
-import { CartItem, Profile } from "@/types";
+import { CartItem, Product, Profile } from "@/types";
 
 export interface UserState {
   id: number;
@@ -14,4 +14,8 @@ export interface ProfileState {
 
 export interface CartState {
   items: CartItem[];
+}
+
+export interface ProductsState {
+  selectedProducts: Product[];
 }

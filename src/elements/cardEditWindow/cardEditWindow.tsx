@@ -6,6 +6,8 @@ import { useState, VFC } from "react";
 import { Product } from "@/types";
 import productValues from "@/constants/productValues";
 import categoriesValues from "@/constants/categoriesValues";
+import { useDispatch } from "react-redux";
+import { addProduct, changeProduct, deleteProduct } from "@/redux/products/productsActions";
 import withModal, { ModalProps } from "../modal/modal";
 import NoPicture from "../noPicture/noPicture";
 import Window from "../window/window";
@@ -16,13 +18,46 @@ export interface CardEditWindowProps {
 }
 
 const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
-  const [name, setName] = useState(product?.name);
-  const [category, setCategory] = useState(product?.genre);
-  const [price, setPrice] = useState(product?.price);
-  const [image, setImage] = useState(product?.imagePath);
-  const [description, setDescription] = useState(product?.description);
-  const [age, setAge] = useState(product?.age);
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState(product?.name ?? "");
+  const [category, setCategory] = useState(product?.genre ?? "");
+  const [price, setPrice] = useState(product?.price ?? 0);
+  const [image, setImage] = useState(product?.imagePath ?? "");
+  const [description, setDescription] = useState(product?.description ?? "");
+  const [age, setAge] = useState(product?.age ?? productValues.ages[0]);
   const [platformMap, setPlatformMap] = useState(new Map(product?.platforms.map((p) => [p, true])));
+
+  const getPlatforms = () => [...platformMap.keys()].filter((p) => platformMap.get(p));
+
+  const submitHandler = () => {
+    type ProductData = Omit<Product, "id">;
+    const productData: ProductData = {
+      name,
+      genre: category,
+      price,
+      imagePath: image,
+      description,
+      age,
+      platforms: getPlatforms(),
+      rating: product?.rating ?? 1,
+      date: product?.date ?? new Date(),
+    };
+
+    if (product) {
+      dispatch(changeProduct({ id: product.id, ...productData }));
+    } else {
+      dispatch(addProduct({ id: 0, ...productData }));
+    }
+
+    close();
+  };
+
+  const deleteHandler = () => {
+    if (product) dispatch(deleteProduct(product.id));
+
+    close();
+  };
 
   return (
     <Window>
@@ -125,10 +160,10 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
           </div>
         </div>
         <div className="bottom">
-          <button className="menu-button" type="button">
+          <button className="menu-button" type="button" onClick={submitHandler}>
             Submit
           </button>
-          <button className="menu-button" type="button" disabled={!product}>
+          <button className="menu-button" type="button" disabled={!product} onClick={deleteHandler}>
             Delete card
           </button>
         </div>
