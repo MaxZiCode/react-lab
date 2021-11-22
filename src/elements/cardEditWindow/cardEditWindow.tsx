@@ -34,7 +34,7 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
   const [image, setImage] = useState(product?.imagePath ?? "");
   const [description, setDescription] = useState(product?.description ?? "");
   const [age, setAge] = useState(product?.age ?? productValues.ages[0]);
-  const [platformMap, setPlatformMap] = useState(new Map(product?.platforms.map((p) => [p, true])));
+  const [platformMap, setPlatformMap] = useState(() => new Map(product?.platforms.map((p) => [p, true])));
 
   const submitHandler = () => {
     const platforms = [...platformMap.keys()].filter((p) => platformMap.get(p));

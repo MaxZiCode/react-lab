@@ -8,7 +8,7 @@ import { Wrapper, Menu, MenuItem, Button } from "react-aria-menubutton";
 
 import categoriesValues from "@/constants/categoriesValues";
 import relativeLinks from "@/constants/urls";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useHistory } from "react-router";
@@ -53,73 +53,79 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
     setNavBarStyle(style);
   }, [shouldShowMenu]);
 
-  const commonItems = [
-    {
-      id: "home",
-      node: (
-        <NavLink exact to={relativeLinks.HOME} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label="Home" />
-        </NavLink>
-      ),
-    },
-    {
-      id: "products",
-      node: (
-        <Wrapper className="navbar-dropdown-wrapper">
-          <NavLink
-            to={relativeLinks.PRODUCTS}
-            className="navbar-dropdown-navlink"
-            activeClassName={activeClassName}
-            onClick={(e) => e.preventDefault()}
-            tabIndex={-1}
-          >
-            <Button tag="div" className={`${linkClassName} navbar-dropdown-button`}>
-              Products
-            </Button>
+  const commonItems = useMemo(
+    () => [
+      {
+        id: "home",
+        node: (
+          <NavLink exact to={relativeLinks.HOME} className={linkClassName} activeClassName={activeClassName}>
+            <ButtonContent label="Home" />
           </NavLink>
-          <Menu>
-            <ul className="navbar-dropdown-row">
-              {[...categoriesValues.values()].map((c) => (
-                <MenuItem tag="li" key={c.id}>
-                  <Link to={c.link} className={`${linkClassName} navbar-dropdown-item`}>
-                    {c.label}
-                  </Link>
-                </MenuItem>
-              ))}
-            </ul>
-          </Menu>
-        </Wrapper>
-      ),
-    },
-    {
-      id: "about",
-      node: (
-        <NavLink to={relativeLinks.ABOUT} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label="About" />
-        </NavLink>
-      ),
-    },
-  ];
+        ),
+      },
+      {
+        id: "products",
+        node: (
+          <Wrapper className="navbar-dropdown-wrapper">
+            <NavLink
+              to={relativeLinks.PRODUCTS}
+              className="navbar-dropdown-navlink"
+              activeClassName={activeClassName}
+              onClick={(e) => e.preventDefault()}
+              tabIndex={-1}
+            >
+              <Button tag="div" className={`${linkClassName} navbar-dropdown-button`}>
+                Products
+              </Button>
+            </NavLink>
+            <Menu>
+              <ul className="navbar-dropdown-row">
+                {[...categoriesValues.values()].map((c) => (
+                  <MenuItem tag="li" key={c.id}>
+                    <Link to={c.link} className={`${linkClassName} navbar-dropdown-item`}>
+                      {c.label}
+                    </Link>
+                  </MenuItem>
+                ))}
+              </ul>
+            </Menu>
+          </Wrapper>
+        ),
+      },
+      {
+        id: "about",
+        node: (
+          <NavLink to={relativeLinks.ABOUT} className={linkClassName} activeClassName={activeClassName}>
+            <ButtonContent label="About" />
+          </NavLink>
+        ),
+      },
+    ],
+    []
+  );
 
-  const anonItems = [
-    ...commonItems,
-    {
-      id: "sign in",
-      node: (
-        <button type="button" className={linkClassName} onClick={showSignIn}>
-          <ButtonContent label="Sign In" />
-        </button>
-      ),
-    },
-    {
-      id: "sign up",
-      node: (
-        <button type="button" className={linkClassName} onClick={showSignUp}>
-          <ButtonContent label="Sign Up" />
-        </button>
-      ),
-    },
-  ];
+  const anonItems = useMemo(
+    () => [
+      ...commonItems,
+      {
+        id: "sign in",
+        node: (
+          <button type="button" className={linkClassName} onClick={showSignIn}>
+            <ButtonContent label="Sign In" />
+          </button>
+        ),
+      },
+      {
+        id: "sign up",
+        node: (
+          <button type="button" className={linkClassName} onClick={showSignUp}>
+            <ButtonContent label="Sign Up" />
+          </button>
+        ),
+      },
+    ],
+    []
+  );
 
   const { username } = useSelector((s: RootState) => s.user);
   const cartAmount = useSelector((s: RootState) => s.cart.items.length);
@@ -130,33 +136,36 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
     history.push(relativeLinks.HOME);
   };
 
-  const signedInItems = [
-    ...commonItems,
-    {
-      id: "user",
-      node: (
-        <NavLink to={relativeLinks.USER} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />
-        </NavLink>
-      ),
-    },
-    {
-      id: "cart",
-      node: (
-        <NavLink to={relativeLinks.CART} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label={cartAmount} icon={{ imagePath: cartIcon, alt: "cart icon" }} />
-        </NavLink>
-      ),
-    },
-    {
-      id: "logout",
-      node: (
-        <button type="button" className={linkClassName} onClick={onSignOut}>
-          <ButtonContent icon={{ imagePath: logoutIcon, alt: "logout icon" }} />
-        </button>
-      ),
-    },
-  ];
+  const signedInItems = useMemo(
+    () => [
+      ...commonItems,
+      {
+        id: "user",
+        node: (
+          <NavLink to={relativeLinks.USER} className={linkClassName} activeClassName={activeClassName}>
+            <ButtonContent label={username} icon={{ imagePath: userIcon, alt: "user icon" }} />
+          </NavLink>
+        ),
+      },
+      {
+        id: "cart",
+        node: (
+          <NavLink to={relativeLinks.CART} className={linkClassName} activeClassName={activeClassName}>
+            <ButtonContent label={cartAmount} icon={{ imagePath: cartIcon, alt: "cart icon" }} />
+          </NavLink>
+        ),
+      },
+      {
+        id: "logout",
+        node: (
+          <button type="button" className={linkClassName} onClick={onSignOut}>
+            <ButtonContent icon={{ imagePath: logoutIcon, alt: "logout icon" }} />
+          </button>
+        ),
+      },
+    ],
+    []
+  );
 
   const { isSignedIn } = useSelector((s: RootState) => s.user);
   const items = isSignedIn ? signedInItems : anonItems;
