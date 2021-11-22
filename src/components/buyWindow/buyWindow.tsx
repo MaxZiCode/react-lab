@@ -16,7 +16,7 @@ const BuyWindow: VFC<BuyWindowProps> = ({ isActive, cost, cancel, buy }) => {
     <Window>
       <div className="modal-title buy-title">Buying confirmation</div>
       <div className="buy-message">
-        {`You buy this wrong games for ${cost}$.`}
+        {`You buy this wrong games for ${cost.toFixed(2)}$.`}
         <br />
         Are you sure?
       </div>
