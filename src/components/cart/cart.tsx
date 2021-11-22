@@ -11,12 +11,10 @@ import BuyWindow from "../buyWindow/buyWindow";
 
 const Cart: VFC = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((s: RootState) => s.cart);
+  const { items } = useSelector((s: RootState) => s.cart);
   const balance = useSelector((s: RootState) => s.user.balance);
   const [isBuyWindowShowing, setIsBuyWindowShowing] = useState(false);
-  const [idsToRemove, setIdsToRemove] = useState(new Set<number>());
-
-  const { items } = cart;
+  const [idsToRemove, setIdsToRemove] = useState([] as number[]);
   const cost = items.reduce((prev, i) => prev + i.product.price * i.amount, 0);
 
   const cancelWindow = () => setIsBuyWindowShowing(false);
@@ -84,9 +82,8 @@ const Cart: VFC = () => {
                     id={`cart-remove${i.product.id}`}
                     onChange={(e) => {
                       setIdsToRemove((ids) => {
-                        if (e.target.checked) ids.add(i.product.id);
-                        else ids.delete(i.product.id);
-                        return ids;
+                        if (e.target.checked) return [...ids, i.product.id];
+                        return ids.filter((id) => id !== i.product.id);
                       });
                     }}
                   />
@@ -99,6 +96,7 @@ const Cart: VFC = () => {
                 <button
                   type="button"
                   className="menu-button"
+                  disabled={[...idsToRemove].length === 0}
                   onClick={() => {
                     dispatch(RemoveProducts([...idsToRemove]));
                   }}
@@ -115,7 +113,7 @@ const Cart: VFC = () => {
           <button
             type="button"
             className="menu-button"
-            disabled={cost === 0 || cost > balance}
+            disabled={items.length === 0}
             onClick={() => setIsBuyWindowShowing(true)}
           >
             Buy
