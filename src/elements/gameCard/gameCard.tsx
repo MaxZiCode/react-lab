@@ -3,14 +3,17 @@ import { RatingView } from "react-simple-star-rating";
 
 import { Product, CategoryName } from "@/types";
 import categoriesValues from "@/constants/categoriesValues";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AddProduct } from "@/redux/cart/cartActions";
 import useCategoryParam from "@/hooks/useCategoryParam";
+import { RootState } from "@/redux/store";
+import { showSignInWindow } from "@/redux/authModal/authModalActions";
 import PlatformIcon from "../platformIcon/platformIcon";
 
 export default function GameCard(product: Product): JSX.Element {
   const dispatch = useDispatch();
   const categoryInfo = useCategoryParam();
+  const { isSignedIn } = useSelector((s: RootState) => s.user);
 
   const platformImages = product.platforms.sort().map((p) => {
     const category = categoriesValues.get(p as CategoryName);
@@ -19,7 +22,10 @@ export default function GameCard(product: Product): JSX.Element {
     ) : undefined;
   });
 
-  const addToCart = () => dispatch(AddProduct(product, categoryInfo?.id));
+  const addToCart = () => {
+    if (isSignedIn) dispatch(AddProduct(product, categoryInfo?.id));
+    else dispatch(showSignInWindow());
+  };
 
   return (
     <div className="card">

@@ -15,15 +15,11 @@ import Products from "../products/products";
 import Cart from "../cart/cart";
 
 interface AppState {
-  isSignInShowing: boolean;
-  isSignUpShowing: boolean;
   topProducts: Product[];
   redirectRouteAfterSignIn?: string;
 }
 
 const initialState: AppState = {
-  isSignInShowing: false,
-  isSignUpShowing: false,
   topProducts: [],
 };
 
@@ -36,14 +32,9 @@ class App extends Component<RouteComponentProps, AppState> {
 
     this.setRedirectRoute = this.setRedirectRoute.bind(this);
     this.setTopProducts = this.setTopProducts.bind(this);
-    this.showSignInWindow = this.showSignInWindow.bind(this);
-    this.showSignUpWindow = this.showSignUpWindow.bind(this);
-    this.closeSignInWindow = this.closeSignInWindow.bind(this);
-    this.closeSignUpWindow = this.closeSignUpWindow.bind(this);
     this.clearRedirectRoute = this.clearRedirectRoute.bind(this);
 
     this._authRouteProps = {
-      showSignIn: this.showSignInWindow,
       setRedirectSignIn: this.setRedirectRoute,
     };
   }
@@ -63,22 +54,6 @@ class App extends Component<RouteComponentProps, AppState> {
     this.setState({ topProducts: products });
   }
 
-  showSignInWindow() {
-    this.setState({ isSignInShowing: true });
-  }
-
-  showSignUpWindow() {
-    this.setState({ isSignUpShowing: true });
-  }
-
-  closeSignInWindow() {
-    this.setState({ isSignInShowing: false });
-  }
-
-  closeSignUpWindow() {
-    this.setState({ isSignUpShowing: false });
-  }
-
   clearRedirectRoute() {
     this.setState({ redirectRouteAfterSignIn: undefined });
   }
@@ -87,13 +62,11 @@ class App extends Component<RouteComponentProps, AppState> {
     return (
       <>
         <SignInWindow
-          isActive={this.state.isSignInShowing}
-          close={this.closeSignInWindow}
           redirectRoute={this.state.redirectRouteAfterSignIn}
           clearRedirectRoute={this.clearRedirectRoute}
         />
-        <SignUpModal isActive={this.state.isSignUpShowing} close={this.closeSignUpWindow} />
-        <Header showSignIn={this.showSignInWindow} showSignUp={this.showSignUpWindow} />
+        <SignUpModal />
+        <Header />
         <main>
           <Switch>
             <Route exact path={relativeLinks.HOME}>

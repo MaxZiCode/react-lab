@@ -2,20 +2,18 @@ import { signUp } from "@/api/apiAuth";
 import { parseToUserResponseInfo } from "@/utilities/responseParser";
 import urls from "@/constants/urls";
 import FormWindow from "@/elements/formWindow/formWindow";
-import withModal, { ModalProps } from "@/elements/modal/modal";
+import withModal from "@/elements/modal/modal";
 import { signInUser } from "@/redux/user/userActions";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import ChangePasswordField from "@/elements/changePasswordField/changePasswordField";
 import ChangeUsernameField from "@/elements/changeUsernameField/changeUsernameField";
 import defaultValues from "@/constants/defaultValues";
+import { closeSignUpWindow } from "@/redux/authModal/authModalActions";
+import { RootState } from "@/redux/store";
 
-export interface SignUpWindowProps {
-  close: () => void;
-}
-
-function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
+function SignUpWindow(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -26,6 +24,7 @@ function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   const [passwordValidatonFn, setPasswordValidationFn] = useState(() => defaultValues.notImplementedValidationFn);
 
   const validate = () => usernameValidationFn() && passwordValidatonFn();
+  const close = () => dispatch(closeSignUpWindow());
 
   const onSubmit = async () => {
     if (validate())
@@ -40,7 +39,7 @@ function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   };
 
   return (
-    <FormWindow title="Registration" close={close} onSubmit={onSubmit}>
+    <FormWindow title="Registration" onSubmit={onSubmit} close={close}>
       <ChangeUsernameField
         username={username}
         onChangeUsername={setUserName}
@@ -55,5 +54,8 @@ function SignUpWindow({ close }: SignUpWindowProps): JSX.Element {
   );
 }
 
-export default ({ isActive, ...props }: SignUpWindowProps & ModalProps): JSX.Element =>
-  withModal(<SignUpWindow {...props} />, isActive);
+export default (): JSX.Element =>
+  withModal(
+    <SignUpWindow />,
+    useSelector((s: RootState) => s.authModal.isSignUpWindowShowing)
+  );

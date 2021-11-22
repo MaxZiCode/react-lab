@@ -15,3 +15,8 @@ export interface ProfileState {
 export interface CartState {
   items: CartItem[];
 }
+
+export interface AuthModalState {
+  isSignInWindowShowing: boolean;
+  isSignUpWindowShowing: boolean;
+}

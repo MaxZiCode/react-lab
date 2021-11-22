@@ -15,6 +15,7 @@ import { useHistory } from "react-router";
 import { signOutUser } from "@/redux/user/userActions";
 import { clearProfile } from "@/redux/profile/profileActions";
 import { ClearCart } from "@/redux/cart/cartActions";
+import { showSignInWindow, showSignUpWindow } from "@/redux/authModal/authModalActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -36,12 +37,7 @@ function ButtonContent(params: ButtonContentParams) {
   );
 }
 
-export interface HeaderProps {
-  showSignIn: () => void;
-  showSignUp: () => void;
-}
-
-export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Element {
+export default function Header(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -106,7 +102,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
     {
       id: "sign in",
       node: (
-        <button type="button" className={linkClassName} onClick={showSignIn}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignInWindow())}>
           <ButtonContent label="Sign In" />
         </button>
       ),
@@ -114,7 +110,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName} onClick={showSignUp}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignUpWindow())}>
           <ButtonContent label="Sign Up" />
         </button>
       ),

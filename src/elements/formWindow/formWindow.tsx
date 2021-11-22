@@ -1,8 +1,7 @@
 import "./formWindow.scss";
 
 import closeIcon from "@/assets/vectors/close.svg";
-// eslint-disable-next-line no-use-before-define
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import Window from "../window/window";
 
 export interface FormWindowProps {
@@ -11,7 +10,7 @@ export interface FormWindowProps {
   close: () => void;
 }
 
-const FormWindow: React.FC<FormWindowProps> = (props) => {
+const FormWindow: FC<FormWindowProps> = (props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMounted, setIsMounted] = useState(true);
 

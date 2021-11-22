@@ -2,19 +2,20 @@ import FormInput from "@/elements/formInput/formInput";
 import FormWindow from "@/elements/formWindow/formWindow";
 import { signIn } from "@/api/apiAuth";
 import { useState } from "react";
-import withModal, { ModalProps } from "@/elements/modal/modal";
+import withModal from "@/elements/modal/modal";
 import { useHistory } from "react-router";
 import { parseToUserResponseInfo } from "@/utilities/responseParser";
 import { signInUser } from "@/redux/user/userActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { closeSignInWindow } from "@/redux/authModal/authModalActions";
+import { RootState } from "@/redux/store";
 
 export interface SignInWindowProps {
-  close: () => void;
   redirectRoute?: string;
   clearRedirectRoute: () => void;
 }
 
-function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindowProps): JSX.Element {
+function SignInWindowComp({ redirectRoute, clearRedirectRoute }: SignInWindowProps): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -32,6 +33,8 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
     setLoginProblem("");
     setPasswordProblem("");
   };
+
+  const close = () => dispatch(closeSignInWindow());
 
   const onSubmit = () =>
     signIn(login, password).then(async (r) => {
@@ -54,7 +57,7 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
     });
 
   return (
-    <FormWindow title="Authorization" close={close} onSubmit={onSubmit}>
+    <FormWindow title="Authorization" onSubmit={onSubmit} close={close}>
       <FormInput
         id="signin-username"
         name="user-name"
@@ -75,5 +78,8 @@ function SignInWindow({ close, redirectRoute, clearRedirectRoute }: SignInWindow
   );
 }
 
-export default ({ isActive, ...props }: SignInWindowProps & ModalProps): JSX.Element =>
-  withModal(<SignInWindow {...props} />, isActive);
+export default function SignInWindow({ ...props }: SignInWindowProps): JSX.Element {
+  const { isSignInWindowShowing } = useSelector((s: RootState) => s.authModal);
+
+  return withModal(<SignInWindowComp {...props} />, isSignInWindowShowing);
+}

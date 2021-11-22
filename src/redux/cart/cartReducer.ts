@@ -10,7 +10,6 @@ const initialState: CartState = {
 export default function cartReducer(state = initialState, action: AnyAction): CartState {
   switch (action.type) {
     case CartConstants.ADD_PRODUCT: {
-      console.log(initialState);
       const args = action.payload;
       const { id } = args.product;
       const items = [...state.items];

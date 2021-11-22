@@ -1,21 +1,23 @@
 import urls from "@/constants/urls";
+import { showSignInWindow } from "@/redux/authModal/authModalActions";
 import { RootState } from "@/redux/store";
 import { FC, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, RouteProps, Redirect } from "react-router-dom";
 
 export interface AuthRouteProps extends RouteProps {
-  showSignIn: () => void;
   setRedirectSignIn: (pathName: string) => void;
 }
 
-const AuthRoute: FC<AuthRouteProps> = ({ showSignIn, setRedirectSignIn, ...props }) => {
+const AuthRoute: FC<AuthRouteProps> = ({ setRedirectSignIn, ...props }) => {
+  const dispatch = useDispatch();
+
   const isSignedIn = useSelector((s: RootState) => s.user.isSignedIn);
 
   useEffect(() => {
     if (isSignedIn) return;
 
-    showSignIn();
+    dispatch(showSignInWindow());
     const pathname = props.location?.pathname;
     if (pathname) setRedirectSignIn(pathname);
   });
