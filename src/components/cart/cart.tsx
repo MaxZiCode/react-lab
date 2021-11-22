@@ -96,9 +96,10 @@ const Cart: VFC = () => {
                 <button
                   type="button"
                   className="menu-button"
-                  disabled={[...idsToRemove].length === 0}
+                  disabled={idsToRemove.length === 0}
                   onClick={() => {
-                    dispatch(RemoveProducts([...idsToRemove]));
+                    dispatch(RemoveProducts(idsToRemove));
+                    setIdsToRemove([]);
                   }}
                 >
                   Remove
@@ -113,7 +114,7 @@ const Cart: VFC = () => {
           <button
             type="button"
             className="menu-button"
-            disabled={items.length === 0}
+            disabled={items.length === 0 || cost > balance}
             onClick={() => setIsBuyWindowShowing(true)}
           >
             Buy
