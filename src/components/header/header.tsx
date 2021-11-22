@@ -117,8 +117,9 @@ export default function Header(): JSX.Element {
     },
   ];
 
-  const { username } = useSelector((s: RootState) => s.user);
-  const cartAmount = useSelector((s: RootState) => s.cart.items.length);
+  const { username, isSignedIn } = useSelector((s: RootState) => s.user);
+  const { items: cartItems } = useSelector((s: RootState) => s.cart);
+  const cartItemsSum = cartItems.reduce((prev, i) => prev + i.amount, 0);
   const onSignOut = () => {
     dispatch(signOutUser());
     dispatch(clearProfile());
@@ -140,7 +141,7 @@ export default function Header(): JSX.Element {
       id: "cart",
       node: (
         <NavLink to={relativeLinks.CART} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label={cartAmount} icon={{ imagePath: cartIcon, alt: "cart icon" }} />
+          <ButtonContent label={cartItemsSum} icon={{ imagePath: cartIcon, alt: "cart icon" }} />
         </NavLink>
       ),
     },
@@ -154,7 +155,6 @@ export default function Header(): JSX.Element {
     },
   ];
 
-  const { isSignedIn } = useSelector((s: RootState) => s.user);
   const items = isSignedIn ? signedInItems : anonItems;
 
   return (
