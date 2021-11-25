@@ -10,25 +10,43 @@ const initialState: CartState = {
 export default function cartReducer(state = initialState, action: AnyAction): CartState {
   switch (action.type) {
     case CartConstants.ADD_PRODUCT: {
-      const args = action.type.payload;
-      const item: CartItem = {
-        productId: args.id,
-        selectedPlatform: args.platform ?? "PC",
-        orderDate: args.date ?? Date.now(),
-        amount: 1,
-      };
-      state.items.push(item);
+      const args = action.payload;
+      const { id } = args.product;
+      const items = [...state.items];
+      if (!items.some((i) => i.product.id === id)) {
+        const item: CartItem = {
+          product: args.product,
+          selectedPlatform: args.platform,
+          orderDate: args.date ?? new Date(),
+          amount: 1,
+        };
+        items.push(item);
+      }
+      return { ...state, items };
+    }
+
+    case CartConstants.REMOVE_PRODUCTS: {
+      const idsToRemove: number[] = action.payload.ids;
+      const items = state.items.filter((i) => !idsToRemove.some((id) => i.product.id === id));
       return {
         ...state,
+        items,
       };
     }
 
-    case CartConstants.REMOVE_PRODUCT: {
-      const removeIndex = state.items.findIndex((item) => item.productId === action.payload.id);
-      state.items.splice(removeIndex, 1);
-      return {
-        ...state,
-      };
+    case CartConstants.CLEAR_CART:
+      return initialState;
+
+    case CartConstants.CHANGE_PRODUCT_PLATFORM: {
+      const newState = { ...state };
+      newState.items[action.payload.index].selectedPlatform = action.payload.platform;
+      return newState;
+    }
+
+    case CartConstants.CHANGE_PRODUCT_AMOUNT: {
+      const newState = { ...state };
+      newState.items[action.payload.index].amount = action.payload.amount;
+      return newState;
     }
 
     default: {

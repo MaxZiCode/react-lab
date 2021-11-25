@@ -13,3 +13,7 @@ export function signOutUser(): AnyAction {
 export function changeUsername(newUsername: string): AnyAction {
   return action(UserConstants.CHANGE_EMAIL, { username: newUsername });
 }
+
+export function ReduceBalance(amount: number): AnyAction {
+  return action(UserConstants.REDUCE_BALANCE, { amount });
+}

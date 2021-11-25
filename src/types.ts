@@ -1,4 +1,4 @@
-export type CategoryName = "PC" | "PS5" | "XONE";
+export type CategoryName = string;
 
 export interface CategoryInfo {
   readonly id: CategoryName;
@@ -35,8 +35,8 @@ export interface Profile {
 }
 
 export interface CartItem {
-  productId: number;
-  selectedPlatform: CategoryName;
-  orderDate: number;
+  product: Product;
+  selectedPlatform?: CategoryName;
+  orderDate: Date;
   amount: number;
 }

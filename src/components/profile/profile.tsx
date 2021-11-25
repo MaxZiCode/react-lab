@@ -71,6 +71,13 @@ const Profile: VFC = () => {
 
   return (
     <div className="home">
+      <ChangePasswordWindow
+        close={() => {
+          setIsPasswordWindowShowing(false);
+        }}
+        profile={profile}
+        isActive={isPasswordWindowShowing}
+      />
       <div className="big-menu">
         <h2 className="big-menu-title">{`${user.username} profile page`}</h2>
         {isLoading ? (
@@ -129,11 +136,6 @@ const Profile: VFC = () => {
                 onClick={() => setIsPasswordWindowShowing(true)}
               >
                 Change password
-                <ChangePasswordWindow
-                  close={() => setIsPasswordWindowShowing(false)}
-                  profile={profile}
-                  isActive={isPasswordWindowShowing}
-                />
               </button>
             </div>
           </div>

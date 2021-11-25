@@ -3,6 +3,7 @@ export const enum UserConstants {
   SIGN_IN = "SIGN_IN",
   SIGN_OUT = "SIGN_OUT",
   CHANGE_EMAIL = "CHANGE_EMAIL",
+  REDUCE_BALANCE = "REDUCE_BALANCE",
 }
 
 export const enum ProfileConstants {
@@ -12,5 +13,15 @@ export const enum ProfileConstants {
 
 export const enum CartConstants {
   ADD_PRODUCT = "ADD_PRODUCT",
-  REMOVE_PRODUCT = "REMOVE_PRODUCT",
+  REMOVE_PRODUCTS = "REMOVE_PRODUCTS",
+  CLEAR_CART = "CLEAR_CART",
+  CHANGE_PRODUCT_PLATFORM = "CHANGE_PRODUCT_PLATFORM",
+  CHANGE_PRODUCT_AMOUNT = "CHANGE_PRODUCT_AMOUNT",
+}
+
+export const enum AuthModalConstants {
+  SHOW_SIGN_IN_WINDOW = "SHOW_SIGN_IN",
+  CLOSE_SIGN_IN_WINDOW = "CLOSE_SIGN_IN_WINDOW",
+  SHOW_SIGN_UP_WINDOW = "SHOW_SIGN_UP",
+  CLOSE_SIGN_UP_WINDOW = "CLOSE_SIGN_UP_WINDOW",
 }

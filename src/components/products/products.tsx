@@ -3,17 +3,17 @@ import "./products.scss";
 import ProductsControlMenu from "@/components/productsControlMenu/productsControlMenu";
 import { useState } from "react";
 import { getProducts } from "@/api/apiProducts";
-import { CategoryName, Product } from "@/types";
+import { Product } from "@/types";
 import { useParams } from "react-router";
-import categoriesValues from "@/constants/categoriesValues";
 import pv from "@/constants/productValues";
 import useLoadingPromise from "@/hooks/useLoadingPromise";
+import useCategoryParam from "@/hooks/useCategoryParam";
 import Search from "../search/search";
 import ProductsMenu from "../productsMenu/productsMenu";
 
 export default function Products(): JSX.Element {
   const { categoryId } = useParams<{ categoryId: string }>();
-  const categoryValue = categoriesValues.get(categoryId.toUpperCase() as CategoryName);
+  const categoryValue = useCategoryParam();
 
   const [sortBy, setSortBy] = useState<keyof Product>(pv.sortCriterias[0]);
   const [sortType, setSortType] = useState<string>(pv.sortTypes[0]);

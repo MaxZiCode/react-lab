@@ -4,6 +4,7 @@ export interface UserState {
   id: number;
   username: string;
   password: string;
+  balance: number;
   isSignedIn: boolean;
 }
 
@@ -13,4 +14,9 @@ export interface ProfileState {
 
 export interface CartState {
   items: CartItem[];
+}
+
+export interface AuthModalState {
+  isSignInWindowShowing: boolean;
+  isSignUpWindowShowing: boolean;
 }

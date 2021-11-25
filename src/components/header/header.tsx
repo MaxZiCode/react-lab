@@ -14,6 +14,8 @@ import { RootState } from "@/redux/store";
 import { useHistory } from "react-router";
 import { signOutUser } from "@/redux/user/userActions";
 import { clearProfile } from "@/redux/profile/profileActions";
+import { ClearCart } from "@/redux/cart/cartActions";
+import { showSignInWindow, showSignUpWindow } from "@/redux/authModal/authModalActions";
 
 const linkClassName = "navbar-item";
 const activeClassName = "selected";
@@ -23,7 +25,7 @@ interface ButtonContentParams {
     imagePath: string;
     alt: string;
   };
-  label?: string;
+  label?: string | number;
 }
 
 function ButtonContent(params: ButtonContentParams) {
@@ -35,12 +37,7 @@ function ButtonContent(params: ButtonContentParams) {
   );
 }
 
-export interface HeaderProps {
-  showSignIn: () => void;
-  showSignUp: () => void;
-}
-
-export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Element {
+export default function Header(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -105,7 +102,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
     {
       id: "sign in",
       node: (
-        <button type="button" className={linkClassName} onClick={showSignIn}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignInWindow())}>
           <ButtonContent label="Sign In" />
         </button>
       ),
@@ -113,17 +110,20 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
     {
       id: "sign up",
       node: (
-        <button type="button" className={linkClassName} onClick={showSignUp}>
+        <button type="button" className={linkClassName} onClick={() => dispatch(showSignUpWindow())}>
           <ButtonContent label="Sign Up" />
         </button>
       ),
     },
   ];
 
-  const { username } = useSelector((s: RootState) => s.user);
+  const { username, isSignedIn } = useSelector((s: RootState) => s.user);
+  const { items: cartItems } = useSelector((s: RootState) => s.cart);
+  const cartItemsSum = cartItems.reduce((prev, i) => prev + i.amount, 0);
   const onSignOut = () => {
     dispatch(signOutUser());
     dispatch(clearProfile());
+    dispatch(ClearCart());
     history.push(relativeLinks.HOME);
   };
 
@@ -141,7 +141,7 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
       id: "cart",
       node: (
         <NavLink to={relativeLinks.CART} className={linkClassName} activeClassName={activeClassName}>
-          <ButtonContent label="0" icon={{ imagePath: cartIcon, alt: "cart icon" }} />
+          <ButtonContent label={cartItemsSum} icon={{ imagePath: cartIcon, alt: "cart icon" }} />
         </NavLink>
       ),
     },
@@ -155,7 +155,6 @@ export default function Header({ showSignIn, showSignUp }: HeaderProps): JSX.Ele
     },
   ];
 
-  const { isSignedIn } = useSelector((s: RootState) => s.user);
   const items = isSignedIn ? signedInItems : anonItems;
 
   return (
