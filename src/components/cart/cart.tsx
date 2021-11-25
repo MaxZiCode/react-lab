@@ -7,7 +7,7 @@ import { RootState } from "@/redux/store";
 import categoriesValues from "@/constants/categoriesValues";
 import { ChangeProductAmount, ChangeProductPlatform, ClearCart, RemoveProducts } from "@/redux/cart/cartActions";
 import { ReduceBalance } from "@/redux/user/userActions";
-import BuyWindow from "../buyWindow/buyWindow";
+import ConfirmationWindow from "../confirmationWindow/confirmationWindow";
 
 const Cart: VFC = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,15 @@ const Cart: VFC = () => {
 
   return (
     <div className="cart">
-      <BuyWindow isActive={isBuyWindowShowing} cancel={cancelWindow} cost={cost} buy={buy} />
+      <ConfirmationWindow
+        isActive={isBuyWindowShowing}
+        message={`You buy this wrong games for ${cost}$. Are you sure?`}
+        actionText="Buy"
+        action={buy}
+        cancelText="Cancel"
+        cancel={cancelWindow}
+        title="Buying confirmation"
+      />
       <div className="big-menu cart-menu">
         <h2 className="big-menu-title">Cart page</h2>
         <table className="cart-table">

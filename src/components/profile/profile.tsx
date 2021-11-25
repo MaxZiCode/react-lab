@@ -13,6 +13,7 @@ import defaultValues from "@/constants/defaultValues";
 import LoadingSpinner from "@/elements/loadingSpinner/loadingSpinner";
 import { parseBody } from "@/utilities/responseParser";
 import { setProfile as SetProfileState } from "@/redux/profile/profileActions";
+import NoPicture from "@/elements/noPicture/noPicture";
 import ChangePasswordWindow from "../changePasswordWindow/changePasswordWindow";
 
 const Profile: VFC = () => {
@@ -86,13 +87,7 @@ const Profile: VFC = () => {
           <div className="profile-page-container">
             <div className="profile-change-image-area">
               <div className="profile-image-view">
-                {profile.picture ? (
-                  <img src={profile.picture} alt="profile" />
-                ) : (
-                  <div className="profile-wrapper-no-picture">
-                    <div className="profile-image-no-picture">NO PICTURE</div>
-                  </div>
-                )}
+                {profile.picture ? <img src={profile.picture} alt="profile" /> : <NoPicture />}
               </div>
               <button type="button" className="menu-button-transparent">
                 <label htmlFor="picture_input">
@@ -119,7 +114,7 @@ const Profile: VFC = () => {
                     id="profile-description"
                     name="profile-description"
                     rows={6}
-                    className="form-input-column"
+                    className="form-input"
                     onChange={(e) => setProfile({ ...profile, description: e.target.value })}
                     value={profile.description}
                   />

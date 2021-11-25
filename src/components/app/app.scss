@@ -12,24 +12,13 @@ main {
 }
 
 #app {
-  display: flex;
-  flex-direction: column;
-
-  header {
-    flex-grow: 0;
-  }
-
-  main {
-    flex-grow: 1;
-  }
-
-  footer {
-    flex-grow: 0;
-  }
+  display: grid;
+  grid-template: 0fr 1fr 0fr / auto;
 }
 
 input,
-select {
+select,
+textarea {
   padding: 4px;
   border: 1px solid $basicColor;
   background-color: $homeItemsBackgroundColor;
@@ -55,7 +44,6 @@ button {
 
 input,
 textarea {
-  width: 100%;
   padding: 4px;
   border: 1px solid $basicColor;
   background-color: $homeItemsBackgroundColor;

@@ -5,21 +5,29 @@ import { Product, CategoryName } from "@/types";
 import categoriesValues from "@/constants/categoriesValues";
 import { useDispatch, useSelector } from "react-redux";
 import { AddProduct } from "@/redux/cart/cartActions";
+import { useState } from "react";
+import useAdmin from "@/hooks/useAdmin";
 import useCategoryParam from "@/hooks/useCategoryParam";
 import { RootState } from "@/redux/store";
 import { showSignInWindow } from "@/redux/authModal/authModalActions";
 import PlatformIcon from "../platformIcon/platformIcon";
+import CardEditWindow from "../cardEditWindow/cardEditWindow";
 
 export default function GameCard(product: Product): JSX.Element {
   const dispatch = useDispatch();
   const categoryInfo = useCategoryParam();
   const { isSignedIn } = useSelector((s: RootState) => s.user);
 
+  const isAdmin = useAdmin();
+  const [isEditPageShowing, setIsEditPageShowing] = useState(false);
+
   const platformImages = product.platforms.sort().map((p) => {
     const category = categoriesValues.get(p as CategoryName);
     return category ? (
       <PlatformIcon key={category.id} label={category.label} logo={category.logo} className="card-platform" />
-    ) : undefined;
+    ) : (
+      []
+    );
   });
 
   const addToCart = () => {
@@ -29,6 +37,7 @@ export default function GameCard(product: Product): JSX.Element {
 
   return (
     <div className="card">
+      <CardEditWindow isActive={isEditPageShowing} close={() => setIsEditPageShowing(false)} product={product} />
       <div className="card-inner">
         <div className="card-front">
           <div className="card-platforms">{platformImages}</div>
@@ -46,9 +55,16 @@ export default function GameCard(product: Product): JSX.Element {
         <div className="card-back">
           <div className="card-description">{product.description}</div>
           <div className="card-age">{`${product.age}+`}</div>
-          <button type="button" className="card-purchase menu-button" onClick={addToCart}>
-            Add to cart
-          </button>
+          <div className="card-buttons">
+            <button type="button" className="menu-button" onClick={addToCart}>
+              Add to cart
+            </button>
+            {isAdmin && (
+              <button type="button" className="menu-button" onClick={() => setIsEditPageShowing(true)}>
+                Edit
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

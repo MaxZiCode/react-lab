@@ -25,3 +25,10 @@ export const enum AuthModalConstants {
   SHOW_SIGN_UP_WINDOW = "SHOW_SIGN_UP",
   CLOSE_SIGN_UP_WINDOW = "CLOSE_SIGN_UP_WINDOW",
 }
+
+export const enum ProductsContstants {
+  SET_PRODUCTS = "SET_PRODUCTS",
+  ADD_PRODUCT = "ADD_PRODUCTS",
+  CHANGE_PRODUCT = "CHANGE_PRODUCT",
+  DELETE_PRODUCT = "DELETE_PRODUCT",
+}
