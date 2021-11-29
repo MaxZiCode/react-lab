@@ -30,7 +30,7 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
 
   const [name, setName] = useState(product?.name ?? "");
   const [category, setCategory] = useState(product?.genre ?? "");
-  const [price, setPrice] = useState(product?.price ?? 0);
+  const [price, setPrice] = useState(product?.price.toString() ?? "0");
   const [image, setImage] = useState(product?.imagePath ?? "");
   const [description, setDescription] = useState(product?.description ?? "");
   const [age, setAge] = useState(product?.age ?? productValues.ages[0]);
@@ -46,7 +46,7 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
     const productData: ProductData = {
       name,
       genre: category,
-      price,
+      price: Number.parseFloat(price),
       imagePath: image,
       description,
       age,
@@ -75,6 +75,14 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
       });
 
     close();
+  };
+
+  const changePriceHandler = (inputPrice: string) => {
+    if (inputPrice.match(/^\d+\.*\d{0,2}$/) || !inputPrice) setPrice(inputPrice);
+  };
+
+  const blurPriceHandler = () => {
+    if (!price) setPrice("0");
   };
 
   return (
@@ -126,15 +134,12 @@ const CardEditWindowComp: VFC<CardEditWindowProps> = ({ close, product }) => {
             <label htmlFor="card-edit-price">
               Price
               <input
-                type="number"
+                type="text"
                 name="price"
                 id="card-edit-price"
                 value={price}
-                onChange={(e) => {
-                  const value = e.currentTarget.valueAsNumber;
-                  if (!Number.isNaN(value)) setPrice(value);
-                }}
-                min="0"
+                onChange={(e) => changePriceHandler(e.target.value)}
+                onBlur={blurPriceHandler}
               />
             </label>
             <label htmlFor="card-edit-image-link">
