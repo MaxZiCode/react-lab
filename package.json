@@ -6,7 +6,7 @@
   "scripts": {
     "test": "exit 0",
     "start": "npm run serve",
-    "serve": "./node_modules/.bin/webpack serve --open --config webpack.devServer.js",
+    "serve": "webpack serve --open --config webpack.devServer.js",
     "run-json-server": "json-server --watch src/data/mock-data.json --routes src/data/routes.json --delay 1000 --middlewares ./node_modules/json-server-auth",
     "build-prod": "./node_modules/.bin/webpack --mode production --config webpack.prod.js",
     "build-prod-withMap": "./node_modules/.bin/webpack --mode production --config webpack.prod.js --sourceMap",
