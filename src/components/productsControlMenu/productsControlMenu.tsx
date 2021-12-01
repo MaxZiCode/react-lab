@@ -10,11 +10,13 @@ const sortTypeMap = new Map([
   ["desc", "Descending"],
 ]);
 
-const filterGenresMap = new Map(productValues.filterGenres.map((fg) => [fg, capitalize(fg)]));
+const allGenres = ["all", ...productValues.genres];
+const filterGenresMap = new Map(allGenres.map((fg) => [fg, capitalize(fg)]));
 filterGenresMap.set("all", "All genres");
 
+const allAges = ["all", ...productValues.ages];
 const filterAgeMap = new Map(
-  productValues.filterAge.map((a) => {
+  allAges.map((a) => {
     const value = Number.isNaN(a) ? a : `${a}+`;
     return [a, value];
   })
@@ -89,7 +91,7 @@ const ProductsControlMenu: React.VFC<ProductsControlMenuProps> = ({
     </div>
     <div className="products-control-menu-section">
       <h3 className="big-menu-title ps-title">Genres</h3>
-      {productValues.filterGenres.map((fg) => {
+      {[...filterGenresMap.keys()].map((fg) => {
         const id = `ps-filter-genres-${fg}`;
         return (
           <div className="ps-filter-field" key={fg}>
@@ -111,7 +113,7 @@ const ProductsControlMenu: React.VFC<ProductsControlMenuProps> = ({
     </div>
     <div className="products-control-menu-section">
       <h3 className="big-menu-title ps-title">Age</h3>
-      {productValues.filterAge.map((fa) => {
+      {[...filterAgeMap.keys()].map((fa) => {
         const id = `ps-filter-age-${fa}`;
         return (
           <div className="ps-filter-field" key={fa}>

@@ -2,6 +2,7 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
 import authModalReducer from "./authModal/authModalReducer";
 import cartReducer from "./cart/cartReducer";
+import productsReducer from "./products/productsReducer";
 import profileReducer from "./profile/profileReducer";
 import userReducer from "./user/userReducer";
 
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   cart: cartReducer,
   authModal: authModalReducer,
+  products: productsReducer,
 });
 export type RootState = ReturnType<typeof rootReducer>;
 

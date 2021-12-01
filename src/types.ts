@@ -23,6 +23,8 @@ export interface Product {
   genre?: string;
 }
 
+export type ProductData = Omit<Product, "id">;
+
 export interface UserResponseInfo {
   id: number;
   email: string;

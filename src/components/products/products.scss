@@ -29,11 +29,19 @@
 }
 
 .products-center-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
   .big-menu {
     margin-top: 30px;
+  }
+}
+
+.products-center-top-area {
+  display: flex;
+  flex-flow: row;
+  width: 80%;
+  margin: 0 auto;
+
+  button {
+    font-size: 0.8em;
+    margin-left: 10px;
   }
 }

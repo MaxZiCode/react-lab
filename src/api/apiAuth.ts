@@ -1,5 +1,9 @@
 import urls from "@/constants/urls";
 
+// Admin
+// login:    admin@gmail.com
+// password: Xo|=@Q,B~1Cq#Hn5
+
 function sign(name: string, password: string, path: string) {
   return fetch(`${urls.ROOT}${path}`, {
     method: "POST",

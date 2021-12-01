@@ -11,6 +11,11 @@
       "email": "max@max.maxa",
       "password": "$2a$10$t.eib1N4kGd45lQy1vadQ.bZGNn2bjCyFGYGfSMs2XcnqK9xK11q6",
       "id": 12
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "$2a$10$fhrzG9o6udesvS2sONwpgOT5cHSlCfJcjkEHhzKzogciYKLxoT.WG",
+      "id": 13
     }
   ],
   "products": [
@@ -125,13 +130,13 @@
     {
       "id": 10,
       "name": "Alone in the Dark: Illumination",
-      "price": 12.59,
-      "rating": 1,
       "genre": "shooter",
+      "price": 12.59,
       "imagePath": "https://m.media-amazon.com/images/M/MV5BNmRlOGY4MTAtZjc4Ny00ZDI0LWFiMWEtYmZlM2NhYzNmMTBiXkEyXkFqcGdeQXVyNjg5MjUzMTI@._V1_.jpg",
       "description": "It's like a Left for Dead without fun, good combat and shooting, art design, ballance and players. Don't buy it. It's a new game what is already dead. No lobby, no players. Single Player is horrible.",
       "age": "18",
       "platforms": ["PC"],
+      "rating": 1,
       "date": "2015-05-11"
     }
   ]

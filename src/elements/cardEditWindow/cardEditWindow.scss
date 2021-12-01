@@ -1,0 +1,85 @@
+$marginBetweenSections: 20px;
+
+#card-edit {
+  .top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .middle {
+    display: flex;
+    justify-content: center;
+    font-size: small;
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      white-space: nowrap;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 300px;
+      margin-left: 10px;
+      padding: 10px;
+    }
+
+    textarea {
+      height: 15em;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.5);
+    }
+
+    .title {
+      font-size: medium;
+      margin-bottom: 10px;
+    }
+
+    .first-column {
+      width: 200px;
+      height: 300px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .second-column {
+      margin-left: 20px;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: center;
+
+    button {
+      width: 130px;
+    }
+
+    * + * {
+      margin-left: 40px;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .middle {
+      flex-direction: column;
+      justify-content: center;
+
+      .second-column {
+        margin-top: $marginBetweenSections;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+#card-edit > div + div {
+  margin-top: $marginBetweenSections;
+}

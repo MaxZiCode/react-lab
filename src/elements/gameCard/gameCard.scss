@@ -40,7 +40,6 @@
 .card-back {
   transform: rotateY(180deg);
   text-align: center;
-  align-items: center;
   justify-content: center;
 }
 
@@ -88,9 +87,17 @@
 
 .card-age {
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.card-purchase {
-  font-size: 1.2em;
-  margin: 8px;
+.card-buttons {
+  margin: 0 10px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+
+  button {
+    display: block;
+    margin: 0 auto;
+  }
 }
