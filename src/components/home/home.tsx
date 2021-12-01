@@ -1,7 +1,7 @@
 import "./home.scss";
 import "@/styles/cardContainer.scss";
 
-import { useEffect, useState, VFC } from "react";
+import { useEffect, useMemo, VFC } from "react";
 import categoriesValues from "@/constants/categoriesValues";
 
 import { Product } from "@/types";
@@ -16,7 +16,7 @@ export interface HomeProps {
 }
 
 const Home: VFC<HomeProps> = ({ topProducts, setTopProducts }) => {
-  const [categoryInfos] = useState([...categoriesValues.values()]);
+  const categoryInfos = useMemo(() => [...categoriesValues.values()], []);
 
   useEffect(() => {
     if (topProducts.length === 0) {

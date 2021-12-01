@@ -1,18 +1,19 @@
 import "./app.scss";
-import { Component, ErrorInfo } from "react";
+import { Component, ErrorInfo, lazy, Suspense } from "react";
 import { Switch, Route, withRouter, RouteComponentProps, Redirect } from "react-router-dom";
 import AuthRoute from "@/elements/authRoute/authRoute";
-import Profile from "@/components/profile/profile";
 import { Product } from "@/types";
 import relativeLinks from "../../constants/urls";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import Home from "../home/home";
-import About from "./about";
 import SignInWindow from "../signInWindow/signInWindow";
 import SignUpModal from "../signUpWindow/signUpWindow";
-import Products from "../products/products";
-import Cart from "../cart/cart";
+
+const Profile = lazy(() => import("../profile/profile"));
+const About = lazy(() => import("./about"));
+const Products = lazy(() => import("../products/products"));
+const Cart = lazy(() => import("../cart/cart"));
 
 interface AppState {
   topProducts: Product[];
@@ -68,24 +69,26 @@ class App extends Component<RouteComponentProps, AppState> {
         <SignUpModal />
         <Header />
         <main>
-          <Switch>
-            <Route exact path={relativeLinks.HOME}>
-              <Home topProducts={this.state.topProducts} setTopProducts={this.setTopProducts} />
-            </Route>
-            <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...this._authRouteProps}>
-              <Products />
-            </AuthRoute>
-            <AuthRoute path={relativeLinks.ABOUT} {...this._authRouteProps}>
-              <About />
-            </AuthRoute>
-            <AuthRoute path={relativeLinks.USER} {...this._authRouteProps}>
-              <Profile />
-            </AuthRoute>
-            <AuthRoute path={relativeLinks.CART} {...this._authRouteProps}>
-              <Cart />
-            </AuthRoute>
-            <Redirect to={relativeLinks.HOME} />
-          </Switch>
+          <Suspense fallback={null}>
+            <Switch>
+              <Route exact path={relativeLinks.HOME}>
+                <Home topProducts={this.state.topProducts} setTopProducts={this.setTopProducts} />
+              </Route>
+              <AuthRoute path={`${relativeLinks.PRODUCTS}/:categoryId`} {...this._authRouteProps}>
+                <Products />
+              </AuthRoute>
+              <AuthRoute path={relativeLinks.ABOUT} {...this._authRouteProps}>
+                <About />
+              </AuthRoute>
+              <AuthRoute path={relativeLinks.USER} {...this._authRouteProps}>
+                <Profile />
+              </AuthRoute>
+              <AuthRoute path={relativeLinks.CART} {...this._authRouteProps}>
+                <Cart />
+              </AuthRoute>
+              <Redirect to={relativeLinks.HOME} />
+            </Switch>
+          </Suspense>
         </main>
         <Footer />
       </>
