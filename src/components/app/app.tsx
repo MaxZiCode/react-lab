@@ -69,7 +69,7 @@ class App extends Component<RouteComponentProps, AppState> {
         <SignUpModal />
         <Header />
         <main>
-          <Suspense fallback={null}>
+          <Suspense fallback={<div>Loading...</div>}>
             <Switch>
               <Route exact path={relativeLinks.HOME}>
                 <Home topProducts={this.state.topProducts} setTopProducts={this.setTopProducts} />
