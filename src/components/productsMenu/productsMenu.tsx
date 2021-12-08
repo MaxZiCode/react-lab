@@ -5,7 +5,7 @@ import LoadingSpinner from "@/elements/loadingSpinner/loadingSpinner";
 import "@/styles/cardContainer.scss";
 import { Product } from "@/types";
 
-import { useEffect, VFC } from "react";
+import { useCallback, useEffect, VFC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setProducts } from "@/redux/products/productsActions";
@@ -18,7 +18,7 @@ export interface ProductsMenuProps {
 const ProductsMenu: VFC<ProductsMenuProps> = ({ products, isLoading }) => {
   const dispatch = useDispatch();
   const storedProducts = useSelector((s: RootState) => s.products);
-  const getGameCards = () => storedProducts?.map((p) => <GameCard key={p.id} {...p} />);
+  const getGameCards = useCallback(() => storedProducts?.map((p) => <GameCard key={p.id} {...p} />), [storedProducts]);
 
   const content = isLoading ? (
     <div className="products-menu-loading-wrapper">

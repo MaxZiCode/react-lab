@@ -35,7 +35,7 @@ const Profile: VFC = () => {
   const profileState = useSelector((s: RootState) => s.profile.state);
   const [profile, setProfile] = useState<Profile>(profileState);
 
-  const [usernameValidationFn, setUsernameValidationFn] = useState(defaultValues.notImplementedValidationFn);
+  const [usernameValidationFn, setUsernameValidationFn] = useState(() => defaultValues.notImplementedValidationFn);
 
   const [isPasswordWindowShowing, setIsPasswordWindowShowing] = useState(false);
 
