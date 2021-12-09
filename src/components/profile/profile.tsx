@@ -9,11 +9,13 @@ import { Profile } from "@/types";
 import { getBase64 } from "@/utilities/converter";
 import { changeUsername } from "@/redux/user/userActions";
 import ChangeUsernameField from "@/elements/changeUsernameField/changeUsernameField";
-import defaultValues from "@/constants/defaultValues";
 import LoadingSpinner from "@/elements/loadingSpinner/loadingSpinner";
 import { parseBody } from "@/utilities/responseParser";
 import { setProfile as SetProfileState } from "@/redux/profile/profileActions";
 import NoPicture from "@/elements/noPicture/noPicture";
+import useStateWithValidation from "@/hooks/useStateWithValidation";
+import { validateUsername } from "@/utilities/validationHelper";
+import validationMessages from "@/constants/validationMessages";
 import ChangePasswordWindow from "../changePasswordWindow/changePasswordWindow";
 
 const Profile: VFC = () => {
@@ -35,9 +37,13 @@ const Profile: VFC = () => {
   const profileState = useSelector((s: RootState) => s.profile.state);
   const [profile, setProfile] = useState<Profile>(profileState);
 
-  const [usernameValidationFn, setUsernameValidationFn] = useState(() => defaultValues.notImplementedValidationFn);
-
   const [isPasswordWindowShowing, setIsPasswordWindowShowing] = useState(false);
+
+  const { setValue: setUsername, validationProblem: usernameProblem } = useStateWithValidation(
+    user.username,
+    validateUsername,
+    validationMessages.username
+  );
 
   useEffect(() => () => setIsMounted(false), []);
 
@@ -54,10 +60,9 @@ const Profile: VFC = () => {
     if (files && files.length > 0) getBase64(files[0]).then((s) => setProfile({ ...profile, picture: s }));
   };
 
-  const validate = () => usernameValidationFn();
-
   const save = async () => {
-    if (!validate()) return;
+    if (usernameProblem) return;
+
     const p = await updateProfile(saveProfile(user.id, user.password, profile));
     setProfile(p);
     dispatch(SetProfileState(p));
@@ -104,8 +109,11 @@ const Profile: VFC = () => {
             <div className="user-info-area">
               <ChangeUsernameField
                 username={profile.email}
-                onChangeUsername={(email) => setProfile({ ...profile, email })}
-                setValidationFn={setUsernameValidationFn}
+                onChangeUsername={(email) => {
+                  setUsername(email);
+                  setProfile({ ...profile, email });
+                }}
+                usernameProblem={usernameProblem}
               />
               <div className="form-field-column">
                 <label className="form-input-label" htmlFor="profile-description">

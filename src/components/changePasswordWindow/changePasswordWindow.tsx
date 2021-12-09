@@ -1,11 +1,13 @@
 import { changePassword } from "@/api/apiProfile";
-import defaultValues from "@/constants/defaultValues";
+import validationMessages from "@/constants/validationMessages";
 import ChangePasswordField from "@/elements/changePasswordField/changePasswordField";
 import FormWindow from "@/elements/formWindow/formWindow";
 import withModal, { ModalProps } from "@/elements/modal/modal";
+import useStateWithValidation from "@/hooks/useStateWithValidation";
 import { RootState } from "@/redux/store";
 import { Profile } from "@/types";
-import { useState, VFC } from "react";
+import { validatePassword, validatePasswordRepeat } from "@/utilities/validationHelper";
+import { VFC } from "react";
 import { useSelector } from "react-redux";
 
 export interface ChangePasswordWindowProps {
@@ -16,24 +18,39 @@ export interface ChangePasswordWindowProps {
 const ChangePasswordWindowFC: VFC<ChangePasswordWindowProps> = ({ close, profile }) => {
   const { id } = useSelector((s: RootState) => s.user);
 
-  const [password, setPassword] = useState("");
-  const [passwordValidationFn, setPasswordValidationFn] = useState(defaultValues.notImplementedValidationFn);
+  const {
+    value: password,
+    setValue: setPassword,
+    validationProblem: passwordProblem,
+  } = useStateWithValidation("", validatePassword, validationMessages.password);
 
-  const validate = () => passwordValidationFn();
+  const {
+    value: passwordRepeat,
+    setValue: setPasswordRepeat,
+    validationProblem: passwordRepeatProblem,
+  } = useStateWithValidation(
+    "",
+    (value: string) => validatePasswordRepeat(password, value),
+    validationMessages.repeatPassword
+  );
 
   const onSubmit = async () => {
-    if (validate()) {
-      await changePassword(id, profile, password);
-      close();
-    }
+    if (passwordProblem || passwordRepeatProblem) return;
+    await changePassword(id, profile, password);
+    close();
   };
 
+  const disabled = !(password && passwordRepeat);
+
   return (
-    <FormWindow title="Change password" onSubmit={onSubmit} close={close}>
+    <FormWindow title="Change password" onSubmit={onSubmit} close={close} disabled={disabled}>
       <ChangePasswordField
         password={password}
         onChangePassword={setPassword}
-        setValidationFn={setPasswordValidationFn}
+        passwordProblem={passwordProblem}
+        passwordRepeat={passwordRepeat}
+        onChangePasswordRepeat={setPasswordRepeat}
+        passwordRepeatProblem={passwordRepeatProblem}
       />
     </FormWindow>
   );

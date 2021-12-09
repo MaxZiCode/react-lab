@@ -5,9 +5,9 @@ export interface FormInputProps {
   name: string;
   label: string;
   type: string;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
   validationProblem?: string;
-  value?: string;
+  value: string;
 }
 
 const FormInput: React.VFC<FormInputProps> = ({ ...props }) => (
@@ -20,12 +20,12 @@ const FormInput: React.VFC<FormInputProps> = ({ ...props }) => (
         name={props.name}
         id={props.id}
         onChange={(e) => {
-          if (props.onChange) props.onChange(e.currentTarget.value);
+          props.onChange(e.target.value);
         }}
         value={props.value}
       />
     </label>
-    <div className="form-field-validation-problem">{props.validationProblem ? `*${props.validationProblem}` : ""}</div>
+    <div className="form-field-validation-problem">{props.validationProblem && `*${props.validationProblem}`}</div>
   </>
 );
 

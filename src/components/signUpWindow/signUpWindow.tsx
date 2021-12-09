@@ -4,51 +4,69 @@ import urls from "@/constants/urls";
 import FormWindow from "@/elements/formWindow/formWindow";
 import withModal from "@/elements/modal/modal";
 import { signInUser } from "@/redux/user/userActions";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import ChangePasswordField from "@/elements/changePasswordField/changePasswordField";
 import ChangeUsernameField from "@/elements/changeUsernameField/changeUsernameField";
-import defaultValues from "@/constants/defaultValues";
 import { closeSignUpWindow } from "@/redux/authModal/authModalActions";
 import { RootState } from "@/redux/store";
+import { validatePassword, validatePasswordRepeat, validateUsername } from "@/utilities/validationHelper";
+import validationMessages from "@/constants/validationMessages";
+import useStateWithValidation from "@/hooks/useStateWithValidation";
 
 function SignUpWindow(): JSX.Element {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [username, setUserName] = useState("");
-  const [usernameValidationFn, setUsernameValidationFn] = useState(() => defaultValues.notImplementedValidationFn);
+  const {
+    value: username,
+    setValue: setUsername,
+    validationProblem: usernameProblem,
+  } = useStateWithValidation("", validateUsername, validationMessages.username);
 
-  const [password, setPassword] = useState("");
-  const [passwordValidatonFn, setPasswordValidationFn] = useState(() => defaultValues.notImplementedValidationFn);
+  const {
+    value: password,
+    setValue: setPassword,
+    validationProblem: passwordProblem,
+  } = useStateWithValidation("", validatePassword, validationMessages.password);
 
-  const validate = () => usernameValidationFn() && passwordValidatonFn();
+  const {
+    value: passwordRepeat,
+    setValue: setPasswordRepeat,
+    validationProblem: passwordRepeatProblem,
+  } = useStateWithValidation(
+    "",
+    (value: string) => validatePasswordRepeat(password, value),
+    validationMessages.repeatPassword
+  );
+
   const close = () => dispatch(closeSignUpWindow());
 
   const onSubmit = async () => {
-    if (validate())
-      await signUp(username, password).then(async (r) => {
-        if (r.status === 201) {
-          const userResponseInfo = await parseToUserResponseInfo(r);
-          dispatch(signInUser(userResponseInfo.id, userResponseInfo.email, password));
-          close();
-          history.push(urls.USER);
-        } else alert("Unknown error");
-      });
+    if (usernameProblem || passwordProblem || passwordRepeatProblem) return;
+
+    await signUp(username, password).then(async (r) => {
+      if (r.status === 201) {
+        const userResponseInfo = await parseToUserResponseInfo(r);
+        dispatch(signInUser(userResponseInfo.id, userResponseInfo.email, password));
+        close();
+        history.push(urls.USER);
+      } else alert("Unknown error");
+    });
   };
 
+  const disabled = !(username && password && passwordRepeat);
+
   return (
-    <FormWindow title="Registration" onSubmit={onSubmit} close={close}>
-      <ChangeUsernameField
-        username={username}
-        onChangeUsername={setUserName}
-        setValidationFn={setUsernameValidationFn}
-      />
+    <FormWindow title="Registration" onSubmit={onSubmit} close={close} disabled={disabled}>
+      <ChangeUsernameField username={username} onChangeUsername={setUsername} usernameProblem={usernameProblem} />
       <ChangePasswordField
         password={password}
         onChangePassword={setPassword}
-        setValidationFn={setPasswordValidationFn}
+        passwordProblem={passwordProblem}
+        passwordRepeat={passwordRepeat}
+        onChangePasswordRepeat={setPasswordRepeat}
+        passwordRepeatProblem={passwordRepeatProblem}
       />
     </FormWindow>
   );
