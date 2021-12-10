@@ -8,6 +8,7 @@ export interface FormWindowProps {
   title: string;
   onSubmit: () => Promise<void>;
   close: () => void;
+  disabled?: boolean;
 }
 
 const FormWindow: FC<FormWindowProps> = (props) => {
@@ -26,7 +27,7 @@ const FormWindow: FC<FormWindowProps> = (props) => {
           <div className="modal-title">{props.title}</div>
           <div className="modal-fields">{props.children}</div>
           <button
-            disabled={isSubmitting}
+            disabled={props.disabled || isSubmitting}
             className="modal-submit-button menu-button"
             type="button"
             onClick={(e) => {

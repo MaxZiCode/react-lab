@@ -161,7 +161,7 @@ export default function Header(): JSX.Element {
         ),
       },
     ],
-    []
+    [username, cartItemsSum]
   );
 
   const items = isSignedIn ? signedInItems : anonItems;

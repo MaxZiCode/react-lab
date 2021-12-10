@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { Product } from "@/types";
 import LoadingSpinner from "@/elements/loadingSpinner/loadingSpinner";
+import userInputValues from "@/constants/userInputValues";
 import { searchProducts } from "../../api/apiProducts";
 
 const initialSearchStyle = "search";
@@ -43,7 +44,7 @@ export default function Search(): JSX.Element {
 
   const debouncedCallBack = useDebouncedCallback((value) => {
     setCurrentValue(value);
-  }, 300);
+  }, userInputValues.delayMs);
 
   return (
     <div id="search" className={searchStyle} onFocus={() => setHasFocused(true)} onBlur={() => setHasFocused(false)}>
