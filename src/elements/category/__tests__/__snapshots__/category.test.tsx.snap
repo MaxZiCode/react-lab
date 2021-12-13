@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<a
+  className="category"
+  href="/"
+  onClick={[Function]}
+>
+  <img
+    alt="test logo"
+    className="category-image"
+    src=""
+  />
+  <div
+    className="category-label"
+  >
+    test
+  </div>
+</a>
+`;

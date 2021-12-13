@@ -5,7 +5,7 @@ const { compilerOptions } = require("./tsconfig.json");
 
 module.exports = {
   preset: "ts-jest/presets/js-with-babel",
-  testEnvironment: "node",
+  testEnvironment: "jsdom",
   moduleNameMapper: {
     ...pathsToModuleNameMapper(compilerOptions.paths, { prefix: "<rootDir>/" }),
     "\\.(css|scss)$": "identity-obj-proxy",
