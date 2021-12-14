@@ -124,9 +124,12 @@
     "webpack-mock-server": "^1.0.13"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
     "@types/react-aria-menubutton": "^6.2.8",
     "@types/react-redux": "^7.1.19",
     "@types/react-router": "^5.1.16",
+    "@types/testing-library__jest-dom": "^5.14.2",
     "core-js": "^3.15.2",
     "json-server-auth": "^2.1.0",
     "react": "^17.0.2",
