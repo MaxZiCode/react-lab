@@ -7,14 +7,16 @@ import { AddProduct } from "@/redux/cart/cartActions";
 import ReactDOM from "react-dom";
 import Cart from "../cart";
 
-beforeAll(() => {
+const renderElement = () => {
   ReactDOM.createPortal = (node): ReactPortal => node as ReactPortal;
   render(
     <Provider store={store}>
       <Cart />
     </Provider>
   );
-});
+};
+
+beforeAll(renderElement);
 
 describe("empty cart", () => {
   it("remove button is disabled", () => {
@@ -55,12 +57,11 @@ describe("cart with one product", () => {
   });
 
   it("remove button is enabled", () => {
-    // ToBeDisabled not work because in DOM it is `disabled=""`.
-    expect(screen.getByText(/remove/i).getAttribute("disabled")).toEqual("");
+    expect(screen.getByText(/remove/i)).toHaveAttribute("disabled", "");
   });
 
   it("buy button is enabled", () => {
-    expect(screen.getByText(/buy/i).getAttribute("disabled")).toEqual("");
+    expect(screen.getByText(/buy/i)).toHaveAttribute("disabled", "");
   });
 
   it("game cost equal price value", () => {
