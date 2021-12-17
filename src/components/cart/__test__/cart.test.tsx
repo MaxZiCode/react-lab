@@ -1,23 +1,20 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ReactPortal } from "react";
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen } from "@testing-library/react/pure";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
 import { AddProduct } from "@/redux/cart/cartActions";
 import ReactDOM from "react-dom";
 import Cart from "../cart";
 
-const renderElement = () => {
+beforeAll(() => {
   ReactDOM.createPortal = (node): ReactPortal => node as ReactPortal;
   render(
     <Provider store={store}>
       <Cart />
     </Provider>
   );
-};
-
-beforeEach(renderElement);
-afterEach(cleanup);
+});
 
 describe("empty cart", () => {
   it("remove button is disabled", () => {
@@ -37,7 +34,7 @@ describe("cart with one product", () => {
   const price = 20;
   const name = "Product name";
 
-  beforeEach(() => {
+  beforeAll(() => {
     store.dispatch(
       AddProduct({
         id: 0,
